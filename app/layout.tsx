@@ -1,6 +1,9 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
+import Head from 'next/head';
 import "./globals.css";
+import Header from "../components/Header";
+import Footer from "../components/Footer";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -27,7 +30,21 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        {children}
+        <div>
+          <Head>
+            <title>The NYC Optometrist</title>
+            <meta name="description" content="Your vision is our mission at The NYC Optometrist. We provide comprehensive eye care services." />
+            <meta name="robots" content="index, follow" />
+            <link rel="canonical" href="https://www.thenycoptometrist.com" />
+          </Head>
+          <div className="h-[100vh]">
+          <Header />
+          <main style={{ minHeight: '100vh', display: 'flex', flexDirection: 'column' }} >
+            {children}
+          </main>
+          <Footer />
+          </div>
+        </div>
       </body>
     </html>
   );

@@ -19,3 +19,28 @@ body {
   background: var(--background);
   font-family: Arial, Helvetica, sans-serif;
 }
+
+html, body {
+  scroll-snap-type: y mandatory;
+  overflow-y: scroll;
+  height: 100vh;
+}
+
+.section {
+  scroll-snap-align: start;
+  height: 100vh;
+}
+
+/* Full-page sections */
+.section.full-page {
+  scroll-snap-align: start;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+
+.snap {
+  scroll-snap-type: x mandatory;
+}

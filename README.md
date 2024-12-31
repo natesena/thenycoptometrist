@@ -1,3 +1,82 @@
+# The NYC Optometrist
+
+This is a Next.js project for an optometry website designed to provide information about services, testimonials, and contact details for The NYC Optometrist.
+
+## Description
+
+A user-friendly website that allows patients to learn about various optometry services, read testimonials, and easily get in touch with the practice. The site features smooth snap-to scrolling for an enhanced user experience.
+
+## Features
+- Snap-to scrolling for each section of the page.
+- Responsive design optimized for both desktop and mobile devices.
+- Easy navigation through services, testimonials, and contact information.
+
+## Technologies Used
+- [Next.js](https://nextjs.org) - A React framework for building server-rendered applications.
+- [React](https://reactjs.org) - A JavaScript library for building user interfaces.
+- [Tailwind CSS](https://tailwindcss.com) - A utility-first CSS framework for styling.
+
+## Installation
+
+To get started with this project, clone the repository and install the dependencies:
+
+```bash
+# Clone the repository
+git clone https://github.com/Tobbiloba/thenycoptometrist
+
+# Navigate into the project directory
+cd thenycoptometrist
+
+# Install dependencies
+npm install
+# or
+# yarn install
+# or
+# pnpm install
+```
+
+## Usage
+
+To run the development server, use the following command:
+
+```bash
+npm run dev
+# or
+# yarn dev
+# or
+# pnpm dev
+```
+
+Open [http://localhost:3000](http://localhost:3000) in your browser to see the application in action.
+
+## Folder Structure
+
+```plaintext
+thenycoptometrist/
+├── app/
+│   ├── globals.css
+│   ├── layout.tsx
+│   ├── page.tsx
+├── components/
+│   ├── Header.tsx
+│   ├── Footer.tsx
+└── README.md
+```
+
+## Contributing
+
+Contributions are welcome! Please feel free to submit a pull request or open an issue.
+
+## License
+
+This project is licensed under the MIT License.
+
+## Contact Information
+
+For any inquiries, please contact:
+- Email: info@thenycoptometrist.com
+- GitHub: [yourusername](https://github.com/yourusername)
+
 This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
 ## Getting Started
