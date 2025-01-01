@@ -1,19 +1,10 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
 import Head from 'next/head';
 import "./globals.css";
-import Header from "../components/Header";
-import Footer from "../components/Footer";
+import Footer from "@/components/Footer";
+import NavBar from "@/components/NavBar";
+import AlertSection from "@/components/alert-section";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-});
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -28,7 +19,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        className={`bg-background antialiased`}
       >
         <div>
           <Head>
@@ -37,9 +28,12 @@ export default function RootLayout({
             <meta name="robots" content="index, follow" />
             <link rel="canonical" href="https://www.thenycoptometrist.com" />
           </Head>
-          <div className="h-[100vh]">
-          <Header />
-          <main style={{ minHeight: '100vh', display: 'flex', flexDirection: 'column' }} >
+          <div className="">
+          <div className="w-screen z-[100]">
+          <AlertSection />
+          <NavBar />
+          </div>
+          <main className="">
             {children}
           </main>
           <Footer />
