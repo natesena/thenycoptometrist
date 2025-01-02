@@ -29,7 +29,7 @@ export default function RootLayout({
             <link rel="canonical" href="https://www.thenycoptometrist.com" />
           </Head>
           <div className="">
-          <div className="w-screen z-[100]">
+          <div className="w-screen section h-fit z-[100]">
           <AlertSection />
           <NavBar />
           </div>

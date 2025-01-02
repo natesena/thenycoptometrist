@@ -3,7 +3,7 @@ import Image from "next/image";
 import { useState } from "react";
 import { X, AlignJustify } from "lucide-react";
 import MainButton from "./button";
-
+import Link from "next/link";
 function NavBar() {
   const links = [
     {
@@ -47,9 +47,13 @@ function NavBar() {
           </div>
           <div className="flex gap-[20px] xl:gap-[50px] text-[16px] items-center select-none">
             {links.map((item, index) => (
-              <div key={index} className="flex gap-2">
+              <Link
+                href={item.route}
+                key={index}
+                className="flex gap-2 hover:text-primary cursor-pointer"
+              >
                 <p
-                  className={`hover:text-primary cursor-pointer flex items-center gap-2  font-[500] text-white`}
+                  className={`flex items-center gap-2  font-[500] text-white`}
                 >
                   {item.name}
                 </p>
@@ -60,7 +64,7 @@ function NavBar() {
                 ) : (
                   <div />
                 )}
-              </div>
+              </Link>
             ))}
           </div>
           <div className="flex items-center gap-[20px] select-none">

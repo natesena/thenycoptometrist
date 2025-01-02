@@ -2,13 +2,13 @@ import React from "react";
 import Image from "next/image";
 const Hero = () => {
   return (
-    <section className="lg:pl-8">
-      <div className="rounded-l-2xl bg-[#1b2330] py-10 overflow-hidden m-5 lg:m-0 2xl:py-16 xl:py-8">
+    <section className="lg:pl-8 min-h-[100vh] section h-fit">
+      <div className="rounded-l-2xl bg-[#1b2330] py-10 overflow-hidden h-[90vh] m-5 lg:m-0 2xl:py-16 xl:py-8">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 gap-14 items-center lg:grid-cols-12 lg:gap32">
             <div className="w-full xl:col-span-5 lg:col-span-5 2xl:-mx-5 xl:-mx-0">
               <div className="flex md:items-center text-sm font-medium text-gray-500 justify-center lg:justify-start">
-                <span className="bg-gray-600 py-1 px-3 rounded-2xl text-xs font-medium text-white mr-3 ">
+                <span className="bg-gray-600 py-1 px-3 rounded-sm text-xs font-medium text-white mr-3 ">
                   #1
                 </span>
                 Health Care
