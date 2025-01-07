@@ -6,18 +6,20 @@ import ComparisonComponent from "./components/comparison";
 import AdditionalNote from "./components/additional-note";
 import Services from "./components/services";
 import ContactForm from "./components/contact-us";
-
+import LenisWrapper from "@/lib/lenis-wrapper";
 const Page = () => {
   return (
-    <div className="bg-alabaster">
-      <HeroSection />
-      <Description />
-      <CredentialsAndLocations />
-      <ComparisonComponent />
-      <AdditionalNote />
-      <Services />
-      <ContactForm />
-    </div>
+    <LenisWrapper>
+      <div className="bg-alabaster">
+        <HeroSection />
+        <Description />
+        <CredentialsAndLocations />
+        <ComparisonComponent />
+        <AdditionalNote />
+        <Services />
+        <ContactForm />
+      </div>
+    </LenisWrapper>
   );
 };
 
