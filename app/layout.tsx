@@ -1,10 +1,8 @@
 import type { Metadata } from "next";
-import Head from 'next/head';
+import Head from "next/head";
 import "./globals.css";
 import Footer from "@/components/Footer";
-import NavBar from "@/components/NavBar";
-import AlertSection from "@/components/alert-section";
-
+import Menu from "./components/header";
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -18,25 +16,23 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body
-        className={`bg-background antialiased`}
-      >
+      <body className={`bg-background antialiased`}>
         <div>
           <Head>
             <title>The NYC Optometrist</title>
-            <meta name="description" content="Your vision is our mission at The NYC Optometrist. We provide comprehensive eye care services." />
+            <meta
+              name="description"
+              content="Your vision is our mission at The NYC Optometrist. We provide comprehensive eye care services."
+            />
             <meta name="robots" content="index, follow" />
             <link rel="canonical" href="https://www.thenycoptometrist.com" />
           </Head>
           <div className="">
-          <div className="w-screen section h-fit z-[100]">
-          <AlertSection />
-          <NavBar />
-          </div>
-          <main className="">
-            {children}
-          </main>
-          <Footer />
+            <div className="relative z-[100]">
+              <Menu />
+            </div>
+            <main className="">{children}</main>
+            <Footer />
           </div>
         </div>
       </body>

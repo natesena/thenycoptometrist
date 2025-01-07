@@ -16,8 +16,7 @@
 }
 
 body {
-  color: var(--foreground);
-  background: #1b2330;
+  background: #C0B4AB;
   font-family: "Lato", serif;
 }
 
@@ -31,11 +30,11 @@ html, body {
 }
 
 
-.section {
+/* .section {
   scroll-snap-align: start;
 }
 
-/* Full-page sections */
+
 .section.full-page {
   scroll-snap-align: start;
   height: 100vh;
@@ -47,4 +46,4 @@ html, body {
 
 .snap {
   scroll-snap-type: x mandatory;
-}
+} */

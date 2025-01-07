@@ -1,0 +1,207 @@
+"use client"
+import React, { useState } from "react";
+import { motion } from "framer-motion";
+import { Phone, AlertTriangle, Send, ExternalLink } from "lucide-react";
+
+const ContactForm = () => {
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    message: "",
+  });
+
+  const locations = [
+    {
+      name: "Compton Eye Associates",
+      phone: "+1(800) 936-0036",
+      bookingUrl: "https://comptoneye.com/",
+    },
+    {
+      name: "M S Optical",
+      phone: "+1(718) 436-5900",
+      bookingUrl: "https://msopticalstore.com/",
+    },
+  ];
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    // Handle form submission
+    console.log("Form submitted:", formData);
+  };
+
+   {/* @ts-expect-error: Type 'string[]' is not assignable to type 'JSX.Element[] */}
+  const handleInputChange = (e) => {
+    setFormData({
+      ...formData,
+      [e.target.name]: e.target.value,
+    });
+  };
+
+  return (
+    <div className="min-h-screen bg-charcoal py-32 px-4 sm:px-6 lg:px-8">
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.6 }}
+        className="max-w-4xl mx-auto"
+      >
+        {/* Header Section */}
+        <div className="text-center mb-12">
+          <motion.h1
+            initial={{ opacity: 0, y: -20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.2 }}
+            className="text-4xl md:text-5xl font-bold text-white mb-4 tracking-tight"
+          >
+            Get in Touch
+          </motion.h1>
+          <motion.p
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 0.4 }}
+            className="text-lg text-gray-100 max-w-2xl mx-auto"
+          >
+            Thank you for taking time to get to know me better. I&apos;m here to help with any questions you may have.
+          </motion.p>
+        </div>
+
+        {/* Locations Grid */}
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 0.6 }}
+          className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-12"
+        >
+          {locations.map((location, index) => (
+            <motion.div
+              key={location.name}
+              initial={{ opacity: 0, x: -20 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ delay: 0.8 + index * 0.2 }}
+              className="bg-white rounded-xl shadow-lg p-6 hover:shadow-xl transition-shadow duration-300"
+            >
+              <h2 className="text-xl font-semibold mb-4 text-gray-900">{location.name}</h2>
+              <div className="flex items-center gap-2 mb-4">
+                <Phone className="w-5 h-5 text-federalBlue" />
+                <a
+                  href={`tel:${location.phone}`}
+                  className="text-federalBlue hover:text-blue-800 transition-colors"
+                >
+                  {location.phone}
+                </a>
+              </div>
+              <motion.button
+                whileHover={{ scale: 1.02 }}
+                whileTap={{ scale: 0.98 }}
+                onClick={() => window.open(location.bookingUrl, "_blank")}
+                className="w-full px-4 py-2 bg-white border-2 border-federalBlue text-federalBlue rounded-lg 
+                          hover:bg-blue-50 transition-colors duration-300 flex items-center justify-center gap-2"
+              >
+                Book Appointment
+                <ExternalLink className="w-4 h-4" />
+              </motion.button>
+            </motion.div>
+          ))}
+        </motion.div>
+
+        {/* Contact Form */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 1 }}
+          className="bg-white rounded-2xl shadow-lg p-6 md:p-8"
+        >
+          {/* Security Warning */}
+          <div className="mb-8 bg-yellow-50 border border-yellow-200 rounded-lg p-4 flex gap-3">
+            <AlertTriangle className="w-5 h-5 text-yellow-600 flex-shrink-0 mt-0.5" />
+            <p className="text-sm text-yellow-800">
+              This is not a secure form. Please do not include any sensitive or private medical information. 
+              For medical inquiries, please contact our offices directly.
+            </p>
+          </div>
+
+          <form onSubmit={handleSubmit} className="space-y-6">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <motion.div
+                whileTap={{ scale: 0.99 }}
+                className="space-y-2"
+              >
+                <label className="block text-sm font-medium text-gray-700">
+                  Name
+                </label>
+                <input
+                  type="text"
+                  name="name"
+                  value={formData.name}
+                  onChange={handleInputChange}
+                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 
+                           focus:border-blue-500 transition-all duration-200 outline-none"
+                  required
+                />
+              </motion.div>
+
+              <motion.div
+                whileTap={{ scale: 0.99 }}
+                className="space-y-2"
+              >
+                <label className="block text-sm font-medium text-gray-700">
+                  Email
+                </label>
+                <input
+                  type="email"
+                  name="email"
+                  value={formData.email}
+                  onChange={handleInputChange}
+                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 
+                           focus:border-blue-500 transition-all duration-200 outline-none"
+                  required
+                />
+              </motion.div>
+            </div>
+
+            <motion.div
+              whileTap={{ scale: 0.99 }}
+              className="space-y-2"
+            >
+              <label className="block text-sm font-medium text-gray-700">
+                Message
+              </label>
+              <textarea
+                name="message"
+                value={formData.message}
+                onChange={handleInputChange}
+                rows={4}
+                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 
+                         focus:border-blue-500 transition-all duration-200 outline-none resize-none"
+                required
+              />
+            </motion.div>
+
+            <motion.button
+              type="submit"
+              whileHover={{ scale: 1.02 }}
+              whileTap={{ scale: 0.98 }}
+              className="w-full bg-federalBlue hover:bg-blue-700 text-white py-3 px-6 rounded-lg 
+                        transition-colors duration-300 flex items-center justify-center gap-2 font-medium"
+            >
+              Send Message
+              <Send className="w-4 h-4" />
+            </motion.button>
+          </form>
+        </motion.div>
+
+        {/* Footer Note */}
+        <motion.p
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 1.2 }}
+          className="text-center text-gray-500 text-sm mt-8"
+        >
+          For urgent matters, please contact our offices directly using the phone numbers above.
+        </motion.p>
+      </motion.div>
+    </div>
+  );
+};
+
+export default ContactForm;

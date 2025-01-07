@@ -1,0 +1,39 @@
+.menu{
+    height: 100vh;
+    background-color: #E9E4DB;
+    position: fixed;
+    right: 0;
+    top: 0;
+    color: white;
+
+    .body{
+        box-sizing: border-box;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+
+        .nav{
+            display: flex;
+            flex-direction: column;
+            font-size: 36px;
+            gap: 12px;
+            margin-top: 80px;
+
+            .header{
+                color: rgb(153, 153, 153);
+                border-bottom: 1px solid rgb(153, 153, 153);
+                text-transform: uppercase;
+                font-size: 11px;
+                margin-bottom: 40px;
+            }
+
+            a{
+                text-decoration: none;
+                color: #36465F;
+                font-weight: 400;
+            }
+            
+        }
+    }
+}

@@ -7,30 +7,35 @@ import Link from "next/link";
 function NavBar() {
   const links = [
     {
+      route: "#about-me",
+      name: "About Me",
+      badgeCount: 0,
+    },
+    {
+      route: "#licenses",
+      name: "Licenses/Certifications",
+      badgeCount: 0,
+    },
+    {
+      route: "#opmetrist-vs-opthamology",
+      name: "Optometrist vs. Ophthalmologist",
+      badgeCount: 0,
+    },
+    {
+      route: "#locations",
+      name: "Locations",
+      badgeCount: 0,
+    },
+    {
       route: "#services",
-      name: "Our Services",
+      name: "Services",
       badgeCount: 0,
     },
     {
-      route: "#appointments",
-      name: "Book an Appointment",
+      route: "#contact-us",
+      name: "Secure Email Form/Booking",
       badgeCount: 0,
-    },
-    {
-      route: "#about",
-      name: "About Us",
-      badgeCount: 0,
-    },
-    {
-      route: "#contact",
-      name: "Contact Us",
-      badgeCount: 0,
-    },
-    {
-      route: "#faq",
-      name: "FAQs",
-      badgeCount: 0,
-    },
+    }
   ];
   const [menu, setMenu] = useState(false);
   const toggleMenu = () => {

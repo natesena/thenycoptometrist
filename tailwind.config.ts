@@ -11,6 +11,11 @@ export default {
       colors: {
         background: "#131b27",
         foreground: "var(--foreground)",
+        federalBlue: "#000C56",
+        charcoal: "#36465F",
+        roseQuartz: "#AC9AC9C",
+        silver: "#C0B4AB",
+        alabaster: "#E9E4DB"
       },
     },
   },

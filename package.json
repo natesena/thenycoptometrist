@@ -10,12 +10,16 @@
   },
   "dependencies": {
     "@radix-ui/react-slot": "^1.1.1",
+    "@studio-freight/lenis": "^1.0.42",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
+    "framer-motion": "^11.16.0",
+    "gsap": "^3.12.5",
     "lucide-react": "^0.469.0",
     "next": "15.1.2",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
+    "sass": "^1.83.1",
     "tailwind-merge": "^2.6.0"
   },
   "devDependencies": {

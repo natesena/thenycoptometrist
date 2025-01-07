@@ -27,7 +27,7 @@ const AboutUs = () => {
             <div className="w-full flex-col justify-center items-start gap-8 flex">
               <div className="flex-col justify-start lg:items-start items-center gap-4 flex">
                 <h6 className="text-gray-400 text-lg font-normal leading-relaxed">
-                  About Us
+                  About Me
                 </h6>
                 <div className="w-full flex-col justify-start lg:items-start items-center gap-3 flex">
                   <h2 className="text-white text-4xl lg:text-5xl font-bold font-manrope leading-normal lg:text-start text-center">
