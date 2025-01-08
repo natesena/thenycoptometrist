@@ -1,89 +1,15 @@
 "use client";
 import { useState } from "react";
-import { Building2, Clock, Phone, Globe, Award, MapPin } from "lucide-react";
-
+import { Clock, Phone, Globe, MapPin } from "lucide-react";
+import { credentials, locations } from "@/data";
 const CredentialsAndLocations = () => {
   const [activeLocation, setActiveLocation] = useState(0);
   const [activeCredential, setActiveCredential] = useState(0);
 
-  const credentials = [
-    {
-      title: "Doctorate in Optometry",
-      institution: "State University of New York College of Optometry",
-      icon: Award,
-    },
-    {
-      title: "Microcredential Certificate",
-      institution: "SUNY College of Optometry",
-      specialization: "Anterior Segment & Specialty Contact Lenses",
-      icon: Award,
-    },
-    {
-      title: "Optometric License",
-      institution: "New York",
-      icon: Building2,
-    },
-  ];
-
-  const locations = [
-    {
-      name: "Compton Eye Associates",
-      address: "4738 Broadway New York NY 10040",
-      phone: "+1-800-936-0036",
-      website: "https://comptoneye.com/",
-      frame: (
-        <div style={{ width: "100%" }}>
-          <iframe
-            width="100%"
-            height="400"
-            frameBorder="0"
-            scrolling="no"
-            marginHeight={0}
-            marginWidth={0}
-            src="https://maps.google.com/maps?width=100%25&amp;height=400&amp;hl=en&amp;q=4738%20Broadway%20New%20York%20NY%2010040+(Compton%20Eye%20Associates)&amp;t=&amp;z=14&amp;ie=UTF8&amp;iwloc=B&amp;output=embed"
-          >
-            {/* <a href="https://www.gps.ie/">gps devices</a> */}
-          </iframe>
-        </div>
-      ),
-      hours: [
-        { day: "Monday", time: "10:00am - 6:00pm" },
-        { day: "Friday", time: "10:00am - 6:00pm" },
-        { day: "Every other Saturday", time: "10:00am - 6:00pm" },
-      ],
-    },
-    {
-      name: "M S Optical",
-      address: "5202 16th Ave, Brooklyn, NY 11204",
-      phone: "(718) 436-5900",
-      frame: (
-        <div style={{ width: "100%" }}>
-          <iframe
-            width="100%"
-            height="400"
-            frameBorder="0"
-            scrolling="no"
-            marginHeight={0}
-            marginWidth={0}
-            src="https://maps.google.com/maps?width=100%25&amp;height=400&amp;hl=en&amp;q=5202%2016th%20Ave,%20Brooklyn,%20NY%2011204+(M%20S%20Optical)&amp;t=&amp;z=14&amp;ie=UTF8&amp;iwloc=B&amp;output=embed"
-          >
-            {/* <a href="https://www.gps.ie/">gps devices</a> */}
-          </iframe>
-        </div>
-      ),
-      website: "https://msopticalstore.com/",
-      hours: [
-        { day: "Tuesday", time: "10:00am - 7:30pm" },
-        { day: "Wednesday", time: "10:00am - 6:00pm" },
-        { day: "Thursday", time: "10:00am - 6:00pm" },
-      ],
-    },
-  ];
-
   return (
     <div className="max-w-7xl mx-auto px-4 py-32 bg">
       {/* Credentials Section */}
-      <div className="mb-20">
+      <section id="licenses" className="mb-20">
         <h2 className="text-3xl md:text-5xl font-bold mb-12 text-center text-charcoal">
           Licenses & Certifications
         </h2>
@@ -120,7 +46,9 @@ const CredentialsAndLocations = () => {
                     }`}
                   />
                   <div>
-                    <h3 className="font-semibold text-xl">{credential.title}</h3>
+                    <h3 className="font-semibold text-xl">
+                      {credential.title}
+                    </h3>
                     <p
                       className={`text-sm ${
                         activeCredential === index
@@ -147,7 +75,7 @@ const CredentialsAndLocations = () => {
             ))}
           </div>
         </div>
-      </div>
+      </section>
 
       {/* Locations Section */}
       <section id="locations">

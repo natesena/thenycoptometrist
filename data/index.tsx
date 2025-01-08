@@ -1,6 +1,3 @@
-"use client";
-import React, { useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
 import {
   Eye,
   Baby,
@@ -15,6 +12,8 @@ import {
   LucideAsteriskSquare,
   Moon,
   EyeIcon,
+  Building2,
+  Award,
 } from "lucide-react";
 
 const services = [
@@ -132,108 +131,116 @@ const services = [
   },
 ] as Service[];
 
-const Services = () => {
-  const [selectedService, setSelectedService] = useState<string | null>(null);
+const credentials = [
+  {
+    title: "Doctorate in Optometry",
+    institution: "State University of New York College of Optometry",
+    icon: Award,
+  },
+  {
+    title: "Microcredential Certificate",
+    institution: "SUNY College of Optometry",
+    specialization: "Anterior Segment & Specialty Contact Lenses",
+    icon: Award,
+  },
+  {
+    title: "Optometric License",
+    institution: "New York",
+    icon: Building2,
+  },
+];
 
-  return (
-    <section
-      id="services"
-      className="bg-white py-32 px-4 sm:px-6 lg:px-8 relative overflow-hidden"
-    >
-      <div className="max-w-7xl mx-auto relative pb-0 mb-0">
-        <div className="text-center mb-20">
-          <h2 className="text-3xl md:text-5xl font-bold mb-4 text-center text-charcoal">
-            Our Eye Care Services
-          </h2>
-          <p className="text-xl text-federalBlue max-w-2xl mx-auto">
-            Comprehensive eye care solutions tailored to your unique needs
-          </p>
-        </div>
-
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 ">
-          {services.map((service) => (
-            <motion.div
-              key={service.id}
-              className={`h-full ${
-                selectedService === service.id ? "md:col-span-2" : ""
-              }`}
-              initial={{ scale: 1 }}
-              whileHover={{ scale: 1.02 }}
-            >
-              <div
-                className={`bg-white rounded-2xl shadow-lg overflow-hidden transform transition-all duration-300 ${
-                  selectedService === service.id
-                    ? "ring-2 ring-federalBlue shadow-xl"
-                    : ""
-                }`}
-              >
-                <div
-                  className={`absolute inset-0 bg-gradient-to-br ${service.color}`}
-                  style={{
-                    opacity: selectedService === service.id ? 0.1 : 0.1,
-                  }}
-                />
-
-                <div
-                  className="p-6 relative"
-                  onClick={() =>
-                    setSelectedService((prev) =>
-                      prev === service.id ? null : service.id
-                    )
-                  }
-                >
-                  <div className="flex items-center gap-4 mb-4">
-                    <div
-                      className={`p-3 rounded-xl bg-gradient-to-br ${service.color} text-slate-700`}
-                    >
-                      {service.icon}
-                    </div>
-                    <h2 className="text-2xl font-[500] text-slate-800">
-                      {service.title}
-                    </h2>
-                  </div>
-
-                  <AnimatePresence mode="wait">
-                    {selectedService === service.id ? (
-                      <motion.div
-                        key="description"
-                        initial={{ opacity: 0, height: 0 }}
-                        animate={{ opacity: 1, height: "auto" }}
-                        exit={{ opacity: 0, height: 0 }}
-                        transition={{
-                          type: "spring",
-                          stiffness: 200,
-                          damping: 20,
-                        }}
-                        className=""
-                      >
-                        <p className="text-slate-600 leading-relaxed">
-                          {service.description}
-                        </p>
-                      </motion.div>
-                    ) : (
-                      <motion.div
-                        key="learn-more"
-                        initial={{ opacity: 0 }}
-                        animate={{ opacity: 1 }}
-                        exit={{ opacity: 0 }}
-                        className="flex items-center gap-2 text-federalBlue text-sm font-medium mt-2 group cursor-pointer"
-                      >
-                        View more
-                        <span className="transform transition-transform group-hover:translate-x-1">
-                          →
-                        </span>
-                      </motion.div>
-                    )}
-                  </AnimatePresence>
-                </div>
-              </div>
-            </motion.div>
-          ))}
-        </div>
+const locations = [
+  {
+    name: "Compton Eye Associates",
+    address: "4738 Broadway New York NY 10040",
+    phone: "+1-800-936-0036",
+    website: "https://comptoneye.com/",
+    frame: (
+      <div style={{ width: "100%" }}>
+        <iframe
+          width="100%"
+          height="400"
+          frameBorder="0"
+          scrolling="no"
+          marginHeight={0}
+          marginWidth={0}
+          src="https://maps.google.com/maps?width=100%25&amp;height=400&amp;hl=en&amp;q=4738%20Broadway%20New%20York%20NY%2010040+(Compton%20Eye%20Associates)&amp;t=&amp;z=14&amp;ie=UTF8&amp;iwloc=B&amp;output=embed"
+        >
+          {/* <a href="https://www.gps.ie/">gps devices</a> */}
+        </iframe>
       </div>
-    </section>
-  );
-};
+    ),
+    hours: [
+      { day: "Monday", time: "10:00am - 6:00pm" },
+      { day: "Friday", time: "10:00am - 6:00pm" },
+      { day: "Every other Saturday", time: "10:00am - 6:00pm" },
+    ],
+  },
+  {
+    name: "M S Optical",
+    address: "5202 16th Ave, Brooklyn, NY 11204",
+    phone: "(718) 436-5900",
+    frame: (
+      <div style={{ width: "100%" }}>
+        <iframe
+          width="100%"
+          height="400"
+          frameBorder="0"
+          scrolling="no"
+          marginHeight={0}
+          marginWidth={0}
+          src="https://maps.google.com/maps?width=100%25&amp;height=400&amp;hl=en&amp;q=5202%2016th%20Ave,%20Brooklyn,%20NY%2011204+(M%20S%20Optical)&amp;t=&amp;z=14&amp;ie=UTF8&amp;iwloc=B&amp;output=embed"
+        >
+          {/* <a href="https://www.gps.ie/">gps devices</a> */}
+        </iframe>
+      </div>
+    ),
+    website: "https://msopticalstore.com/",
+    hours: [
+      { day: "Tuesday", time: "10:00am - 7:30pm" },
+      { day: "Wednesday", time: "10:00am - 6:00pm" },
+      { day: "Thursday", time: "10:00am - 6:00pm" },
+    ],
+  },
+];
 
-export default Services;
+const contactLocations = [
+  {
+    name: "Compton Eye Associates",
+    phone: "+1(800) 936-0036",
+    bookingUrl: "https://emesvisioncenter.com/book-appointment/",
+  },
+  {
+    name: "M S Optical",
+    phone: "+1(718) 436-5900",
+    bookingUrl: "https://emesvisioncenter.com/book-appointment/",
+  },
+];
+
+
+const navItems = [
+  {
+    title: "Locations",
+    href: "#locations",
+  },
+  {
+    title: "About Me",
+    href: "#about-me",
+  },
+  {
+    title: "Services",
+    href: "#services",
+  },
+  {
+    title: "Licenses/Certifications",
+    href: "#licenses",
+  },
+
+  {
+    title: "Contact Us",
+    href: "#contact-us",
+  },
+];
+
+export { services, credentials, locations, contactLocations, navItems };

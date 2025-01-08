@@ -7,30 +7,8 @@ import { menuSlide } from "../anim";
 import Link from "./Link";
 import Curve from "./Curve";
 import Footer from "./Footer";
+import { navItems } from "@/data";
 
-const navItems = [
-  {
-    title: "Locations",
-    href: "#locations",
-  },
-  {
-    title: "About Me",
-    href: "#about-me",
-  },
-  {
-    title: "Services",
-    href: "#services",
-  },
-  {
-    title: "Licenses/Certifications",
-    href: "#licenses",
-  },
-
-  {
-    title: "Contact Us",
-    href: "#contact-us",
-  },
-];
 
 const Header = ({
   setIsActive,
