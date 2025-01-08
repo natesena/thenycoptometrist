@@ -1,7 +1,7 @@
 "use client"
 import { useState } from 'react';
 import { motion } from 'framer-motion';
-import { Eye, Stethoscope, BookOpen, Award, Clock, Microscope, Heart, Zap, Scan } from 'lucide-react';
+import { Eye, Stethoscope, Users, BookOpen, Award, Clock, Microscope, Heart, Zap, Scan } from 'lucide-react';
 
 const ProfessionalComparison = () => {
   const [activeCategory, setActiveCategory] = useState<string>('education');
@@ -51,8 +51,9 @@ const ProfessionalComparison = () => {
         points: [
           'Vision testing & correction',
           'Diagnosis of common eye conditions',
-          'Contact lens fitting',
-          'Eye health monitoring',
+          'Spherical, toric, multifocal and specialty contact lens fitting',
+          'Monitoring systemic and ocular health conditions',
+          'Diagnosis and treatment of complex eye diseases'
         ],
       },
       ophthalmologist: {
@@ -61,6 +62,7 @@ const ProfessionalComparison = () => {
           'Diagnosis and treatment of complex eye diseases',
           'Performing surgical procedures',
           'Advanced medical interventions',
+          "Monitoring systemic and ocular health conditions"
         ],
       },
     },
@@ -155,7 +157,7 @@ const ProfessionalComparison = () => {
         points: [
           'Covers routine eye exams',
           'Includes corrective lenses',
-          'Limited medical coverage for minor conditions',
+          'Most accept medical and vision insurance',
         ],
       },
       ophthalmologist: {
@@ -163,6 +165,7 @@ const ProfessionalComparison = () => {
         points: [
           'Covers advanced treatments and surgeries',
           'Includes medical eye care and emergency procedures',
+          'Most accept medical and vision insurance'
         ],
       },
     },
@@ -172,7 +175,7 @@ const ProfessionalComparison = () => {
       optometrist: {
         title: 'Preventive Vision Care',
         points: [
-          'Focus on general eye health',
+          'Addresses systemic conditions affecting eyes',
           'Emphasis on vision correction',
           'Education on eye hygiene and safety',
         ],
@@ -198,10 +201,10 @@ const ProfessionalComparison = () => {
         animate={{ opacity: 1, y: 0 }}
         className="text-center mb-16"
       >
-        <h2 className="text-4xl font-bold mb-6 text-gray-900">
+        <h2 className="text-3xl md:text-5xl font-bold mb-b text-center text-white">
           Understanding Eye Care Professionals
         </h2>
-        <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+        <p className="text-xl text-white max-w-3xl mx-auto">
           Choose the right professional for your eye care needs
         </p>
       </motion.div>
@@ -216,7 +219,7 @@ const ProfessionalComparison = () => {
             onClick={() => setActiveCategory(key)}
             className={`flex items-center gap-2 px-6 py-3 rounded-md transition-all
               ${activeCategory === key 
-                ? 'bg-federalBlue text-white shadow-lg' 
+                ? 'bg-charcoal text-white shadow-lg' 
                 : 'bg-white text-gray-600 hover:bg-gray-100'}`}
           >
             <category.icon className="w-5 h-5" />
@@ -245,7 +248,6 @@ const ProfessionalComparison = () => {
               <div>
                 <h3 className="text-2xl font-bold text-gray-900">Optometrist</h3>
                 <p className="text-federalBlue font-medium">
-                   {/* @ts-expect-error: Type 'string[]' is not assignable to type 'JSX.Element[] */}
                   {categories[activeCategory].optometrist.title}
                 </p>
               </div>
@@ -265,7 +267,7 @@ const ProfessionalComparison = () => {
                   transition={{ delay: index * 0.1 }}
                   className="flex items-center gap-3"
                 >
-                  <span className="w-2 h-2 rounded-full bg-federalBlue" />
+                  <span className="w-2 h-2 rounded-full bg-charcoal" />
                   <span className="text-gray-700">{point}</span>
                 </motion.li>
               ))}
@@ -322,21 +324,24 @@ const ProfessionalComparison = () => {
 
       {/* Collaboration Note */}
       <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 0.5 }}
-        className="bg-gradient-to-r from-blue-50 to-purple-50 rounded-2xl p-8 shadow-lg"
-      >
-        <div className="flex items-center gap-4 mb-4">
-          <Heart className="w-6 h-6 text-federalBlue" />
-          <h3 className="text-xl font-bold text-gray-900">Working Together</h3>
-        </div>
-        <p className="text-gray-700 leading-relaxed">
-          Optometrists and ophthalmologists often collaborate to provide comprehensive eye care. 
-          Your optometrist may refer you to an ophthalmologist for specialized treatment, and 
-          both professionals work together to ensure you receive the best possible care for your eyes.
-        </p>
-      </motion.div>
+          className="bg-gradient-to-r from-charcoal to-charcoal rounded-2xl p-6 md:p-8 text-white"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.4 }}
+          whileHover={{ scale: 1.02 }}
+        >
+          <div className="flex items-center gap-3 mb-4">
+            <Users className="w-6 h-6" />
+            <h2 className="text-xl font-semibold">Collaborative Care Model</h2>
+          </div>
+          <p className="leading-relaxed">
+            In New York State, optometrists and ophthalmologists work together
+            seamlessly in a co-management model. This collaboration ensures
+            patients receive the most appropriate care, with smooth referrals
+            between providers when needed, such as when surgical intervention is
+            required.
+          </p>
+        </motion.div>
     </div>
   </div>
   );

@@ -18,13 +18,13 @@ const Footer = () => {
               alt="Flowbite Logo"
             />
             <span className="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">
-              The Nycoptometrist
+              The NYC Optometrist
             </span>
           </Link>
           <nav>
             <ul className="flex flex-wrap items-center mb-6 text-lg font-medium text-gray-500 sm:mb-0 dark:text-gray-400">
               <li>
-                <Link href="#about" className="hover:underline me-4 md:me-6">
+                <Link href="#about-me" className="hover:underline me-4 md:me-6">
                   About
                 </Link>
               </li>
@@ -34,7 +34,7 @@ const Footer = () => {
                 </Link>
               </li>
               <li>
-                <Link href="#contact" className="hover:underline">
+                <Link href="#contact-us" className="hover:underline">
                   Contact
                 </Link>
               </li>
@@ -45,7 +45,7 @@ const Footer = () => {
         <span className="block text-sm text-gray-500 sm:text-center dark:text-gray-400">
           2025{" "}
           <a href="https://flowbite.com/" className="hover:underline">
-            The Nycoptometrist
+            The NYC Optometrist
           </a>
           . All Rights Reserved.
         </span>

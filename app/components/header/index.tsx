@@ -29,7 +29,7 @@ export default function Menu() {
 
     </div>
     <AnimatePresence mode="wait">
-      {isActive && <Nav />}
+      {isActive && <Nav setIsActive={setIsActive}/>}
     </AnimatePresence>
     </>
   )

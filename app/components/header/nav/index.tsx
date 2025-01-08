@@ -10,32 +10,33 @@ import Footer from "./Footer";
 
 const navItems = [
   {
-    title: "About Me",
-    href: "#about-me",
-  },
-  {
-    title: "Licenses/Certifications",
-    href: "#licenses",
-  },
-  {
-    title: "Optometrist vs. Ophthalmologist",
-    href: "#opmetrist-vs-opthamology",
-  },
-  {
     title: "Locations",
     href: "#locations",
+  },
+  {
+    title: "About Me",
+    href: "#about-me",
   },
   {
     title: "Services",
     href: "#services",
   },
   {
-    title: "Secure Email Form/Booking",
-    href: "#contact",
+    title: "Licenses/Certifications",
+    href: "#licenses",
+  },
+
+  {
+    title: "Contact Us",
+    href: "#contact-us",
   },
 ];
 
-const Header = () => {
+const Header = ({
+  setIsActive,
+}: {
+  setIsActive: React.Dispatch<React.SetStateAction<boolean>>;
+}) => {
   const pathname = usePathname();
   const [selectedIndicator, setSelectedIndicator] = useState(pathname);
 
@@ -60,6 +61,7 @@ const Header = () => {
           {navItems.map((data, index) => {
             return (
               <Link
+                setIsActive={setIsActive}
                 key={index}
                 data={{ ...data, index }}
                 isActive={selectedIndicator == data.href}

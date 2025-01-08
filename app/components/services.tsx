@@ -130,10 +130,10 @@ const Services = () => {
 
 
   return (
-    <div className=" bg-alabaster py-32 px-4 sm:px-6 lg:px-8 relative overflow-hidden">
+    <section id="services" className=" bg-white py-32 px-4 sm:px-6 lg:px-8 relative overflow-hidden">
     <div className="max-w-7xl mx-auto relative pb-0 mb-0">
       <div className="text-center mb-20">
-        <h2 className="text-4xl font-bold mb-3 text-center text-federalBlue">
+        <h2 className="text-3xl md:text-5xl font-bold mb-4 text-center text-charcoal">
           Our Eye Care Services
         </h2>
         <p className="text-xl text-federalBlue max-w-2xl mx-auto">
@@ -145,13 +145,13 @@ const Services = () => {
         {services.map((service) => (
           <motion.div
             key={service.id}
-            className="h-full"
+            className={`h-full ${selectedService === service.id ? "md:col-span-2" : ""}`}
             initial={{ scale: 1 }}
             whileHover={{ scale: 1.02 }}
           >
             <div
               className={`bg-white rounded-2xl shadow-lg overflow-hidden transform transition-all duration-300 ${
-                selectedService === service.id ? "ring-2 ring-blue-400 shadow-xl" : ""
+                selectedService === service.id ? "ring-2 ring-federalBlue shadow-xl" : ""
               }`}
             >
               <div
@@ -190,6 +190,7 @@ const Services = () => {
                         stiffness: 200,
                         damping: 20,
                       }}
+                      className=""
                     >
                       <p className="text-slate-600 leading-relaxed">
                         {service.description}
@@ -216,7 +217,7 @@ const Services = () => {
         ))}
       </div>
     </div>
-  </div>
+  </section>
   );
 };
 

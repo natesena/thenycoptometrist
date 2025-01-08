@@ -15,7 +15,7 @@ const Description = () => {
   );
 
   return (
-    <div className="mx-auto px-4 py-24 lg:py-48 bg-white">
+    <section id="about-me" className="mx-auto px-4 py-24 lg:py-48 bg-white">
       <div className="grid md:grid-cols-2 gap-12 items-start container mx-auto">
         {/* Image Column */}
         <div className="relative" data-aos="fade-right">
@@ -49,7 +49,7 @@ const Description = () => {
         {/* Content Column */}
         <div className="space-y-8" data-aos="fade-left">
           <div className="space-y-4">
-            <h1 className="text-4xl lg:text-6xl font-bold text-gray-900">
+            <h1 className="text-4xl lg:text-6xl font-bold text-federalBlue">
               Dr. Joanna Latek
             </h1>
             <h2 className="text-xl text-charcoal">Comprehensive Optometrist</h2>
@@ -102,14 +102,15 @@ const Description = () => {
                     <li className="flex items-start space-x-2">
                       <span className="w-2 h-2 mt-2 bg-federalBlue rounded-full" />
                       <span className="text-gray-700">
-                        Doctorate of Optometry - SUNY College of Optometry
+                        Doctor Of Optometry - SUNY College of Optometry,
+                        Microcredential Degree in Anterior Segment and Specialty
+                        Contact Lenses - SUNY College of Optometry
                       </span>
                     </li>
                     <li className="flex items-start space-x-2">
                       <span className="w-2 h-2 mt-2 bg-federalBlue rounded-full" />
                       <span className="text-gray-700">
-                        Biology Major, Physiology & Neurobiology Minor -
-                        University of Connecticut
+                        Undergrad - University of Connecticut, Go Huskies!
                       </span>
                     </li>
                   </ul>
@@ -157,7 +158,7 @@ const Description = () => {
           </div>
         </div>
       </div>
-    </div>
+    </section>
   );
 };
 
