@@ -30,7 +30,7 @@ const CredentialsAndLocations = () => {
             {credentials.map((credential, index) => (
               <div
                 key={credential.title}
-                className={`p-6 rounded-xl cursor-pointer transition-all duration-300 ${
+                className={`p-[1rem] py-[1rem] lg:p-6 rounded-xl cursor-pointer transition-all duration-300 ${
                   activeCredential === index
                     ? "bg-charcoal text-white shadow-lg"
                     : "bg-gray-50 hover:bg-gray-100"
@@ -46,7 +46,7 @@ const CredentialsAndLocations = () => {
                     }`}
                   />
                   <div>
-                    <h3 className="font-semibold text-xl">
+                    <h3 className="font-semibold text-md lg:text-xl">
                       {credential.title}
                     </h3>
                     <p

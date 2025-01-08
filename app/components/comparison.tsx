@@ -26,22 +26,6 @@ type Categories = Record<
   | "prevention",
   CategoryType
 >;
-
-const ProfessionalComparison = ({ className }: { className?: string }) => {
-  const [activeCategory, setActiveCategory] = useState<
-    | "education"
-    | "licensing"
-    | "scope"
-    | "treatment"
-    | "specializations"
-    | "procedures"
-    | "emergency"
-    | "insurance"
-    | "prevention"
-  >("education");
-  const [isHoveringOptom, setIsHoveringOptom] = useState(false);
-  const [isHoveringOphth, setIsHoveringOphth] = useState(false);
-
   const categories: Categories = {
     education: {
       icon: BookOpen,
@@ -224,6 +208,22 @@ const ProfessionalComparison = ({ className }: { className?: string }) => {
       },
     },
   };
+const ProfessionalComparison = ({ className }: { className?: string }) => {
+  const [activeCategory, setActiveCategory] = useState<
+    | "education"
+    | "licensing"
+    | "scope"
+    | "treatment"
+    | "specializations"
+    | "procedures"
+    | "emergency"
+    | "insurance"
+    | "prevention"
+  >("education");
+  const [isHoveringOptom, setIsHoveringOptom] = useState(false);
+  const [isHoveringOphth, setIsHoveringOphth] = useState(false);
+
+
 
   return (
     <div className={className}>
@@ -242,7 +242,7 @@ const ProfessionalComparison = ({ className }: { className?: string }) => {
         </motion.div>
 
         {/* Category Navigation */}
-        <div className="flex flex-wrap justify-center gap-4 mb-12">
+        <div className="grid grid-cols-2 md:flex flex-wrap justify-center gap-4 mb-12">
           {Object.entries(categories).map(([key, category]) => (
             <motion.button
               key={key}

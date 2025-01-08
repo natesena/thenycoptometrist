@@ -175,7 +175,7 @@ const Services = () => {
                 />
 
                 <div
-                  className="p-6 relative"
+                  className="p-[1rem] md:p-6 relative"
                   onClick={() =>
                     setSelectedService((prev) =>
                       prev === service.id ? null : service.id
@@ -188,7 +188,7 @@ const Services = () => {
                     >
                       {service.icon}
                     </div>
-                    <h2 className="text-2xl font-[500] text-slate-800">
+                    <h2 className="text-xl md:text-2xl font-[500] text-slate-800">
                       {service.title}
                     </h2>
                   </div>
