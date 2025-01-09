@@ -393,7 +393,7 @@ const ProfessionalComparison = ({ className }: { className?: string }) => {
             <h2 className="text-xl font-semibold">Collaborative Care Model</h2>
           </div>
           <p className="leading-relaxed">
-            In New York State, optometrists and ophthalmologists work together
+            In  State, optometrists and ophthalmologists work together
             seamlessly in a co-management model. This collaboration ensures
             patients receive the most appropriate care, with smooth referrals
             between providers when needed, such as when surgical intervention is

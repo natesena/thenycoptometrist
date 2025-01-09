@@ -1,6 +1,6 @@
 "use client";
 import { useState } from "react";
-import { Clock, Phone, Globe, MapPin } from "lucide-react";
+import { Clock, Phone, Globe, MapPin, ExternalLink } from "lucide-react";
 import { credentials, locations } from "@/data";
 const CredentialsAndLocations = () => {
   const [activeLocation, setActiveLocation] = useState(0);
@@ -123,6 +123,14 @@ const CredentialsAndLocations = () => {
                     <Phone className="w-5 h-5" />
                     <span>{location.phone}</span>
                   </a>
+                  <a
+                    href={`tel:${location.phone}`}
+                    className="w-full px-4 py-2 bg-charcoal border-2 border-charcoal text-white rounded-lg 
+                          hover:bg-blue-50 transition-colors duration-300 flex items-center justify-center gap-2"
+                  >
+                    <Phone className="w-5 h-5 text-white" />
+                    Call to Book
+                  </a>
 
                   <a
                     href={location.website}
@@ -132,6 +140,14 @@ const CredentialsAndLocations = () => {
                   >
                     <Globe className="w-5 h-5" />
                     <span>Visit Website</span>
+                  </a>
+                  <a
+                    href={`tel:${location.phone}`}
+                    className="w-full px-4 py-2 border-charcoal border-2 text-charcoal rounded-lg 
+                          hover:bg-blue-50 transition-colors duration-300 flex items-center justify-center gap-2"
+                  >
+                    <ExternalLink className="w-5 h-5 text-charcoal" />
+                    Book Online
                   </a>
 
                   <div className="pt-4 border-t">

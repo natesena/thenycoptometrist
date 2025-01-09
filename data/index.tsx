@@ -145,7 +145,7 @@ const credentials = [
   },
   {
     title: "Optometric License",
-    institution: "New York",
+    institution: "New York State Board of Optometry",
     icon: Building2,
   },
 ];

@@ -1,7 +1,7 @@
 "use client";
 import React, { useState } from "react";
 import { motion } from "framer-motion";
-import { Phone, AlertTriangle, Send, ExternalLink } from "lucide-react";
+import { Phone, AlertTriangle, Send } from "lucide-react";
 import { contactLocations } from "@/data";
 const ContactForm = () => {
   const [formData, setFormData] = useState({
@@ -90,16 +90,6 @@ const ContactForm = () => {
                   Call to Book
                 </a>
               </div>
-              <motion.button
-                whileHover={{ scale: 1.02 }}
-                whileTap={{ scale: 0.98 }}
-                onClick={() => window.open(location.bookingUrl, "_blank")}
-                className="w-full px-4 py-2 bg-white border-2 border-federalBlue text-federalBlue rounded-lg 
-                          hover:bg-blue-50 transition-colors duration-300 flex items-center justify-center gap-2"
-              >
-                Book Online
-                <ExternalLink className="w-5 h-5 text-federalBlue" />
-              </motion.button>
             </motion.div>
           ))}
         </motion.div>

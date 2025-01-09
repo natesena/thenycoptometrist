@@ -100,7 +100,7 @@ const Description = () => {
                   </h3>
                   <ul className="space-y-3">
                     <li className="flex items-start space-x-2">
-                      <span className="w-2 h-2 mt-2 bg-federalBlue rounded-full" />
+                      <span className="w-[2px] h-2 mt-2 bg-federalBlue rounded-full" />
                       <span className="text-gray-700">
                         Doctor Of Optometry - SUNY College of Optometry,
                         Microcredential Degree in Anterior Segment and Specialty
@@ -108,7 +108,7 @@ const Description = () => {
                       </span>
                     </li>
                     <li className="flex items-start space-x-2">
-                      <span className="w-2 h-2 mt-2 bg-federalBlue rounded-full" />
+                      <span className="w-[1px] h-2 mt-2 bg-federalBlue rounded-full" />
                       <span className="text-gray-700">
                         Undergrad - University of Connecticut, Go Huskies!
                       </span>
