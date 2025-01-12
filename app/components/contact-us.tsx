@@ -11,7 +11,6 @@ const ContactForm = () => {
     message: "",
   });
 
-
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     // Handle form submission
@@ -99,16 +98,16 @@ const ContactForm = () => {
                   Book Online
                   <ExternalLink className="w-4 h-4" />
                 </motion.button>
-              ): <motion.button
-              whileHover={{ scale: 1.02 }}
-              whileTap={{ scale: 0.98 }}
-              onClick={() => window.open(location.bookingUrl, "_blank")}
-              className="w-full px-4 py-2 bg-white border-2 border-federalBlue text-federalBlue rounded-lg 
+              ) : (
+                <a
+                  href={`tel:${location.phone}`}
+                  className="w-full px-4 py-2 bg-white border-2 border-federalBlue text-federalBlue rounded-lg 
                         hover:bg-blue-50 transition-colors duration-300 flex items-center justify-center gap-2"
-            >
-              Call to Book Appointment
-              <ExternalLink className="w-4 h-4" />
-            </motion.button>}
+                >
+                  Call to Book Appointment
+                  <Phone className="w-4 h-4 text-federalBlue" />
+                </a>
+              )}
             </motion.div>
           ))}
         </motion.div>

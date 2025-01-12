@@ -31,3 +31,12 @@
     border-radius: 50%;
     top: 100%;
 }
+
+
+
+@media (max-width: 600px) { /* Adjust breakpoint as needed */
+    .roundedButton {
+        width: 100px;
+        height: 100px;
+    }
+}

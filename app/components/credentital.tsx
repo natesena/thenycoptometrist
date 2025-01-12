@@ -67,6 +67,7 @@ const CredentialsAndLocations = () => {
                     
                   <a
                     href={`${location.bookingUrl}`}
+                     target="_blank"
                     className="w-full px-4 py-2 border-charcoal border-2 text-charcoal rounded-lg 
                           hover:bg-blue-50 transition-colors duration-300 flex items-center justify-center gap-2"
                   >
