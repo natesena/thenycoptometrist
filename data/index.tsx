@@ -238,7 +238,7 @@ const navItems = [
   },
   {
     title: "What is an Optometrist?",
-    href: "#optometrist_vs_opthomologist"
+    href: "#optometrist_vs_Ophthalmologist"
   },
 
   {

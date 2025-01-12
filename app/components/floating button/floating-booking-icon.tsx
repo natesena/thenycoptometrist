@@ -34,7 +34,7 @@ const FloatingBookButton = () => {
           exit={{ opacity: 0, y: 20 }}
           transition={{ duration: 0.3, ease: 'easeOut' }}
           onClick={scrollToPracticeLocations}
-          className="fixed bottom-8 right-8 flex items-center justify-center"
+          className="fixed bottom-2 md:bottom-8 right-2 md:right-8 flex items-center justify-center"
         >
           <Rounded>
             <button className='relative z-10 text-white text-md lg:text-xl'>Book Now</button>

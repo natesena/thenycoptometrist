@@ -5,9 +5,9 @@ const Credentials = () => {
   const [activeCredential, setActiveCredential] = useState(0);
 
   return (
-    <div className="max-w-7xl mx-auto px-4 py-32 bg">
+    <div className="max-w-7xl mx-auto px-4 py-32">
       {/* Credentials Section */}
-      <section id="licenses" className="mb-20">
+      <section id="licenses" className="">
         <h2 className="text-3xl md:text-5xl font-bold mb-12 text-center text-charcoal">
           Licenses & Certifications
         </h2>

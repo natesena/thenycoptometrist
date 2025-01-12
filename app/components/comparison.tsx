@@ -226,8 +226,8 @@ const ProfessionalComparison = ({ className }: { className?: string }) => {
 
 
   return (
-    <section id="optometrist_vs_opthomologist" className={className}>
-      <div className="max-w-7xl mx-auto px-4 py-32">
+    <section id="optometrist_vs_Ophthalmologist" className={className}>
+      <div className="max-w-7xl mx-auto px-4 py-24">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
