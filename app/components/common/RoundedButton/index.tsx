@@ -10,7 +10,7 @@ interface RoundedProps extends React.HTMLProps<HTMLDivElement> {
 
 export default function Rounded({
   children,
-  backgroundColor = "#455CE9",
+  backgroundColor = "#000C56",
   ...attributes
 }: RoundedProps) {
   const circle = useRef<HTMLDivElement | null>(null);

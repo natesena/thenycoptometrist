@@ -1,8 +1,7 @@
 "use client"
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import Rounded from './common/RoundedButton';
-
+import Rounded from '../common/RoundedButton';
 const FloatingBookButton = () => {
   const [isVisible, setIsVisible] = useState(false);
 
@@ -38,7 +37,7 @@ const FloatingBookButton = () => {
           className="fixed bottom-8 right-8 flex items-center justify-center"
         >
           <Rounded>
-            <p>Book Now</p>
+            <button className='relative z-10 text-white text-xl'>Book Now</button>
           </Rounded>
         </motion.button>
       )}

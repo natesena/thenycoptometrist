@@ -6,7 +6,8 @@ import ComparisonComponent from "./components/comparison";
 import Services from "./components/services";
 import ContactForm from "./components/contact-us";
 import LenisWrapper from "@/lib/lenis-wrapper";
-import FloatingBookButton from "./components/floating-booking-icon";
+import FloatingBookButton from "./components/floating button/floating-booking-icon";
+import Credentials from "./components/license";
 const Page = () => {
   return (
     <LenisWrapper>
@@ -15,6 +16,7 @@ const Page = () => {
         <Description />
         <CredentialsAndLocations />
         <Services />
+        <Credentials />
         <ComparisonComponent />
         <ContactForm />
         <FloatingBookButton />

@@ -1,14 +1,16 @@
 "use client";
 import React, { useState } from "react";
 import { motion } from "framer-motion";
-import { Phone, AlertTriangle, Send } from "lucide-react";
+import { Phone, AlertTriangle, Send, ExternalLink } from "lucide-react";
 import { contactLocations } from "@/data";
+
 const ContactForm = () => {
   const [formData, setFormData] = useState({
     name: "",
     email: "",
     message: "",
   });
+
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -31,10 +33,7 @@ const ContactForm = () => {
   };
 
   return (
-    <section
-      id="contact-us"
-      className="min-h-screen bg-silver py-32 px-4 sm:px-6 lg:px-8"
-    >
+    <div className="min-h-screen bg-charcoal py-32 px-4 sm:px-6 lg:px-8">
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
@@ -47,7 +46,7 @@ const ContactForm = () => {
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.2 }}
-            className="text-3xl md:text-5xl font-bold text-white mb-4 tracking-tight"
+            className="text-4xl md:text-5xl font-bold text-white mb-4 tracking-tight"
           >
             Get in Touch
           </motion.h1>
@@ -81,15 +80,35 @@ const ContactForm = () => {
                 {location.name}
               </h2>
               <div className="flex items-center gap-2 mb-4">
+                <Phone className="w-5 h-5 text-federalBlue" />
                 <a
                   href={`tel:${location.phone}`}
-                  className="w-full px-4 py-2 bg-charcoal border-2 border-charcoal text-white rounded-lg 
-                          hover:bg-blue-50 transition-colors duration-300 flex items-center justify-center gap-2"
+                  className="text-federalBlue hover:text-blue-800 transition-colors"
                 >
-                  <Phone className="w-5 h-5 text-white" />
-                  Call to Book
+                  {location.phone}
                 </a>
               </div>
+              {location.bookingUrl ? (
+                <motion.button
+                  whileHover={{ scale: 1.02 }}
+                  whileTap={{ scale: 0.98 }}
+                  onClick={() => window.open(location.bookingUrl, "_blank")}
+                  className="w-full px-4 py-2 bg-white border-2 border-federalBlue text-federalBlue rounded-lg 
+                            hover:bg-blue-50 transition-colors duration-300 flex items-center justify-center gap-2"
+                >
+                  Book Online
+                  <ExternalLink className="w-4 h-4" />
+                </motion.button>
+              ): <motion.button
+              whileHover={{ scale: 1.02 }}
+              whileTap={{ scale: 0.98 }}
+              onClick={() => window.open(location.bookingUrl, "_blank")}
+              className="w-full px-4 py-2 bg-white border-2 border-federalBlue text-federalBlue rounded-lg 
+                        hover:bg-blue-50 transition-colors duration-300 flex items-center justify-center gap-2"
+            >
+              Call to Book Appointment
+              <ExternalLink className="w-4 h-4" />
+            </motion.button>}
             </motion.div>
           ))}
         </motion.div>
@@ -101,7 +120,10 @@ const ContactForm = () => {
           transition={{ delay: 1 }}
           className="bg-white rounded-2xl shadow-lg p-6 md:p-8"
         >
-          <form onSubmit={handleSubmit} className="space-y-6 mt-8">
+          <h2 className="text-3xl md:text-4xl font-bold mb-6 text-center text-charcoal">
+            Contact Us
+          </h2>
+          <form onSubmit={handleSubmit} className="space-y-6">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <motion.div whileTap={{ scale: 0.99 }} className="space-y-2">
                 <label className="block text-sm font-medium text-gray-700">
@@ -153,20 +175,21 @@ const ContactForm = () => {
               type="submit"
               whileHover={{ scale: 1.02 }}
               whileTap={{ scale: 0.98 }}
-              className="w-full bg-charcoal hover:bg-blue-700 text-white py-3 px-6 rounded-lg 
+              className="w-full bg-federalBlue hover:bg-blue-700 text-white py-3 px-6 rounded-lg 
                         transition-colors duration-300 flex items-center justify-center gap-2 font-medium"
             >
               Send Message
               <Send className="w-4 h-4" />
             </motion.button>
           </form>
+
           {/* Security Warning */}
           <div className="my-8 bg-yellow-50 border border-yellow-200 rounded-lg p-4 flex gap-3">
             <AlertTriangle className="w-5 h-5 text-yellow-600 flex-shrink-0 mt-0.5" />
             <p className="text-sm text-yellow-800">
-              This is not a HIPAA compliant form. Please do not include any
-              sensitive or private medical information. For medical inquiries,
-              please contact our offices directly.
+              This is not a secure form. Please do not include any sensitive or
+              private medical information. For medical inquiries, please contact
+              our offices directly.
             </p>
           </div>
         </motion.div>
@@ -182,7 +205,7 @@ const ContactForm = () => {
           phone numbers above.
         </motion.p>
       </motion.div>
-    </section>
+    </div>
   );
 };
 

@@ -180,7 +180,8 @@ const locations = [
   {
     name: "M S Optical",
     address: "5202 16th Ave, Brooklyn, NY 11204",
-    phone: "(718) 436-5900",
+    phone: "+1 (718) 436-5900",
+    website: "https://msopticalstore.com/",
     frame: (
       <div style={{ width: "100%" }}>
         <iframe
@@ -196,7 +197,7 @@ const locations = [
         </iframe>
       </div>
     ),
-    website: "https://msopticalstore.com/",
+    bookingUrl: "https://emesvisioncenter.com/book-appointment/",
     hours: [
       { day: "Tuesday", time: "10:00am - 7:30pm" },
       { day: "Wednesday", time: "10:00am - 6:00pm" },
@@ -208,12 +209,11 @@ const locations = [
 const contactLocations = [
   {
     name: "Compton Eye Associates",
-    phone: "+1(800) 936-0036",
-    bookingUrl: "https://emesvisioncenter.com/book-appointment/",
+    phone: "+1 (800) 936-0036",
   },
   {
     name: "M S Optical",
-    phone: "+1(718) 436-5900",
+    phone: "+1 (718) 436-5900",
     bookingUrl: "https://emesvisioncenter.com/book-appointment/",
   },
 ];
@@ -236,9 +236,13 @@ const navItems = [
     title: "Licenses/Certifications",
     href: "#licenses",
   },
+  {
+    title: "What is an Optometrist?",
+    href: "#optometrist_vs_opthomologist"
+  },
 
   {
-    title: "Contact Us",
+    title: "Contact",
     href: "#contact-us",
   },
 ];
