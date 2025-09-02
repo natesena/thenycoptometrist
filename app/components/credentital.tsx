@@ -76,8 +76,10 @@ const CredentialsAndLocations = () => {
                   </a>
                     </>)
                   }
+                  {
+                    location.website && (
                   <a
-                    href={location.bookingUrl}
+                    href={location.website}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="flex items-center gap-3 hover:text-federalBlue transition-colors"
@@ -85,6 +87,8 @@ const CredentialsAndLocations = () => {
                     <Globe className="w-5 h-5" />
                     <span>Visit Website</span>
                   </a>
+                    )
+                  }
 
                   <div className="pt-4 border-t">
                     <div className="flex items-start gap-3">

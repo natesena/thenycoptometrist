@@ -16,6 +16,200 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
+      <head>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": ["LocalBusiness", "Optician"],
+              "name": "The NYC Optometrist - Dr. Latek",
+              "description": "Comprehensive eye care services including comprehensive eye exams, specialty contact lenses, dry eye evaluations, and more. Serving New York City with multiple convenient locations.",
+              "url": "https://www.thenycoptometrist.com",
+              "logo": "https://www.thenycoptometrist.com/logo.png",
+              "priceRange": "$$",
+              "hasOfferCatalog": {
+                "@type": "OfferCatalog",
+                "name": "Eye Care Services",
+                "itemListElement": [
+                  {
+                    "@type": "Offer",
+                    "itemOffered": {
+                      "@type": "Service",
+                      "name": "Comprehensive Eye Exams",
+                      "description": "Thorough eye examination including visual clarity assessment, eye muscle coordination, and internal eye structure examination."
+                    }
+                  },
+                  {
+                    "@type": "Offer",
+                    "itemOffered": {
+                      "@type": "Service", 
+                      "name": "Specialty Contact Lens Exams",
+                      "description": "Custom-fit specialty contact lenses for keratoconus, irregular astigmatism, and complex vision problems."
+                    }
+                  },
+                  {
+                    "@type": "Offer",
+                    "itemOffered": {
+                      "@type": "Service",
+                      "name": "Dry Eye Evaluations", 
+                      "description": "Comprehensive assessment and treatment for dry eye conditions including IPL, meibomian gland expressions, and punctal plugs."
+                    }
+                  },
+                  {
+                    "@type": "Offer",
+                    "itemOffered": {
+                      "@type": "Service",
+                      "name": "Myopia Management",
+                      "description": "Specialized treatments to slow the progression of nearsightedness in children."
+                    }
+                  }
+                ]
+              },
+              "employee": {
+                "@type": "Person",
+                "name": "Dr. Latek",
+                "jobTitle": "Doctor of Optometry",
+                "worksFor": {
+                  "@type": "Organization",
+                  "name": "The NYC Optometrist"
+                },
+                "alumniOf": {
+                  "@type": "EducationalOrganization", 
+                  "name": "State University of New York College of Optometry"
+                },
+                "hasCredential": [
+                  {
+                    "@type": "EducationalOccupationalCredential",
+                    "credentialCategory": "Doctorate",
+                    "educationalLevel": "Doctoral",
+                    "name": "Doctorate in Optometry"
+                  },
+                  {
+                    "@type": "EducationalOccupationalCredential",
+                    "credentialCategory": "Certificate",
+                    "name": "Microcredential Certificate - Anterior Segment & Specialty Contact Lenses"
+                  }
+                ]
+              },
+              "location": [
+                {
+                  "@type": "Place",
+                  "name": "Compton Eye Associates",
+                  "address": {
+                    "@type": "PostalAddress",
+                    "streetAddress": "4738 Broadway",
+                    "addressLocality": "New York",
+                    "addressRegion": "NY", 
+                    "postalCode": "10040",
+                    "addressCountry": "US"
+                  },
+                  "telephone": "+1-800-936-0036",
+                  "url": "https://comptoneye.com/",
+                  "openingHoursSpecification": [
+                    {
+                      "@type": "OpeningHoursSpecification",
+                      "dayOfWeek": "Monday",
+                      "opens": "10:00",
+                      "closes": "18:00"
+                    },
+                    {
+                      "@type": "OpeningHoursSpecification", 
+                      "dayOfWeek": "Friday",
+                      "opens": "10:00",
+                      "closes": "18:00"
+                    }
+                  ]
+                },
+                {
+                  "@type": "Place",
+                  "name": "M S Optical", 
+                  "address": {
+                    "@type": "PostalAddress",
+                    "streetAddress": "5202 16th Ave",
+                    "addressLocality": "Brooklyn",
+                    "addressRegion": "NY",
+                    "postalCode": "11204", 
+                    "addressCountry": "US"
+                  },
+                  "telephone": "+1 (718) 436-5900",
+                  "url": "https://msopticalstore.com/",
+                  "openingHoursSpecification": [
+                    {
+                      "@type": "OpeningHoursSpecification",
+                      "dayOfWeek": "Tuesday", 
+                      "opens": "10:00",
+                      "closes": "19:30"
+                    },
+                    {
+                      "@type": "OpeningHoursSpecification",
+                      "dayOfWeek": "Wednesday",
+                      "opens": "10:00", 
+                      "closes": "18:00"
+                    },
+                    {
+                      "@type": "OpeningHoursSpecification",
+                      "dayOfWeek": "Thursday",
+                      "opens": "10:00",
+                      "closes": "18:00"
+                    }
+                  ]
+                },
+                {
+                  "@type": "Place",
+                  "name": "Eye & Health",
+                  "address": {
+                    "@type": "PostalAddress", 
+                    "streetAddress": "159 1st Ave",
+                    "addressLocality": "New York",
+                    "addressRegion": "NY",
+                    "postalCode": "10003",
+                    "addressCountry": "US"
+                  },
+                  "telephone": "+1 (646) 410-1544",
+                  "openingHoursSpecification": [
+                    {
+                      "@type": "OpeningHoursSpecification",
+                      "dayOfWeek": "Tuesday",
+                      "opens": "10:00", 
+                      "closes": "18:00"
+                    },
+                    {
+                      "@type": "OpeningHoursSpecification",
+                      "dayOfWeek": "Wednesday", 
+                      "opens": "10:00",
+                      "closes": "18:00"
+                    },
+                    {
+                      "@type": "OpeningHoursSpecification",
+                      "dayOfWeek": "Thursday",
+                      "opens": "10:00",
+                      "closes": "18:00"
+                    }
+                  ]
+                }
+              ],
+              "areaServed": [
+                {
+                  "@type": "City",
+                  "name": "New York", 
+                  "sameAs": "https://en.wikipedia.org/wiki/New_York_City"
+                },
+                {
+                  "@type": "City", 
+                  "name": "Brooklyn",
+                  "sameAs": "https://en.wikipedia.org/wiki/Brooklyn"
+                },
+                {
+                  "@type": "City",
+                  "name": "Manhattan", 
+                  "sameAs": "https://en.wikipedia.org/wiki/Manhattan"
+                }
+              ]
+            })
+          }}
+        />
+      </head>
       <body className={`bg-background antialiased`}>
         <div>
           <Head>

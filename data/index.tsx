@@ -204,6 +204,32 @@ const locations = [
       { day: "Thursday", time: "10:00am - 6:00pm" },
     ],
   },
+  {
+    name: "Eye & Health",
+    address: "159 1st Ave, New York, NY 10003",
+    phone: "+1 (646) 410-1544",
+    website: "",
+    frame: (
+      <div style={{ width: "100%" }}>
+        <iframe
+          width="100%"
+          height="400"
+          frameBorder="0"
+          scrolling="no"
+          marginHeight={0}
+          marginWidth={0}
+          src="https://maps.google.com/maps?width=100%25&amp;height=400&amp;hl=en&amp;q=159%201st%20Ave,%20New%20York,%20NY%2010003+(Eye%20%26%20Health)&amp;t=&amp;z=14&amp;ie=UTF8&amp;iwloc=B&amp;output=embed"
+        >
+          {/* <a href="https://www.gps.ie/">gps devices</a> */}
+        </iframe>
+      </div>
+    ),
+    hours: [
+      { day: "Tuesday", time: "10:00am - 6:00pm" },
+      { day: "Wednesday", time: "10:00am - 6:00pm" },
+      { day: "Thursday", time: "10:00am - 6:00pm" },
+    ],
+  },
 ];
 
 const contactLocations = [
@@ -215,6 +241,10 @@ const contactLocations = [
     name: "M S Optical",
     phone: "+1 (718) 436-5900",
     bookingUrl: "https://emesvisioncenter.com/book-appointment/",
+  },
+  {
+    name: "Eye & Health",
+    phone: "+1 (646) 410-1544",
   },
 ];
 
