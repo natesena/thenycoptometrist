@@ -22,7 +22,9 @@ export default function RootLayout({
           dangerouslySetInnerHTML={{
             __html: JSON.stringify({
               "@context": "https://schema.org",
-              "@type": ["LocalBusiness", "Optician"],
+              "@type": "LocalBusiness",
+              "@id": "https://www.thenycoptometrist.com/#localbusiness",
+              "additionalType": "https://schema.org/Optician",
               "name": "The NYC Optometrist - Dr. Latek",
               "description": "Comprehensive eye care services including comprehensive eye exams, specialty contact lenses, dry eye evaluations, and more. Serving New York City with multiple convenient locations.",
               "url": "https://www.thenycoptometrist.com",
@@ -109,15 +111,15 @@ export default function RootLayout({
                   "openingHoursSpecification": [
                     {
                       "@type": "OpeningHoursSpecification",
-                      "dayOfWeek": "Monday",
-                      "opens": "10:00",
-                      "closes": "18:00"
+                      "dayOfWeek": "https://schema.org/Monday",
+                      "opens": "10:00:00",
+                      "closes": "18:00:00"
                     },
                     {
                       "@type": "OpeningHoursSpecification", 
-                      "dayOfWeek": "Friday",
-                      "opens": "10:00",
-                      "closes": "18:00"
+                      "dayOfWeek": "https://schema.org/Friday",
+                      "opens": "10:00:00",
+                      "closes": "18:00:00"
                     }
                   ]
                 },
@@ -137,21 +139,21 @@ export default function RootLayout({
                   "openingHoursSpecification": [
                     {
                       "@type": "OpeningHoursSpecification",
-                      "dayOfWeek": "Tuesday", 
-                      "opens": "10:00",
-                      "closes": "19:30"
+                      "dayOfWeek": "https://schema.org/Tuesday", 
+                      "opens": "10:00:00",
+                      "closes": "19:30:00"
                     },
                     {
                       "@type": "OpeningHoursSpecification",
-                      "dayOfWeek": "Wednesday",
-                      "opens": "10:00", 
-                      "closes": "18:00"
+                      "dayOfWeek": "https://schema.org/Wednesday",
+                      "opens": "10:00:00", 
+                      "closes": "18:00:00"
                     },
                     {
                       "@type": "OpeningHoursSpecification",
-                      "dayOfWeek": "Thursday",
-                      "opens": "10:00",
-                      "closes": "18:00"
+                      "dayOfWeek": "https://schema.org/Thursday",
+                      "opens": "10:00:00",
+                      "closes": "18:00:00"
                     }
                   ]
                 },
@@ -170,21 +172,21 @@ export default function RootLayout({
                   "openingHoursSpecification": [
                     {
                       "@type": "OpeningHoursSpecification",
-                      "dayOfWeek": "Tuesday",
-                      "opens": "10:00", 
-                      "closes": "18:00"
+                      "dayOfWeek": "https://schema.org/Tuesday",
+                      "opens": "10:00:00", 
+                      "closes": "18:00:00"
                     },
                     {
                       "@type": "OpeningHoursSpecification",
-                      "dayOfWeek": "Wednesday", 
-                      "opens": "10:00",
-                      "closes": "18:00"
+                      "dayOfWeek": "https://schema.org/Wednesday", 
+                      "opens": "10:00:00",
+                      "closes": "18:00:00"
                     },
                     {
                       "@type": "OpeningHoursSpecification",
-                      "dayOfWeek": "Thursday",
-                      "opens": "10:00",
-                      "closes": "18:00"
+                      "dayOfWeek": "https://schema.org/Thursday",
+                      "opens": "10:00:00",
+                      "closes": "18:00:00"
                     }
                   ]
                 }
