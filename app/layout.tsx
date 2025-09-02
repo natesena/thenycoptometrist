@@ -29,6 +29,15 @@ export default function RootLayout({
               "description": "Comprehensive eye care services including comprehensive eye exams, specialty contact lenses, dry eye evaluations, and more. Serving New York City with multiple convenient locations.",
               "url": "https://www.thenycoptometrist.com",
               "logo": "https://www.thenycoptometrist.com/logo.png",
+              "address": {
+                "@type": "PostalAddress",
+                "streetAddress": "4738 Broadway",
+                "addressLocality": "New York",
+                "addressRegion": "NY",
+                "postalCode": "10040",
+                "addressCountry": "US"
+              },
+              "telephone": "+1-800-936-0036",
               "priceRange": "$$",
               "hasOfferCatalog": {
                 "@type": "OfferCatalog",
