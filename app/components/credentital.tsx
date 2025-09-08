@@ -2,6 +2,16 @@
 import { useState } from "react";
 import { Clock, Phone, Globe, MapPin, ExternalLink } from "lucide-react";
 import { locations } from "@/data";
+
+interface Location {
+  name: string;
+  address: string;
+  phone: string;
+  website?: string;
+  bookingUrl?: string;
+  hours: { day: string; time: string }[];
+  frame: React.ReactNode;
+}
 const CredentialsAndLocations = () => {
   const [activeLocation, setActiveLocation] = useState(0);
 
@@ -63,10 +73,10 @@ const CredentialsAndLocations = () => {
                   </a>
 
                   {
-                    location.bookingUrl && (<>
+                    (location as Location).bookingUrl && (<>
                     
                   <a
-                    href={`${location.bookingUrl}`}
+                    href={`${(location as Location).bookingUrl}`}
                      target="_blank"
                     className="w-full px-4 py-2 border-charcoal border-2 text-charcoal rounded-lg 
                           hover:bg-blue-50 transition-colors duration-300 flex items-center justify-center gap-2"

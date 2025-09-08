@@ -131,6 +131,20 @@ const Description = () => {
                     )}
                   </div>
                 </div>
+                
+                <div className="mt-8">
+                  <a
+                    href="https://www.zocdoc.com/doctor/joanna-latek-od-640237"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-3 bg-federalBlue text-white px-6 py-3 rounded-lg font-medium hover:bg-federalBlue/90 transition-all duration-300 shadow-lg hover:shadow-xl"
+                  >
+                    <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+                      <path fillRule="evenodd" d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zm0 5a1 1 0 000 2h8a1 1 0 100-2H6z" clipRule="evenodd"/>
+                    </svg>
+                    Book Appointment on ZocDoc
+                  </a>
+                </div>
               </>
             ) : (
               <div className="space-y-6">

@@ -12,7 +12,7 @@ export default function Menu() {
 
   useEffect( () => {
     if(isActive) setIsActive(false)
-  }, [pathname])
+  }, [pathname, isActive])
 
   return (
     <>

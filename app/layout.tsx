@@ -31,13 +31,13 @@ export default function RootLayout({
               "logo": "https://www.thenycoptometrist.com/logo.png",
               "address": {
                 "@type": "PostalAddress",
-                "streetAddress": "4738 Broadway",
+                "streetAddress": "159 1st Ave",
                 "addressLocality": "New York",
                 "addressRegion": "NY",
-                "postalCode": "10040",
+                "postalCode": "10003",
                 "addressCountry": "US"
               },
-              "telephone": "+1-800-936-0036",
+              "telephone": "+1 (646) 410-1544",
               "priceRange": "$$",
               "hasOfferCatalog": {
                 "@type": "OfferCatalog",
@@ -103,113 +103,44 @@ export default function RootLayout({
                   }
                 ]
               },
-              "location": [
-                {
-                  "@type": "Place",
-                  "name": "Compton Eye Associates",
-                  "address": {
-                    "@type": "PostalAddress",
-                    "streetAddress": "4738 Broadway",
-                    "addressLocality": "New York",
-                    "addressRegion": "NY", 
-                    "postalCode": "10040",
-                    "addressCountry": "US"
-                  },
-                  "telephone": "+1-800-936-0036",
-                  "url": "https://comptoneye.com/",
-                  "openingHoursSpecification": [
-                    {
-                      "@type": "OpeningHoursSpecification",
-                      "dayOfWeek": "https://schema.org/Monday",
-                      "opens": "10:00:00",
-                      "closes": "18:00:00"
-                    },
-                    {
-                      "@type": "OpeningHoursSpecification", 
-                      "dayOfWeek": "https://schema.org/Friday",
-                      "opens": "10:00:00",
-                      "closes": "18:00:00"
-                    }
-                  ]
+              "location": {
+                "@type": "Place",
+                "name": "Eye & Health",
+                "address": {
+                  "@type": "PostalAddress", 
+                  "streetAddress": "159 1st Ave",
+                  "addressLocality": "New York",
+                  "addressRegion": "NY",
+                  "postalCode": "10003",
+                  "addressCountry": "US"
                 },
-                {
-                  "@type": "Place",
-                  "name": "M S Optical", 
-                  "address": {
-                    "@type": "PostalAddress",
-                    "streetAddress": "5202 16th Ave",
-                    "addressLocality": "Brooklyn",
-                    "addressRegion": "NY",
-                    "postalCode": "11204", 
-                    "addressCountry": "US"
+                "telephone": "+1 (646) 410-1544",
+                "openingHoursSpecification": [
+                  {
+                    "@type": "OpeningHoursSpecification",
+                    "dayOfWeek": "https://schema.org/Tuesday",
+                    "opens": "10:00:00", 
+                    "closes": "18:00:00"
                   },
-                  "telephone": "+1 (718) 436-5900",
-                  "url": "https://msopticalstore.com/",
-                  "openingHoursSpecification": [
-                    {
-                      "@type": "OpeningHoursSpecification",
-                      "dayOfWeek": "https://schema.org/Tuesday", 
-                      "opens": "10:00:00",
-                      "closes": "19:30:00"
-                    },
-                    {
-                      "@type": "OpeningHoursSpecification",
-                      "dayOfWeek": "https://schema.org/Wednesday",
-                      "opens": "10:00:00", 
-                      "closes": "18:00:00"
-                    },
-                    {
-                      "@type": "OpeningHoursSpecification",
-                      "dayOfWeek": "https://schema.org/Thursday",
-                      "opens": "10:00:00",
-                      "closes": "18:00:00"
-                    }
-                  ]
-                },
-                {
-                  "@type": "Place",
-                  "name": "Eye & Health",
-                  "address": {
-                    "@type": "PostalAddress", 
-                    "streetAddress": "159 1st Ave",
-                    "addressLocality": "New York",
-                    "addressRegion": "NY",
-                    "postalCode": "10003",
-                    "addressCountry": "US"
+                  {
+                    "@type": "OpeningHoursSpecification",
+                    "dayOfWeek": "https://schema.org/Wednesday", 
+                    "opens": "10:00:00",
+                    "closes": "18:00:00"
                   },
-                  "telephone": "+1 (646) 410-1544",
-                  "openingHoursSpecification": [
-                    {
-                      "@type": "OpeningHoursSpecification",
-                      "dayOfWeek": "https://schema.org/Tuesday",
-                      "opens": "10:00:00", 
-                      "closes": "18:00:00"
-                    },
-                    {
-                      "@type": "OpeningHoursSpecification",
-                      "dayOfWeek": "https://schema.org/Wednesday", 
-                      "opens": "10:00:00",
-                      "closes": "18:00:00"
-                    },
-                    {
-                      "@type": "OpeningHoursSpecification",
-                      "dayOfWeek": "https://schema.org/Thursday",
-                      "opens": "10:00:00",
-                      "closes": "18:00:00"
-                    }
-                  ]
-                }
-              ],
+                  {
+                    "@type": "OpeningHoursSpecification",
+                    "dayOfWeek": "https://schema.org/Thursday",
+                    "opens": "10:00:00",
+                    "closes": "18:00:00"
+                  }
+                ]
+              },
               "areaServed": [
                 {
                   "@type": "City",
                   "name": "New York", 
                   "sameAs": "https://en.wikipedia.org/wiki/New_York_City"
-                },
-                {
-                  "@type": "City", 
-                  "name": "Brooklyn",
-                  "sameAs": "https://en.wikipedia.org/wiki/Brooklyn"
                 },
                 {
                   "@type": "City",

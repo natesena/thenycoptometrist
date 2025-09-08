@@ -4,6 +4,12 @@ import { motion } from "framer-motion";
 import { Phone, AlertTriangle, Send, ExternalLink } from "lucide-react";
 import { contactLocations } from "@/data";
 
+interface ContactLocation {
+  name: string;
+  phone: string;
+  bookingUrl?: string;
+}
+
 const ContactForm = () => {
   const [formData, setFormData] = useState({
     name: "",
@@ -87,11 +93,11 @@ const ContactForm = () => {
                   {location.phone}
                 </a>
               </div>
-              {location.bookingUrl ? (
+              {(location as ContactLocation).bookingUrl ? (
                 <motion.button
                   whileHover={{ scale: 1.02 }}
                   whileTap={{ scale: 0.98 }}
-                  onClick={() => window.open(location.bookingUrl, "_blank")}
+                  onClick={() => window.open((location as ContactLocation).bookingUrl, "_blank")}
                   className="w-full px-4 py-2 bg-white border-2 border-federalBlue text-federalBlue rounded-lg 
                             hover:bg-blue-50 transition-colors duration-300 flex items-center justify-center gap-2"
                 >

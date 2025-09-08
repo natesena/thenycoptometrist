@@ -152,59 +152,6 @@ const credentials = [
 
 const locations = [
   {
-    name: "Compton Eye Associates",
-    address: "4738 Broadway New York NY 10040",
-    phone: "+1-800-936-0036",
-    website: "https://comptoneye.com/",
-    frame: (
-      <div style={{ width: "100%" }}>
-        <iframe
-          width="100%"
-          height="400"
-          frameBorder="0"
-          scrolling="no"
-          marginHeight={0}
-          marginWidth={0}
-          src="https://maps.google.com/maps?width=100%25&amp;height=400&amp;hl=en&amp;q=4738%20Broadway%20New%20York%20NY%2010040+(Compton%20Eye%20Associates)&amp;t=&amp;z=14&amp;ie=UTF8&amp;iwloc=B&amp;output=embed"
-        >
-          {/* <a href="https://www.gps.ie/">gps devices</a> */}
-        </iframe>
-      </div>
-    ),
-    hours: [
-      { day: "Monday", time: "10:00am - 6:00pm" },
-      { day: "Friday", time: "10:00am - 6:00pm" },
-      { day: "Every other Saturday", time: "10:00am - 6:00pm" },
-    ],
-  },
-  {
-    name: "M S Optical",
-    address: "5202 16th Ave, Brooklyn, NY 11204",
-    phone: "+1 (718) 436-5900",
-    website: "https://msopticalstore.com/",
-    frame: (
-      <div style={{ width: "100%" }}>
-        <iframe
-          width="100%"
-          height="400"
-          frameBorder="0"
-          scrolling="no"
-          marginHeight={0}
-          marginWidth={0}
-          src="https://maps.google.com/maps?width=100%25&amp;height=400&amp;hl=en&amp;q=5202%2016th%20Ave,%20Brooklyn,%20NY%2011204+(M%20S%20Optical)&amp;t=&amp;z=14&amp;ie=UTF8&amp;iwloc=B&amp;output=embed"
-        >
-          {/* <a href="https://www.gps.ie/">gps devices</a> */}
-        </iframe>
-      </div>
-    ),
-    bookingUrl: "https://emesvisioncenter.com/book-appointment/",
-    hours: [
-      { day: "Tuesday", time: "10:00am - 7:30pm" },
-      { day: "Wednesday", time: "10:00am - 6:00pm" },
-      { day: "Thursday", time: "10:00am - 6:00pm" },
-    ],
-  },
-  {
     name: "Eye & Health",
     address: "159 1st Ave, New York, NY 10003",
     phone: "+1 (646) 410-1544",
@@ -234,17 +181,9 @@ const locations = [
 
 const contactLocations = [
   {
-    name: "Compton Eye Associates",
-    phone: "+1 (800) 936-0036",
-  },
-  {
-    name: "M S Optical",
-    phone: "+1 (718) 436-5900",
-    bookingUrl: "https://emesvisioncenter.com/book-appointment/",
-  },
-  {
     name: "Eye & Health",
     phone: "+1 (646) 410-1544",
+    bookingUrl: undefined,
   },
 ];
 
