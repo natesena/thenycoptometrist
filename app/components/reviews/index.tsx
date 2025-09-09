@@ -248,9 +248,9 @@ const Reviews = () => {
           >
             <div className="inline-flex items-center gap-8 bg-gray-50 rounded-2xl px-8 py-4">
               <div>
-                <div className="text-2xl font-bold text-charcoal">5.0</div>
+                <div className="text-2xl font-bold text-charcoal">4.9</div>
                 <div className="flex justify-center mb-1">
-                  {renderStars(5)}
+                  {renderStars(4.9)}
                 </div>
                 <div className="text-sm text-gray-600">Average Rating</div>
               </div>
