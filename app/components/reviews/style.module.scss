@@ -1,0 +1,270 @@
+.reviewCard {
+  position: relative;
+  transition: all 0.3s ease;
+  
+  &:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+  }
+
+  // Line clamp utility for review text
+  .line-clamp-4 {
+    display: -webkit-box;
+    -webkit-line-clamp: 4;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+}
+
+.navButton {
+  display: none;
+  opacity: 0;
+  transition: all 0.3s ease;
+  
+  // Show navigation buttons on larger screens
+  @media (min-width: 768px) {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  &:hover {
+    transform: scale(1.1);
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+  }
+
+  &:active {
+    transform: scale(0.9);
+  }
+}
+
+// Show navigation buttons on hover (desktop only)
+@media (min-width: 768px) {
+  section:hover .navButton {
+    opacity: 1;
+  }
+}
+
+.navButtonLeft {
+  left: -1.5rem;
+  
+  @media (max-width: 768px) {
+    left: 0;
+    position: relative;
+    margin-right: 1rem;
+  }
+}
+
+.navButtonRight {
+  right: -1.5rem;
+  
+  @media (max-width: 768px) {
+    right: 0;
+    position: relative;
+    margin-left: 1rem;
+  }
+}
+
+// Mobile navigation adjustments
+@media (max-width: 768px) {
+  .mobileNavigation {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2rem;
+    
+    .navButton {
+      display: flex;
+      opacity: 1;
+      position: relative;
+      left: unset;
+      right: unset;
+    }
+  }
+}
+
+// Carousel animation styles
+.carouselContainer {
+  overflow: hidden;
+  position: relative;
+  
+  .carouselTrack {
+    display: flex;
+    transition: transform 0.5s cubic-bezier(0.76, 0, 0.24, 1);
+    
+    .carouselSlide {
+      min-width: 100%;
+      display: flex;
+      gap: 1.5rem;
+      
+      @media (min-width: 768px) {
+        min-width: 50%;
+      }
+      
+      @media (min-width: 1024px) {
+        min-width: 33.333%;
+      }
+    }
+  }
+}
+
+// Rating stars animation
+.starRating {
+  .star {
+    transition: all 0.2s ease;
+    
+    &:hover {
+      transform: scale(1.1);
+    }
+  }
+}
+
+// Responsive grid adjustments
+.reviewsGrid {
+  display: grid;
+  gap: 1.5rem;
+  
+  // Mobile: 1 column
+  grid-template-columns: 1fr;
+  
+  // Tablet: 2 columns
+  @media (min-width: 768px) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  
+  // Desktop: 3 columns
+  @media (min-width: 1024px) {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+// Pagination dots styling
+.paginationDots {
+  display: flex;
+  justify-content: center;
+  gap: 0.5rem;
+  margin-top: 2rem;
+  
+  .dot {
+    width: 0.75rem;
+    height: 0.75rem;
+    border-radius: 50%;
+    transition: all 0.3s ease;
+    cursor: pointer;
+    
+    &.active {
+      background-color: #000C56; // federalBlue
+      transform: scale(1.2);
+    }
+    
+    &.inactive {
+      background-color: #D1D5DB; // gray-300
+      
+      &:hover {
+        background-color: #9CA3AF; // gray-400
+        transform: scale(1.1);
+      }
+    }
+  }
+}
+
+// Stats section styling
+.statsSection {
+  margin-top: 3rem;
+  text-align: center;
+  
+  .statsContainer {
+    display: inline-flex;
+    align-items: center;
+    gap: 2rem;
+    background-color: #F9FAFB; // gray-50
+    border-radius: 1rem;
+    padding: 1rem 2rem;
+    
+    .statItem {
+      text-align: center;
+      
+      .statNumber {
+        font-size: 1.5rem;
+        font-weight: bold;
+        color: #36465F; // charcoal
+        margin-bottom: 0.25rem;
+      }
+      
+      .statLabel {
+        font-size: 0.875rem;
+        color: #6B7280; // gray-600
+      }
+    }
+    
+    .divider {
+      width: 1px;
+      height: 3rem;
+      background-color: #D1D5DB; // gray-300
+    }
+  }
+}
+
+// Loading state
+.loadingState {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 200px;
+  
+  .loadingSpinner {
+    width: 2rem;
+    height: 2rem;
+    border: 2px solid #E5E7EB;
+    border-top: 2px solid #000C56;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+  }
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+// Accessibility improvements
+.reviewCard:focus-within {
+  outline: 2px solid #000C56;
+  outline-offset: 2px;
+}
+
+.navButton:focus {
+  outline: 2px solid #000C56;
+  outline-offset: 2px;
+}
+
+.dot:focus {
+  outline: 2px solid #000C56;
+  outline-offset: 2px;
+}
+
+// High contrast mode support
+@media (prefers-contrast: high) {
+  .reviewCard {
+    border: 2px solid #000;
+  }
+  
+  .navButton {
+    border: 2px solid #000;
+  }
+}
+
+// Reduced motion support
+@media (prefers-reduced-motion: reduce) {
+  .reviewCard,
+  .navButton,
+  .dot,
+  .carouselTrack {
+    transition: none;
+  }
+  
+  .loadingSpinner {
+    animation: none;
+  }
+}

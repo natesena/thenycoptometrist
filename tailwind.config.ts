@@ -17,6 +17,9 @@ export default {
         silver: "#C0B4AB",
         alabaster: "#E9E4DB"
       },
+      fontFamily: {
+        'sans': ['Neue Montreal', 'sans-serif'],
+      },
     },
   },
   plugins: [],

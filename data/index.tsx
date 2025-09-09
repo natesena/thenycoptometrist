@@ -14,6 +14,7 @@ import {
   EyeIcon,
   Building2,
   Award,
+  Star,
 } from "lucide-react";
 
 const services = [
@@ -188,6 +189,99 @@ const contactLocations = [
 ];
 
 
+const reviews = [
+  {
+    id: 1,
+    name: "Rory M.",
+    rating: 5,
+    date: "2024-08-26",
+    service: "Comprehensive Eye Exam",
+    review: "Great! Very informative and answered all of my questions!",
+    initials: "RM",
+    location: "Eye & Health"
+  },
+  {
+    id: 2,
+    name: "Sara V.",
+    rating: 5,
+    date: "2024-08-13",
+    service: "Comprehensive Eye Exam",
+    review: "The doctor was very kind and helpful. Great listener and lovely person.",
+    initials: "SV",
+    location: "Eye & Health"
+  },
+  {
+    id: 3,
+    name: "Gabrielle M.",
+    rating: 5,
+    date: "2024-08-09",
+    service: "Comprehensive Eye Exam",
+    review: "Dr. Joanna Latek was fabulous!! So kind and calming. I've never had such great bedside manner and she helped me figure out how to give my eyes a break since I have such a high prescription! She is also so professional. The front staff are so kind and helpful as well. All nice ladies and helped me find a pair of glasses that fit my face best. I believe her name was Sylvia!",
+    initials: "GM",
+    location: "Eye & Health"
+  },
+  {
+    id: 4,
+    name: "V.T.",
+    rating: 5,
+    date: "2024-10-01",
+    service: "Comprehensive Eye Exam",
+    review: "Very pleasant! Knows what she's talking about and her bedside manner is beyond what I've experienced anywhere else. Thank you Dr. Latek! I'll see you for my next exam!",
+    initials: "VT",
+    location: "Eye & Health"
+  },
+  {
+    id: 5,
+    name: "S.N.",
+    rating: 5,
+    date: "2024-10-15",
+    service: "Comprehensive Eye Exam",
+    review: "Dr. Latek was fantastic. She explained everything super well, and I left with all my answers. She knows what she's doing! Highly recommend.",
+    initials: "SN",
+    location: "Eye & Health"
+  },
+  {
+    id: 6,
+    name: "Anonymous Patient",
+    rating: 5,
+    date: "2024-10-20",
+    service: "Comprehensive Eye Exam",
+    review: "A fantastic experience was had with Dr. Joanna and the team! The front desk staff was friendly and welcoming. Highly recommended to anyone looking for an excellent eye doctor!",
+    initials: "AP",
+    location: "Eye & Health"
+  },
+  {
+    id: 7,
+    name: "C.S.",
+    rating: 5,
+    date: "2024-11-01",
+    service: "Contact Lens Fitting",
+    review: "Dr. Latek really took her time to figure out my prescription after many failed attempts with previous providers. I finally have contacts that don't bother my eyes anymore. Definitely my new doctor!",
+    initials: "CS",
+    location: "Eye & Health"
+  },
+  {
+    id: 8,
+    name: "K.N.",
+    rating: 5,
+    date: "2024-11-10",
+    service: "Vision Therapy",
+    review: "Dr. Latek took the time to explain why I developed the problem that I had and what she was going to do to help me! I never thought I could achieve 20/20 but with her recommendations and treatment plan, I am confident I will be there soon. No other doctor in the past has ever explained my condition to me so thoroughly and now I whole-heartedly feel that I am part of my own treatment because I understand the WHY! Thank you Dr. Latek!",
+    initials: "KN",
+    location: "Eye & Health"
+  },
+  {
+    id: 9,
+    name: "Anonymous Patient",
+    rating: 5,
+    date: "2024-11-15",
+    service: "First Eye Exam",
+    review: "Dr. Latek took the time to walk me through my first eye exam and sent me home with extra materials for my case. I appreciate that she took the extra time to explain what tools she was using and what she was looking for. I would recommend doctor Latek to anyone looking for the best in eye care in the city. I look forward to my follow up with her.",
+    initials: "FT",
+    location: "Eye & Health"
+  }
+];
+
 const navItems = [
   {
     title: "Locations",
@@ -209,11 +303,14 @@ const navItems = [
     title: "What is an Optometrist?",
     href: "#optometrist_vs_Ophthalmologist"
   },
-
+  {
+    title: "Reviews",
+    href: "#reviews",
+  },
   {
     title: "Contact",
     href: "#contact-us",
   },
 ];
 
-export { services, credentials, locations, contactLocations, navItems };
+export { services, credentials, locations, contactLocations, navItems, reviews };

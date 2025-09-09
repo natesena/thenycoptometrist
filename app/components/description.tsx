@@ -16,19 +16,25 @@ const Description = () => {
 
   return (
     <section id="about-me" className="mx-auto px-4 py-24 lg:py-48 bg-white">
-      <div className="grid md:grid-cols-2 gap-12 items-start container mx-auto">
-        {/* Image Column */}
-        <div className="relative" data-aos="fade-right">
-          <div className="aspect-[3/4] relative rounded-2xl overflow-hidden border"></div>
+      <div className="container mx-auto max-w-4xl">
+        {/* Content */}
+        <div className="space-y-8">
+          <div className="text-center space-y-4">
+            <h1 className="text-4xl lg:text-6xl font-bold text-federalBlue">
+              Dr. Joanna Latek
+            </h1>
+            <h2 className="text-xl text-charcoal">Comprehensive Optometrist</h2>
+          </div>
+
           {/* Credentials Card */}
-          <div className="absolute -bottom-6 -right-6 bg-white p-6 rounded-2xl shadow-xl max-w-sm md:max-w-md">
-            <div className="flex items-center space-x-3 mb-4">
+          <div className="bg-white p-6 rounded-2xl shadow-xl border border-gray-100 max-w-2xl mx-auto">
+            <div className="flex items-center space-x-3 mb-4 justify-center">
               <Stethoscope className="w-6 h-6 text-federalBlue" />
               <h3 className="font-semibold text-lg">
                 Board Certified Optometrist
               </h3>
             </div>
-            <div className="flex flex-wrap gap-2">
+            <div className="flex flex-wrap gap-2 justify-center">
               {[
                 "Medical Eye Care",
                 "Glaucoma",
@@ -44,19 +50,9 @@ const Description = () => {
               ))}
             </div>
           </div>
-        </div>
-
-        {/* Content Column */}
-        <div className="space-y-8" data-aos="fade-left">
-          <div className="space-y-4">
-            <h1 className="text-4xl lg:text-6xl font-bold text-federalBlue">
-              Dr. Joanna Latek
-            </h1>
-            <h2 className="text-xl text-charcoal">Comprehensive Optometrist</h2>
-          </div>
 
           {/* Tab Navigation */}
-          <div className="flex space-x-4 border-b">
+          <div className="flex justify-center space-x-8 border-b max-w-md mx-auto">
             {["professional", "personal"].map((tab) => (
               <button
                 key={tab}
@@ -132,7 +128,7 @@ const Description = () => {
                   </div>
                 </div>
                 
-                <div className="mt-8">
+                <div className="mt-8 text-center">
                   <a
                     href="https://www.zocdoc.com/doctor/joanna-latek-od-640237"
                     target="_blank"

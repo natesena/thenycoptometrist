@@ -47,11 +47,11 @@ export default function HeroSection() {
       className={`${styles.landing}`}
     >
       <Image
-        src="/Create Image from Photoroom.png"
+        src="/Image from Photoroom.png"
         width={3000}
         height={3500}
         alt="background"
-        className="max-h-[100vh] object-contain w-auto relative right-8 drop-shadow-2xl scale-x-[-1]"
+        className="max-h-[100vh] object-contain w-auto relative right-8 drop-shadow-2xl"
       />
       <div className={`${styles.sliderContainer} absolute`}>
         <div ref={slider} className={styles.slider}>
@@ -88,7 +88,7 @@ export default function HeroSection() {
           </div>
 
           <div className="grid grid-cols-2 gap-4 max-w-[40rem]">
-            <div className="bg-white/15 backdrop-blur-md rounded-xl p-4 md:p-10 text-center border border-white/30 hover:bg-white/20 transition-all duration-300 shadow-lg">
+            {/* <div className="bg-white/15 backdrop-blur-md rounded-xl p-4 md:p-10 text-center border border-white/30 hover:bg-white/20 transition-all duration-300 shadow-lg">
               <div className="text-white text-3xl lg:text-5xl font-bold mb-1">
                 15+
               </div>
@@ -103,7 +103,7 @@ export default function HeroSection() {
               <div className="text-white/90 text-sm font-medium">
                 Happy Patients
               </div>
-            </div>
+            </div> */}
             <div className="bg-white/15 backdrop-blur-md rounded-xl p-4 md:p-10 text-center border border-white/30 hover:bg-white/20 transition-all duration-300 shadow-lg">
               <div className="text-white text-3xl lg:text-5xl font-bold mb-1">
                 NYC

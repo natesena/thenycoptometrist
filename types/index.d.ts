@@ -7,6 +7,17 @@ declare global {
     color: string;
   }
 
+  interface Review {
+    id: number;
+    name: string;
+    rating: number;
+    date: string;
+    service: string;
+    review: string;
+    initials: string;
+    location: string;
+  }
+
   interface CategoryType {
     icon: React.ComponentType<{
       className?: string;

@@ -4,6 +4,7 @@ import Description from "./components/description";
 import CredentialsAndLocations from "./components/credentital";
 import ComparisonComponent from "./components/comparison";
 import Services from "./components/services";
+import Reviews from "./components/reviews";
 import ContactForm from "./components/contact-us";
 import LenisWrapper from "@/lib/lenis-wrapper";
 import FloatingBookButton from "./components/floating button/floating-booking-icon";
@@ -14,6 +15,8 @@ const Page = () => {
       <div className="bg-alabaster">
         <HeroSection />
         <Description />
+        <Reviews />
+        
         <CredentialsAndLocations />
         <Services />
         <Credentials />
