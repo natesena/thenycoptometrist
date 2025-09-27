@@ -37,7 +37,7 @@ const FloatingBookButton = () => {
           className="fixed bottom-2 md:bottom-8 right-2 md:right-8 flex items-center justify-center"
         >
           <Rounded>
-            <button className='relative z-10 text-white text-md lg:text-xl'>Book Now</button>
+            <div className='relative z-10 text-white text-md lg:text-xl'>Book Now</div>
           </Rounded>
         </motion.button>
       )}

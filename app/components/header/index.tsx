@@ -19,10 +19,10 @@ export default function Menu() {
     <div className={styles.main}>
 
       <div className={styles.header}>
-        <div className='bg-white/40 p-2 rounded-md'>
-        <Image src="/logo.png" alt="logo"  width={50} height={50} />
+        <div>
+        <Image src="/Eye.png" alt="logo" width={96} height={96} className="w-12 h-12 md:w-24 md:h-24" />
         </div>
-        <div onClick={() => {setIsActive(!isActive)}} className={styles.button}>
+        <div onClick={() => {setIsActive(!isActive)}} className={`${styles.button} block lg:!hidden`}>
           <div className={`${styles.burger} ${isActive ? styles.burgerActive : ""}`}></div>
         </div>
       </div>
