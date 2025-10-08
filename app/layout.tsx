@@ -1,12 +1,22 @@
 import type { Metadata } from "next";
-import Head from "next/head";
 import "./globals.css";
 import Footer from "@/app/components/footer";
 import Menu from "./components/header";
 
 export const metadata: Metadata = {
+  metadataBase: new URL('https://www.thenycoptometrist.com'),
+
   title: "Dr. Latek, Optometrist",
   description: "Your vision is our mission at The NYC Optometrist. We provide comprehensive eye care services.",
+
+  robots: {
+    index: true,
+    follow: true,
+  },
+
+  alternates: {
+    canonical: 'https://www.thenycoptometrist.com',
+  },
 };
 
 export default function RootLayout({
@@ -154,16 +164,6 @@ export default function RootLayout({
       </head>
       <body className={`bg-background antialiased`}>
         <div>
-          <Head>
-            <title>Dr. Latek, Optometrist
-            </title>
-            <meta
-              name="description"
-              content="Your vision is our mission at The NYC Optometrist. We provide comprehensive eye care services."
-            />
-            <meta name="robots" content="index, follow" />
-            <link rel="canonical" href="https://www.thenycoptometrist.com" />
-          </Head>
           <div className="">
             <div className="relative z-[100]">
               <Menu />
