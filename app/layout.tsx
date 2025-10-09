@@ -7,7 +7,7 @@ export const metadata: Metadata = {
   metadataBase: new URL('https://www.thenycoptometrist.com'),
 
   title: "Dr. Latek, Optometrist",
-  description: "Your vision is our mission at The NYC Optometrist. We provide comprehensive eye care services.",
+  description: "Top-rated 2025 NYC optometrist serving five boroughs. Dr. Joanna Latek. Comprehensive exams, specialty contacts, dry eye, computer strain, tired eyes.",
 
   robots: {
     index: true,
@@ -16,6 +16,28 @@ export const metadata: Metadata = {
 
   alternates: {
     canonical: 'https://www.thenycoptometrist.com',
+  },
+
+  openGraph: {
+    type: 'website',
+    url: 'https://www.thenycoptometrist.com',
+    title: 'Dr. Joanna Latek - Top-rated 2025 NYC Optometrist',
+    description: 'Top-rated 2025 NYC optometrist serving all five boroughs. Dr. Joanna Latek specializes in comprehensive eye exams, specialty contact lenses, dry eye treatment, computer strain, and tired eyes.',
+    locale: 'en_US',
+    siteName: 'The NYC Optometrist',
+    images: [{
+      url: '/og-image.jpg',
+      width: 1200,
+      height: 630,
+      alt: 'The NYC Optometrist - Dr. Joanna Latek'
+    }]
+  },
+
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Dr. Joanna Latek - Top-rated 2025 NYC Optometrist',
+    description: 'Top-rated 2025 NYC optometrist serving all five boroughs. Dr. Joanna Latek specializes in comprehensive eye exams, specialty contact lenses, dry eye treatment, computer strain, and tired eyes.',
+    images: ['/og-image.jpg'],
   },
 };
 
