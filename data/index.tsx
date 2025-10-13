@@ -155,7 +155,7 @@ const locations = [
   {
     name: "Eye & Health",
     address: "159 1st Ave, New York, NY 10003",
-    phone: "+1 (646) 410-1544",
+    phone: "+1 (212) 228-0950",
     website: "",
     frame: (
       <div style={{ width: "100%" }}>
@@ -183,7 +183,7 @@ const locations = [
 const contactLocations = [
   {
     name: "Eye & Health",
-    phone: "+1 (646) 410-1544",
+    phone: "+1 (212) 228-0950",
     bookingUrl: undefined,
   },
 ];

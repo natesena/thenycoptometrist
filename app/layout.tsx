@@ -69,7 +69,7 @@ export default function RootLayout({
                 "postalCode": "10003",
                 "addressCountry": "US"
               },
-              "telephone": "+1 (646) 410-1544",
+              "telephone": "+1 (212) 228-0950",
               "priceRange": "$$",
               "hasOfferCatalog": {
                 "@type": "OfferCatalog",
@@ -146,7 +146,7 @@ export default function RootLayout({
                   "postalCode": "10003",
                   "addressCountry": "US"
                 },
-                "telephone": "+1 (646) 410-1544",
+                "telephone": "+1 (212) 228-0950",
                 "openingHoursSpecification": [
                   {
                     "@type": "OpeningHoursSpecification",
