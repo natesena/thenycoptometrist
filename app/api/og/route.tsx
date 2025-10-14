@@ -79,7 +79,7 @@ export async function GET() {
                   lineHeight: 1.2,
                 }}
               >
-                I'm Dr. Latek
+                I&apos;m Dr. Latek
               </div>
               <div
                 style={{

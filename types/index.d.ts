@@ -37,9 +37,11 @@ declare global {
     id: number;
     documentId: string;
     title: string;
-    slug: string;
+    slug?: string;
+    Slug?: string; // Strapi field name (capitalized)
     content: string;
     excerpt?: string;
+    Excerpt?: string; // Strapi field name (capitalized)
     featuredImage?: {
       id: number;
       url: string;

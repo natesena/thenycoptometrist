@@ -5,10 +5,10 @@ interface FetchOptions extends RequestInit {
   params?: Record<string, string | number | boolean>;
 }
 
-async function fetchAPI(
+async function fetchAPI<T = unknown>(
   path: string,
   options: FetchOptions = {}
-): Promise<any> {
+): Promise<T> {
   const { params, ...fetchOptions } = options;
   
   let url = `${API_URL}${path}`;
@@ -44,7 +44,7 @@ export async function getBlogPosts(
   page = 1,
   pageSize = 10
 ): Promise<StrapiResponse<BlogPost[]>> {
-  const data = await fetchAPI('/blog-posts', {
+  const data = await fetchAPI<StrapiResponse<BlogPost[]>>('/blog-posts', {
     params: {
       'pagination[page]': page,
       'pagination[pageSize]': pageSize,
@@ -60,7 +60,7 @@ export async function getBlogPosts(
 export async function getBlogPostBySlug(
   slug: string
 ): Promise<BlogPost | null> {
-  const data = await fetchAPI('/blog-posts', {
+  const data = await fetchAPI<StrapiResponse<BlogPost[]>>('/blog-posts', {
     params: {
       'filters[Slug][$eq]': slug,
       'populate': '*',
@@ -76,13 +76,13 @@ export async function getBlogPostBySlug(
 }
 
 export async function getAllBlogSlugs(): Promise<string[]> {
-  const data = await fetchAPI('/blog-posts', {
+  const data = await fetchAPI<StrapiResponse<BlogPost[]>>('/blog-posts', {
     params: {
       'pagination[pageSize]': 100,
     },
   });
 
-  return data.data.map((post: any) => post.Slug || post.slug);
+  return data.data.map((post) => post.Slug || post.slug || '');
 }
 
 export { STRAPI_URL };

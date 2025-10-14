@@ -36,7 +36,11 @@ interface BlogPost {
   content: string;
   publishedDate: string;
   author: string;
-  featuredImage?: any[];
+  featuredImage?: {
+    id: number;
+    url: string;
+    alternativeText?: string;
+  }[];
 }
 
 export default async function BlogPage() {
@@ -67,13 +71,13 @@ export default async function BlogPage() {
     'blogPost': posts.map(post => ({
       '@type': 'BlogPosting',
       'headline': post.title,
-      'description': (post as any).Excerpt || post.excerpt || '',
+      'description': post.Excerpt || post.excerpt || '',
       'datePublished': post.publishedDate,
       'author': {
         '@type': 'Person',
         'name': post.author
       },
-      'url': `https://www.thenycoptometrist.com/blog/${(post as any).Slug || post.slug}`,
+      'url': `https://www.thenycoptometrist.com/blog/${post.Slug || post.slug}`,
       ...(post.featuredImage && post.featuredImage.length > 0 && {
         'image': `${STRAPI_URL}${post.featuredImage[0].url}`
       })
@@ -81,7 +85,7 @@ export default async function BlogPage() {
   };
 
   return (
-<div className='bg-white'>
+<div className='bg-white min-h-[80vh]'>
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(blogSchema) }}
@@ -102,7 +106,7 @@ export default async function BlogPage() {
       ) : (
         <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
           {posts.map((post) => (
-            <Link key={post.id} href={`/blog/${(post as any).Slug || post.slug}`} className="flex flex-col">
+            <Link key={post.id} href={`/blog/${post.Slug || post.slug}`} className="flex flex-col">
               {/* Article Image */}
               <div className="mb-6 rounded-lg overflow-hidden">
                 {post.featuredImage && post.featuredImage.length > 0 ? (
@@ -139,9 +143,9 @@ export default async function BlogPage() {
               </h2>
               
               {/* Article Description */}
-              {((post as any).Excerpt || post.excerpt) && (
+              {(post.Excerpt || post.excerpt) && (
                 <p className="text-md text-gray-600 font-[400]">
-                  {(post as any).Excerpt || post.excerpt}
+                  {post.Excerpt || post.excerpt}
                 </p>
               )}
             </Link>

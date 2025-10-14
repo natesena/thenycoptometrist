@@ -7,7 +7,7 @@ import { notFound } from 'next/navigation';
 import ReactMarkdown from 'react-markdown';
 
 interface BlogPostPageProps {
-  params: { slug: string };
+  params: Promise<{ slug: string }>;
 }
 
 // Generate static params for all blog posts
@@ -26,7 +26,8 @@ export async function generateStaticParams() {
 // Generate metadata for each blog post
 export async function generateMetadata({ params }: BlogPostPageProps): Promise<Metadata> {
   try {
-    const post = await getBlogPostBySlug(params.slug);
+    const { slug } = await params;
+    const post = await getBlogPostBySlug(slug);
     
     if (!post) {
       return {
@@ -38,16 +39,18 @@ export async function generateMetadata({ params }: BlogPostPageProps): Promise<M
       ? `${STRAPI_URL}${post.featuredImage[0].url}`
       : 'https://storage.googleapis.com/thenycoptometrist-assets/og.png';
 
+    const description = (post.Excerpt || post.excerpt || post.content.substring(0, 160)) as string;
+
     return {
       title: `${post.title} | The NYC Optometrist Blog`,
-      description: (post as any).Excerpt || post.excerpt || post.content.substring(0, 160),
+      description: description,
       openGraph: {
         title: post.title,
-        description: (post as any).Excerpt || post.excerpt || post.content.substring(0, 160),
+        description: description,
         type: 'article',
         publishedTime: post.publishedDate,
         authors: [post.author],
-        url: `https://www.thenycoptometrist.com/blog/${params.slug}`,
+        url: `https://www.thenycoptometrist.com/blog/${slug}`,
         images: [{
           url: imageUrl,
           width: 1200,
@@ -58,7 +61,7 @@ export async function generateMetadata({ params }: BlogPostPageProps): Promise<M
       twitter: {
         card: 'summary_large_image',
         title: post.title,
-        description: (post as any).Excerpt || post.excerpt || post.content.substring(0, 160),
+        description: description,
         images: [imageUrl],
       },
     };
@@ -71,7 +74,8 @@ export async function generateMetadata({ params }: BlogPostPageProps): Promise<M
 }
 
 export default async function BlogPostPage({ params }: BlogPostPageProps) {
-  const post = await getBlogPostBySlug(params.slug);
+  const { slug } = await params;
+  const post = await getBlogPostBySlug(slug);
 
   if (!post) {
     notFound();
@@ -86,7 +90,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
     '@context': 'https://schema.org',
     '@type': 'BlogPosting',
     'headline': post.title,
-    'description': (post as any).Excerpt || post.excerpt || '',
+    'description': post.Excerpt || post.excerpt || '',
     'datePublished': post.publishedDate,
     'dateModified': post.updatedAt || post.publishedDate,
     'author': {
@@ -106,10 +110,10 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
         'url': 'https://www.thenycoptometrist.com/logo.png'
       }
     },
-    'url': `https://www.thenycoptometrist.com/blog/${params.slug}`,
+    'url': `https://www.thenycoptometrist.com/blog/${slug}`,
     'mainEntityOfPage': {
       '@type': 'WebPage',
-      '@id': `https://www.thenycoptometrist.com/blog/${params.slug}`
+      '@id': `https://www.thenycoptometrist.com/blog/${slug}`
     },
     ...(imageUrl && {
       'image': {
@@ -161,9 +165,9 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
         </h1>
 
         {/* Excerpt */}
-        {((post as any).Excerpt || post.excerpt) && (
+        {(post.Excerpt || post.excerpt) && (
           <p className="text-xl text-gray-600 font-[400] mb-12 leading-relaxed">
-            {(post as any).Excerpt || post.excerpt}
+            {post.Excerpt || post.excerpt}
           </p>
         )}
 
