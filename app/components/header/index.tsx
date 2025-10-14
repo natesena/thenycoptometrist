@@ -5,6 +5,7 @@ import Nav from './nav';
 import { AnimatePresence } from 'framer-motion';
 import { usePathname } from 'next/navigation';
 import Image from 'next/image';
+import Link from 'next/link';
 export default function Menu() {
 
   const [isActive, setIsActive] = useState(false);
@@ -20,7 +21,7 @@ export default function Menu() {
     <div className={styles.main}>
 
       <div className={styles.header}>
-        <div>
+        <Link href="/" className="cursor-pointer">
         <Image 
           src="/Eye.png" 
           alt="logo" 
@@ -29,7 +30,7 @@ export default function Menu() {
           className="w-12 h-12 md:w-24 md:h-24" 
           style={{ filter: isBlogPage ? 'invert(1)' : 'none' }}
         />
-        </div>
+        </Link>
         <div onClick={() => {setIsActive(!isActive)}} className={`${styles.button} block lg:!hidden`}>
           <div className={`${styles.burger} ${isActive ? styles.burgerActive : ""}`}></div>
         </div>
