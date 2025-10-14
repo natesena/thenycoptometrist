@@ -5,10 +5,10 @@ import { getBlogPosts, STRAPI_URL } from '@/lib/strapi';
 
 export const metadata: Metadata = {
   title: 'Eye Care Blog | Expert Tips & Insights - The NYC Optometrist',
-  description: 'Expert eye care insights and tips for healthier vision from Dr. Joanna Latek. Learn about eye health, vision care, and optometry best practices.',
+  description: 'Your trusted resource for comprehensive eye care, vision health, and expert optometry insights from Dr. Joanna Latek.',
   openGraph: {
     title: 'Eye Care Blog | The NYC Optometrist',
-    description: 'Expert eye care insights and tips for healthier vision from Dr. Joanna Latek.',
+    description: 'Your trusted resource for comprehensive eye care, vision health, and expert optometry insights from Dr. Joanna Latek.',
     type: 'website',
     url: 'https://www.thenycoptometrist.com/blog',
     images: [{
@@ -21,7 +21,7 @@ export const metadata: Metadata = {
   twitter: {
     card: 'summary_large_image',
     title: 'Eye Care Blog | The NYC Optometrist',
-    description: 'Expert eye care insights and tips for healthier vision.',
+    description: 'Your trusted resource for comprehensive eye care, vision health, and expert optometry insights.',
     images: ['https://storage.googleapis.com/thenycoptometrist-assets/og.png'],
   },
 };
@@ -58,7 +58,7 @@ export default async function BlogPage() {
     '@context': 'https://schema.org',
     '@type': 'Blog',
     'name': 'The NYC Optometrist Blog',
-    'description': 'Expert eye care insights and tips for healthier vision.',
+    'description': 'Your trusted resource for comprehensive eye care, vision health, and expert optometry insights.',
     'url': 'https://www.thenycoptometrist.com/blog',
     'publisher': {
       '@type': 'Organization',
@@ -94,7 +94,7 @@ export default async function BlogPage() {
       {/* Header */}
       <div className="text-center mb-16">
         <h1 className="text-4xl md:text-5xl font-[500] lg:font-bold text-gray-900 max-w-4xl mx-auto">
-          Expert eye care insights and tips for healthier vision.
+          Your trusted resource for comprehensive eye care, vision health, and expert optometry insights.
         </h1>
       </div>
 

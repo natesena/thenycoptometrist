@@ -39,7 +39,7 @@ declare global {
     title: string;
     slug?: string;
     Slug?: string; // Strapi field name (capitalized)
-    content: string;
+    content: any; // Can be string (old format) or BlocksContent (new format)
     excerpt?: string;
     Excerpt?: string; // Strapi field name (capitalized)
     featuredImage?: {
