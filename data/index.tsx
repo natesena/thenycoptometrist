@@ -308,6 +308,10 @@ const navItems = [
     href: "#reviews",
   },
   {
+    title: "Blog",
+    href: "/blog",
+  },
+  {
     title: "Contact",
     href: "#contact-us",
   },

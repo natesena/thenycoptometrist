@@ -26,10 +26,10 @@ export const metadata: Metadata = {
     locale: 'en_US',
     siteName: 'The NYC Optometrist',
     images: [{
-      url: '/og-image.jpg',
+      url: 'https://storage.googleapis.com/thenycoptometrist-assets/og.png',
       width: 1200,
       height: 630,
-      alt: 'The NYC Optometrist - Dr. Joanna Latek'
+      alt: 'The NYC Optometrist - Dr. Joanna Latek - 4.9★ Rating'
     }]
   },
 
@@ -37,7 +37,7 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     title: 'Dr. Joanna Latek - Top-rated 2025 NYC Optometrist',
     description: 'Top-rated 2025 NYC optometrist serving all five boroughs. Dr. Joanna Latek specializes in comprehensive eye exams, specialty contact lenses, dry eye treatment, computer strain, and tired eyes.',
-    images: ['/og-image.jpg'],
+    images: ['https://storage.googleapis.com/thenycoptometrist-assets/og.png'],
   },
 };
 
