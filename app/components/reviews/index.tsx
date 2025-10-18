@@ -194,11 +194,13 @@ const Reviews = () => {
                     </div>
 
                     {/* Service badge */}
-                    <div className="mb-4">
-                      <span className="inline-block bg-federalBlue/10 text-federalBlue px-3 py-1 rounded-full text-sm font-medium">
-                        {review.service}
-                      </span>
-                    </div>
+                    {review.service && (
+                      <div className="mb-4">
+                        <span className="inline-block bg-federalBlue/10 text-federalBlue px-3 py-1 rounded-full text-sm font-medium">
+                          {review.service}
+                        </span>
+                      </div>
+                    )}
 
                     {/* Review content */}
                     <p className="text-gray-700 leading-relaxed mb-4 flex-grow">
@@ -248,9 +250,9 @@ const Reviews = () => {
           >
             <div className="inline-flex items-center gap-8 bg-gray-50 rounded-2xl px-8 py-4">
               <div>
-                <div className="text-2xl font-bold text-charcoal">4.9</div>
+                <div className="text-2xl font-bold text-charcoal">4.92</div>
                 <div className="flex justify-center mb-1">
-                  {renderStars(4.9)}
+                  {renderStars(4.92)}
                 </div>
                 <div className="text-sm text-gray-600">Average Rating</div>
               </div>

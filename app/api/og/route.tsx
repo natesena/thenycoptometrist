@@ -156,7 +156,7 @@ export async function GET() {
                     marginBottom: '8px',
                   }}
                 >
-                  4.9★
+                  4.92★
                 </div>
                 <div
                   style={{

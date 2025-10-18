@@ -12,7 +12,7 @@ declare global {
     name: string;
     rating: number;
     date: string;
-    service: string;
+    service?: string;
     review: string;
     initials: string;
     location: string;

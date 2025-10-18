@@ -99,7 +99,7 @@ export default function HeroSection() {
             </div>
             <div className="bg-white/15 backdrop-blur-md rounded-xl p-4 md:p-10 text-center border border-white/30 hover:bg-white/20 transition-all duration-300 shadow-lg">
               <div className="text-white text-3xl lg:text-5xl font-bold mb-1">
-                4.9★
+                4.92★
               </div>
               <div className="text-white/90 text-sm font-medium">
                 Patient Rating
