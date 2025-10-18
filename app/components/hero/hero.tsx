@@ -51,7 +51,10 @@ export default function HeroSection() {
         width={3000}
         height={3500}
         alt="background"
-        className="max-h-[100vh] object-contain w-auto relative right-8 drop-shadow-2xl"
+        className="max-h-[100vh] object-contain w-auto relative right-8"
+        style={{
+          filter: 'drop-shadow(-12px 0 20px rgba(0, 0, 0, 0.25)) drop-shadow(-6px 6px 12px rgba(0, 0, 0, 0.15))'
+        }}
       />
       <div className={`${styles.sliderContainer} absolute`}>
         <div ref={slider} className={styles.slider}>
