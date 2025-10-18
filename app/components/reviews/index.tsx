@@ -9,7 +9,8 @@ const Reviews = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isAutoPlaying, setIsAutoPlaying] = useState(true);
 
-  const totalReviews = reviews.length;
+  const totalReviewsOnZocDoc = 49; // Total reviews on ZocDoc (23 with text, 26 rating-only)
+  const displayableReviews = reviews.length; // Reviews with text that we can show (23)
   const reviewsPerPage = {
     mobile: 1,
     tablet: 2,
@@ -41,22 +42,22 @@ const Reviews = () => {
 
     const interval = setInterval(() => {
       setCurrentIndex((prevIndex) => {
-        const maxIndex = Math.max(0, totalReviews - reviewsToShow);
+        const maxIndex = Math.max(0, displayableReviews - reviewsToShow);
         return prevIndex >= maxIndex ? 0 : prevIndex + 1;
       });
     }, 4000); // Reduced interval for better UX
 
     return () => clearInterval(interval);
-  }, [isAutoPlaying, reviewsToShow, totalReviews]);
+  }, [isAutoPlaying, reviewsToShow, displayableReviews]);
 
   const nextReview = () => {
-    const maxIndex = Math.max(0, totalReviews - reviewsToShow);
+    const maxIndex = Math.max(0, displayableReviews - reviewsToShow);
     setCurrentIndex((prevIndex) => (prevIndex >= maxIndex ? 0 : prevIndex + 1));
     setIsAutoPlaying(true); // Resume auto-play after manual navigation
   };
 
   const prevReview = () => {
-    const maxIndex = Math.max(0, totalReviews - reviewsToShow);
+    const maxIndex = Math.max(0, displayableReviews - reviewsToShow);
     setCurrentIndex((prevIndex) => (prevIndex <= 0 ? maxIndex : prevIndex - 1));
     setIsAutoPlaying(true); // Resume auto-play after manual navigation
   };
@@ -71,7 +72,7 @@ const Reviews = () => {
     return Math.floor(currentIndex / reviewsToShow);
   };
 
-  const totalSlides = Math.ceil(totalReviews / reviewsToShow);
+  const totalSlides = Math.ceil(displayableReviews / reviewsToShow);
 
   const renderStars = (rating: number) => {
     return Array.from({ length: 5 }, (_, index) => (
@@ -85,15 +86,13 @@ const Reviews = () => {
   };
 
   const formatDate = (dateString: string) => {
-    return new Date(dateString).toLocaleDateString("en-US", {
-      year: "numeric",
-      month: "long",
-      day: "numeric",
-    });
+    // ZocDoc dates are in relative format like "Less than 1 month ago"
+    // Return them as-is without attempting to parse
+    return dateString;
   };
 
   const getVisibleReviews = () => {
-    const endIndex = Math.min(currentIndex + reviewsToShow, totalReviews);
+    const endIndex = Math.min(currentIndex + reviewsToShow, displayableReviews);
     return reviews.slice(currentIndex, endIndex);
   };
 
@@ -194,11 +193,13 @@ const Reviews = () => {
                     </div>
 
                     {/* Service badge */}
-                    <div className="mb-4">
-                      <span className="inline-block bg-federalBlue/10 text-federalBlue px-3 py-1 rounded-full text-sm font-medium">
-                        {review.service}
-                      </span>
-                    </div>
+                    {review.service && (
+                      <div className="mb-4">
+                        <span className="inline-block bg-federalBlue/10 text-federalBlue px-3 py-1 rounded-full text-sm font-medium">
+                          {review.service}
+                        </span>
+                      </div>
+                    )}
 
                     {/* Review content */}
                     <p className="text-gray-700 leading-relaxed mb-4 flex-grow">
@@ -248,15 +249,15 @@ const Reviews = () => {
           >
             <div className="inline-flex items-center gap-8 bg-gray-50 rounded-2xl px-8 py-4">
               <div>
-                <div className="text-2xl font-bold text-charcoal">4.9</div>
+                <div className="text-2xl font-bold text-charcoal">4.92</div>
                 <div className="flex justify-center mb-1">
-                  {renderStars(4.9)}
+                  {renderStars(4.92)}
                 </div>
                 <div className="text-sm text-gray-600">Average Rating</div>
               </div>
               <div className="w-px h-12 bg-gray-300" />
               <div>
-                <div className="text-2xl font-bold text-charcoal">{totalReviews}</div>
+                <div className="text-2xl font-bold text-charcoal">{totalReviewsOnZocDoc}</div>
                 <div className="text-sm text-gray-600">Total Reviews</div>
               </div>
             </div>

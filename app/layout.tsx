@@ -29,7 +29,7 @@ export const metadata: Metadata = {
       url: 'https://storage.googleapis.com/thenycoptometrist-assets/og.png',
       width: 1200,
       height: 630,
-      alt: 'The NYC Optometrist - Dr. Joanna Latek - 4.9★ Rating'
+      alt: 'The NYC Optometrist - Dr. Joanna Latek - 4.92★ Rating'
     }]
   },
 
