@@ -1,0 +1,29 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
+}
+
+// Metrics tracking model
+model MetricsEvent {
+  id         String   @id @default(uuid())
+  createdAt  DateTime @default(now()) @map("created_at")
+  eventType  String   @map("event_type") // 'visit' or 'click'
+  url        String   // Full URL
+  pathname   String   // Just the path for easier querying
+  userAgent  String?  @map("user_agent")
+  referrer   String?
+  eventData  Json?    @map("event_data") // For click targets, etc.
+
+  @@index([eventType])
+  @@index([pathname])
+  @@index([createdAt])
+  @@map("metrics_events")
+}

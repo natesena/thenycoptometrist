@@ -1,7 +1,9 @@
 import type { Metadata } from "next";
+import { Suspense } from "react";
 import "./globals.css";
 import Footer from "@/app/components/footer";
 import Menu from "./components/header";
+import { AnalyticsTracker } from "@/app/components/AnalyticsTracker";
 
 export const metadata: Metadata = {
   metadataBase: new URL('https://www.thenycoptometrist.com'),
@@ -185,6 +187,9 @@ export default function RootLayout({
         />
       </head>
       <body className={`bg-background antialiased`}>
+        <Suspense fallback={null}>
+          <AnalyticsTracker />
+        </Suspense>
         <div>
           <div className="">
             <div className="relative z-[100]">
