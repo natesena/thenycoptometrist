@@ -1,10 +1,15 @@
 // Client-side analytics utilities for tracking metrics
 
+// JSON-serializable type definitions
+type JsonPrimitive = string | number | boolean | null;
+type JsonValue = JsonPrimitive | JsonValue[] | { [key: string]: JsonValue };
+type EventData = Record<string, JsonValue>;
+
 export interface TrackEventOptions {
   eventType: 'visit' | 'click';
   url?: string;
   pathname?: string;
-  eventData?: Record<string, any>;
+  eventData?: EventData;
 }
 
 /**
@@ -61,6 +66,6 @@ export function trackPageView(): void {
  * Track a click event
  * @param eventData - Additional data about the click (e.g., button name, link URL)
  */
-export function trackClick(eventData?: Record<string, any>): void {
+export function trackClick(eventData?: EventData): void {
   trackEvent({ eventType: 'click', eventData });
 }

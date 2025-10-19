@@ -11,6 +11,11 @@ if (!supabaseUrl || !supabaseAnonKey) {
 // Create a single supabase client for interacting with your database
 export const supabase = createClient(supabaseUrl, supabaseAnonKey);
 
+// JSON-serializable type definitions
+type JsonPrimitive = string | number | boolean | null;
+type JsonValue = JsonPrimitive | JsonValue[] | { [key: string]: JsonValue };
+type EventData = Record<string, JsonValue>;
+
 // Type definitions for our metrics data
 export interface MetricsEvent {
   id?: string;
@@ -20,5 +25,5 @@ export interface MetricsEvent {
   pathname: string;
   user_agent?: string;
   referrer?: string;
-  event_data?: Record<string, any>;
+  event_data?: EventData;
 }
