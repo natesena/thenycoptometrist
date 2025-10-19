@@ -58,21 +58,27 @@ export default function Menu() {
               target="_blank"
               rel="noopener noreferrer"
               onClick={() => trackBookNow({ location: 'header', page: pathname, url: ZOCDOC_URL })}
-              className={styles.conversionLink}
+              className={`${styles.conversionLink} font-gothic`}
             >
               Book an Appointment
             </a>
+            <Link
+              href="/blog"
+              className={`${styles.conversionLink} font-gothic`}
+            >
+              Blog
+            </Link>
             <a
               href={`tel:${PHONE_NUMBER}`}
               onClick={() => trackPhoneClick({ location: 'header', phone: PHONE_NUMBER, page: pathname })}
-              className={styles.conversionLink}
+              className={`${styles.conversionLink} font-gothic`}
             >
               Call
             </a>
             <a
               href={`mailto:${EMAIL}`}
               onClick={() => trackEmailClick({ location: 'header', email: EMAIL, page: pathname })}
-              className={styles.conversionLink}
+              className={`${styles.conversionLink} font-gothic`}
             >
               Email
             </a>

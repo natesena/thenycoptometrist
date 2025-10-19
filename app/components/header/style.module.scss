@@ -76,12 +76,12 @@
     .leftGroup {
         display: flex;
         align-items: flex-start; // Top align
-        gap: 4rem; // More space between logo and links
+        gap: 8rem; // More space between logo and links
     }
 
     .conversionLinks {
         display: none; // Hidden by default
-        gap: 3rem; // More space between individual links
+        gap: 4rem; // More space between individual links
         align-items: flex-start; // Top align
         padding-top: 0; // Align with top of logo
 
