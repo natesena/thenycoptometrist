@@ -19,10 +19,13 @@ export default {
       },
       fontFamily: {
         'sans': ['Neue Montreal', 'sans-serif'],
+        'serif': ['Nanum Myeongjo', 'serif'],
+        'gothic': ['Special Gothic Expanded', 'sans-serif'],
       },
     },
   },
   plugins: [
     require('@tailwindcss/typography'),
+    require('tailwindcss-animate'),
   ],
 } satisfies Config;

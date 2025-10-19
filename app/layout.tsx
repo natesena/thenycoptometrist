@@ -192,9 +192,7 @@ export default function RootLayout({
         </Suspense>
         <div>
           <div className="">
-            <div className="relative z-[100]">
-              <Menu />
-            </div>
+            <Menu />
             <main className="">{children}</main>
             <Footer />
           </div>

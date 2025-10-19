@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import { motion } from "framer-motion";
 import { Phone, AlertTriangle, Send, ExternalLink } from "lucide-react";
 import { contactLocations } from "@/data";
+import { trackBookNow, trackPhoneClick } from "@/lib/analytics";
 
 interface ContactLocation {
   name: string;
@@ -88,6 +89,11 @@ const ContactForm = () => {
                 <Phone className="w-5 h-5 text-federalBlue" />
                 <a
                   href={`tel:${location.phone}`}
+                  onClick={() => trackPhoneClick({
+                    location: 'contact-form',
+                    phone: location.phone,
+                    page: 'contact'
+                  })}
                   className="text-federalBlue hover:text-blue-800 transition-colors"
                 >
                   {location.phone}
@@ -97,8 +103,16 @@ const ContactForm = () => {
                 <motion.button
                   whileHover={{ scale: 1.02 }}
                   whileTap={{ scale: 0.98 }}
-                  onClick={() => window.open((location as ContactLocation).bookingUrl, "_blank")}
-                  className="w-full px-4 py-2 bg-white border-2 border-federalBlue text-federalBlue rounded-lg 
+                  onClick={() => {
+                    const bookingUrl = (location as ContactLocation).bookingUrl;
+                    trackBookNow({
+                      location: 'contact-form',
+                      page: 'contact',
+                      ...(bookingUrl && { url: bookingUrl })
+                    });
+                    window.open(bookingUrl, "_blank");
+                  }}
+                  className="w-full px-4 py-2 bg-white border-2 border-federalBlue text-federalBlue rounded-lg
                             hover:bg-blue-50 transition-colors duration-300 flex items-center justify-center gap-2"
                 >
                   Book Online
@@ -107,7 +121,12 @@ const ContactForm = () => {
               ) : (
                 <a
                   href={`tel:${location.phone}`}
-                  className="w-full px-4 py-2 bg-white border-2 border-federalBlue text-federalBlue rounded-lg 
+                  onClick={() => trackPhoneClick({
+                    location: 'contact-form-cta',
+                    phone: location.phone,
+                    page: 'contact'
+                  })}
+                  className="w-full px-4 py-2 bg-white border-2 border-federalBlue text-federalBlue rounded-lg
                         hover:bg-blue-50 transition-colors duration-300 flex items-center justify-center gap-2"
                 >
                   Call to Book Appointment

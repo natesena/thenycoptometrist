@@ -1,6 +1,8 @@
 .header{
     padding: 20px 20px;
     position: fixed;
+    top: 0;
+    left: 0;
     right: 0;
     z-index: 1000;
     width: 100vw;
@@ -8,15 +10,31 @@
     justify-content: space-between;
     align-items: center;
 
+    // Transparent background
+    background-color: transparent;
+
     .button{
         width: 60px;
         height: 60px;
         border-radius: .5rem;
-        background-color: #36465F;
+        background-color: rgba(255, 255, 255, 0.12);
+        border: 1px solid rgba(255, 255, 255, 0.2);
         cursor: pointer;
         display: flex;
         align-items: center;
         justify-content: center;
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+
+        &:hover {
+            background-color: rgba(255, 255, 255, 0.18);
+            border-color: rgba(255, 255, 255, 0.3);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        }
+
+        &:active {
+            background-color: rgba(255, 255, 255, 0.25);
+        }
     }
 
     .burger{
@@ -24,12 +42,12 @@
         &::after, &::before{
             content: "";
             display: block;
-            height: 1px;
+            height: 2px;
             width: 40%;
             margin: auto;
             background-color: white;
             position: relative;
-            transition: transform 0.3s;
+            transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
         &::after{
@@ -52,7 +70,42 @@
             transform: rotate(-45deg);
             top: 0px;
         }
-        
+
+    }
+
+    .leftGroup {
+        display: flex;
+        align-items: flex-start; // Top align
+        gap: 8rem; // More space between logo and links
+    }
+
+    .conversionLinks {
+        display: none; // Hidden by default
+        gap: 4rem; // More space between individual links
+        align-items: flex-start; // Top align
+        padding-top: 0; // Align with top of logo
+
+        // Show on larger screens
+        @media (min-width: 1024px) {
+            display: flex;
+        }
+    }
+
+    .conversionLink {
+        color: white;
+        font-size: 1.25rem; // Bigger font size
+        font-weight: 500;
+        text-decoration: none;
+        transition: all 0.3s ease;
+        cursor: pointer;
+        white-space: nowrap;
+        line-height: 1.2; // Tighter line height for better top alignment
+        text-transform: uppercase; // All caps
+
+        &:hover {
+            opacity: 0.8;
+            text-decoration: underline;
+        }
     }
 }
 
