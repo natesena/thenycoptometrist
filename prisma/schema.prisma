@@ -6,21 +6,33 @@ generator client {
 }
 
 datasource db {
-  provider = "postgresql"
-  url      = env("DATABASE_URL")
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
   directUrl = env("DIRECT_URL")
+}
+
+// Event type enumeration for type-safe metrics tracking
+enum EventType {
+  visit
+  book_now_clicked
+  phone_clicked
+  email_clicked
+  social_media_clicked
+  product_referral_clicked
+  blog_post_clicked
+  external_link_clicked
 }
 
 // Metrics tracking model
 model MetricsEvent {
-  id         String   @id @default(uuid())
-  createdAt  DateTime @default(now()) @map("created_at")
-  eventType  String   @map("event_type") // 'visit' or 'click'
-  url        String   // Full URL
-  pathname   String   // Just the path for easier querying
-  userAgent  String?  @map("user_agent")
-  referrer   String?
-  eventData  Json?    @map("event_data") // For click targets, etc.
+  id        String    @id @default(uuid())
+  createdAt DateTime  @default(now()) @map("created_at")
+  eventType EventType @map("event_type")
+  url       String    // Full URL
+  pathname  String    // Just the path for easier querying
+  userAgent String?   @map("user_agent")
+  referrer  String?
+  eventData Json?     @map("event_data") // For click targets, additional metadata
 
   @@index([eventType])
   @@index([pathname])

@@ -75,6 +75,10 @@ body {
   font-family: "Neue Montreal", sans-serif;
 }
 
+html {
+  scroll-padding-top: 100px;
+}
+
 html, body {
   background-color: white;
   max-width: 100vw;

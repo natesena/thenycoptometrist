@@ -8,6 +8,7 @@ import {
   UtensilsCrossed,
   Plane,
 } from "lucide-react";
+import { trackExternalLinkClick } from "@/lib/analytics";
 
 const Description = () => {
   const [activeTab, setActiveTab] = useState<"professional" | "personal">(
@@ -133,6 +134,11 @@ const Description = () => {
                     href="https://www.zocdoc.com/doctor/joanna-latek-od-640237"
                     target="_blank"
                     rel="noopener noreferrer"
+                    onClick={() => trackExternalLinkClick({
+                      location: 'about-me',
+                      page: 'home',
+                      url: 'https://www.zocdoc.com/doctor/joanna-latek-od-640237'
+                    })}
                     className="inline-flex items-center gap-3 bg-federalBlue text-white px-6 py-3 rounded-lg font-medium hover:bg-federalBlue/90 transition-all duration-300 shadow-lg hover:shadow-xl"
                   >
                     <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">

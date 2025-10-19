@@ -2,6 +2,8 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import Rounded from '../common/RoundedButton';
+import { trackBookNow } from '@/lib/analytics';
+
 const FloatingBookButton = () => {
   const [isVisible, setIsVisible] = useState(false);
 
@@ -10,7 +12,7 @@ const FloatingBookButton = () => {
       // Get hero section height - assuming it's 100vh
       const heroHeight = window.innerHeight;
       const scrollPosition = window.scrollY;
-      
+
       setIsVisible(scrollPosition > heroHeight * 0.5);
     };
 
@@ -19,6 +21,7 @@ const FloatingBookButton = () => {
   }, []);
 
   const scrollToPracticeLocations = () => {
+    trackBookNow({ location: 'floating-button', page: window.location.pathname });
     const practiceSection = document.getElementById('locations');
     if (practiceSection) {
       practiceSection.scrollIntoView({ behavior: 'smooth' });

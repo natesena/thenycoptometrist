@@ -1,10 +1,16 @@
 .menu{
     height: 100vh;
+    width: 100vw;
     background-color: #E9E4DB;
     position: fixed;
     right: 0;
     top: 0;
+    left: 0;
+    bottom: 0;
     color: white;
+    z-index: 9999 !important;
+    overflow-x: hidden;
+    pointer-events: auto;
 
     .body{
         box-sizing: border-box;
@@ -33,7 +39,41 @@
                 color: #36465F;
                 font-weight: 400;
             }
-            
+
+        }
+
+        .conversionSection{
+            display: flex;
+            flex-direction: column;
+            margin-top: 40px;
+
+            .header{
+                color: rgb(153, 153, 153);
+                border-bottom: 1px solid rgb(153, 153, 153);
+                text-transform: uppercase;
+                font-size: 11px;
+                margin-bottom: 20px;
+            }
+
+            .conversionOptions{
+                display: flex;
+                flex-direction: column;
+                gap: 16px;
+            }
+
+            .conversionOption{
+                text-decoration: none;
+                color: #36465F;
+                font-weight: 500;
+                font-size: 24px;
+                padding: 12px 0;
+                transition: all 0.3s ease;
+
+                &:hover{
+                    opacity: 0.7;
+                    padding-left: 10px;
+                }
+            }
         }
     }
 }

@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { prisma } from '@/lib/prisma';
+import { EventType } from '@prisma/client';
 
 export async function POST(request: NextRequest) {
   try {
@@ -13,10 +14,12 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    // Validate eventType
-    if (body.eventType !== 'visit' && body.eventType !== 'click') {
+    // Validate eventType is a valid enum value
+    if (!Object.values(EventType).includes(body.eventType as EventType)) {
       return NextResponse.json(
-        { error: 'Invalid eventType. Must be "visit" or "click"' },
+        {
+          error: `Invalid eventType. Must be one of: ${Object.values(EventType).join(', ')}`
+        },
         { status: 400 }
       );
     }

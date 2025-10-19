@@ -2,6 +2,7 @@
 import { useState } from "react";
 import { Clock, Phone, Globe, MapPin, ExternalLink } from "lucide-react";
 import { locations } from "@/data";
+import { trackBookNow, trackPhoneClick, trackExternalLinkClick } from "@/lib/analytics";
 
 interface Location {
   name: string;
@@ -50,6 +51,12 @@ const CredentialsAndLocations = () => {
                     )}`}
                     target="_blank"
                     rel="noopener noreferrer"
+                    onClick={() => trackExternalLinkClick({
+                      location: 'credentials',
+                      page: 'home',
+                      url: 'google-maps',
+                      address: location.address
+                    })}
                     className="flex items-center gap-3 hover:text-federalBlue transition-colors"
                   >
                     <MapPin className="w-5 h-5" />
@@ -58,6 +65,11 @@ const CredentialsAndLocations = () => {
 
                   <a
                     href={`tel:${location.phone}`}
+                    onClick={() => trackPhoneClick({
+                      location: 'credentials-info',
+                      phone: location.phone,
+                      page: 'home'
+                    })}
                     className="flex items-center gap-3 hover:text-federalBlue transition-colors"
                   >
                     <Phone className="w-5 h-5" />
@@ -65,7 +77,12 @@ const CredentialsAndLocations = () => {
                   </a>
                   <a
                     href={`tel:${location.phone}`}
-                    className="w-full px-4 py-2 bg-charcoal border-2 border-charcoal text-white rounded-lg 
+                    onClick={() => trackPhoneClick({
+                      location: 'credentials-cta',
+                      phone: location.phone,
+                      page: 'home'
+                    })}
+                    className="w-full px-4 py-2 bg-charcoal border-2 border-charcoal text-white rounded-lg
                           hover:bg-blue-50 transition-colors duration-300 flex items-center justify-center gap-2"
                   >
                     <Phone className="w-5 h-5 text-white" />
@@ -74,11 +91,19 @@ const CredentialsAndLocations = () => {
 
                   {
                     (location as Location).bookingUrl && (<>
-                    
+
                   <a
                     href={`${(location as Location).bookingUrl}`}
                      target="_blank"
-                    className="w-full px-4 py-2 border-charcoal border-2 text-charcoal rounded-lg 
+                     onClick={() => {
+                       const bookingUrl = (location as Location).bookingUrl;
+                       trackBookNow({
+                         location: 'credentials',
+                         page: 'home',
+                         ...(bookingUrl && { url: bookingUrl })
+                       });
+                     }}
+                    className="w-full px-4 py-2 border-charcoal border-2 text-charcoal rounded-lg
                           hover:bg-blue-50 transition-colors duration-300 flex items-center justify-center gap-2"
                   >
                     <ExternalLink className="w-5 h-5 text-charcoal" />
