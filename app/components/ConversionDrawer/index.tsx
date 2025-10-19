@@ -5,10 +5,7 @@ import { motion } from 'framer-motion';
 import { Calendar, Phone, Mail, X } from 'lucide-react';
 import styles from './style.module.scss';
 import { trackBookNow, trackPhoneClick, trackEmailClick } from '@/lib/analytics';
-
-const ZOCDOC_URL = 'https://www.zocdoc.com/doctor/joanna-latek-od-640237';
-const PHONE_NUMBER = '+1 (212) 228-0950';
-const EMAIL = 'info@thenycoptometrist.com';
+import { ZOCDOC_URL, PHONE_NUMBER, EMAIL } from '@/lib/constants';
 
 interface ConversionDrawerProps {
   isOpen: boolean;

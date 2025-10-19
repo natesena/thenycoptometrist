@@ -3,6 +3,7 @@ import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import Rounded from '../common/RoundedButton';
 import { trackBookNow } from '@/lib/analytics';
+import { ZOCDOC_URL } from '@/lib/constants';
 
 const FloatingBookButton = () => {
   const [isVisible, setIsVisible] = useState(false);
@@ -20,12 +21,9 @@ const FloatingBookButton = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  const scrollToPracticeLocations = () => {
-    trackBookNow({ location: 'floating-button', page: window.location.pathname });
-    const practiceSection = document.getElementById('locations');
-    if (practiceSection) {
-      practiceSection.scrollIntoView({ behavior: 'smooth' });
-    }
+  const handleBookNow = () => {
+    trackBookNow({ location: 'floating-button', page: window.location.pathname, url: ZOCDOC_URL });
+    window.open(ZOCDOC_URL, '_blank', 'noopener,noreferrer');
   };
 
   return (
@@ -36,7 +34,7 @@ const FloatingBookButton = () => {
           animate={{ opacity: 1, y: 0 }}
           exit={{ opacity: 0, y: 20 }}
           transition={{ duration: 0.3, ease: 'easeOut' }}
-          onClick={scrollToPracticeLocations}
+          onClick={handleBookNow}
           className="fixed bottom-2 md:bottom-8 right-2 md:right-8 flex items-center justify-center"
         >
           <Rounded>

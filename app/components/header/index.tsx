@@ -13,10 +13,7 @@ import {
   SheetTitle,
 } from "@/components/ui/sheet";
 import { navItems } from "@/data";
-
-const ZOCDOC_URL = 'https://www.zocdoc.com/doctor/joanna-latek-od-640237';
-const PHONE_NUMBER = '+1 (212) 228-0950';
-const EMAIL = 'info@thenycoptometrist.com';
+import { ZOCDOC_URL, PHONE_NUMBER, EMAIL } from '@/lib/constants';
 
 export default function Menu() {
   const [isActive, setIsActive] = useState(false);

@@ -6,6 +6,7 @@ import { getBlogPostBySlug, getAllBlogSlugs, STRAPI_URL } from "@/lib/strapi";
 import { notFound } from "next/navigation";
 import BlockRendererClient from "@/app/components/BlockRendererClient";
 import Image from "next/image";
+import { ZOCDOC_URL } from '@/lib/constants';
 interface BlogPostPageProps {
   params: Promise<{ slug: string }>;
 }
@@ -214,7 +215,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
                 </div>
                 <div>
                   <Link
-                    href="https://www.zocdoc.com/doctor/joanna-latek-od-640237"
+                    href={ZOCDOC_URL}
                     className="font-[500] text-gray-900 text-xl"
                   >
                     {post.author}
