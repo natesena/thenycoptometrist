@@ -19,8 +19,10 @@ export default function HeroSection() {
     } else if (xPercent.current > 0) {
       xPercent.current = -100;
     }
-    gsap.set(firstText.current, { xPercent: xPercent.current });
-    gsap.set(secondText.current, { xPercent: xPercent.current });
+    if (firstText.current && secondText.current) {
+      gsap.set(firstText.current, { xPercent: xPercent.current });
+      gsap.set(secondText.current, { xPercent: xPercent.current });
+    }
     requestAnimationFrame(animate);
     xPercent.current += 0.1 * direction.current;
   }, []);
