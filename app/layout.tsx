@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { Suspense } from "react";
 import "./globals.css";
 import Footer from "@/app/components/footer";
 import Menu from "./components/header";
@@ -186,7 +187,9 @@ export default function RootLayout({
         />
       </head>
       <body className={`bg-background antialiased`}>
-        <AnalyticsTracker />
+        <Suspense fallback={null}>
+          <AnalyticsTracker />
+        </Suspense>
         <div>
           <div className="">
             <div className="relative z-[100]">
