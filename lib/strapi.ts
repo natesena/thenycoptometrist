@@ -54,6 +54,13 @@ export async function getBlogPosts(
     next: { revalidate: 60 }, // Revalidate every 60 seconds
   });
 
+  // Ensure data integrity and uniqueness
+  if (data && data.data) {
+    data.data = data.data.filter((post, index, self) => 
+      index === self.findIndex(p => p.id === post.id)
+    );
+  }
+
   return data;
 }
 
@@ -82,7 +89,14 @@ export async function getAllBlogSlugs(): Promise<string[]> {
     },
   });
 
-  return data.data.map((post) => post.Slug || post.slug || '');
+  // Ensure unique posts and filter out empty slugs
+  const uniquePosts = data.data ? data.data.filter((post, index, self) => 
+    index === self.findIndex(p => p.id === post.id)
+  ) : [];
+
+  return uniquePosts
+    .map((post) => post.Slug || post.slug || '')
+    .filter((slug) => slug !== '');
 }
 
 export { STRAPI_URL };

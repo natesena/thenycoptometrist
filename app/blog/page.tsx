@@ -2,6 +2,7 @@ import React from 'react';
 import Link from 'next/link';
 import type { Metadata } from 'next';
 import { getBlogPosts, STRAPI_URL } from '@/lib/strapi';
+import FloatingBookButton from '@/app/components/floating button/floating-booking-icon';
 
 export const metadata: Metadata = {
   title: 'Eye Care Blog | Expert Tips & Insights - The NYC Optometrist',
@@ -48,7 +49,10 @@ export default async function BlogPage() {
   
   try {
     const response = await getBlogPosts();
-    posts = response.data;
+    // Ensure unique posts by ID to prevent any duplication issues
+    posts = response.data ? response.data.filter((post, index, self) => 
+      index === self.findIndex(p => p.id === post.id)
+    ) : [];
   } catch (error) {
     console.error('Failed to load posts:', error);
   }
@@ -113,7 +117,7 @@ export default async function BlogPage() {
                   <img
                     src={`${STRAPI_URL}${post.featuredImage[0].url}`}
                     alt={post.featuredImage[0].alternativeText || post.title}
-                    className="w-full h-auto object-cover rounded-3xl min-h-[17.5rem] md:h-[25rem]"
+                    className="w-full h-auto object-contain rounded-3xl min-h-[17.5rem] md:h-[25rem] bg-gray-50"
                     style={{ aspectRatio: '16/9' }}
                   />
                 ) : (
@@ -153,6 +157,7 @@ export default async function BlogPage() {
         </div>
       )}
     </div>
+    <FloatingBookButton />
 </div>
   );
 }
