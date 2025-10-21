@@ -7,6 +7,7 @@ import { notFound } from "next/navigation";
 import BlockRendererClient from "@/app/components/BlockRendererClient";
 import Image from "next/image";
 import { ZOCDOC_URL } from '@/lib/constants';
+import FloatingBookButton from '@/app/components/floating button/floating-booking-icon';
 interface BlogPostPageProps {
   params: Promise<{ slug: string }>;
 }
@@ -150,7 +151,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
               <img
                 src={`${STRAPI_URL}${post.featuredImage[0].url}`}
                 alt={post.featuredImage[0].alternativeText || post.title}
-                className="w-full h-auto object-cover rounded-3xl"
+                className="w-full h-auto object-contain rounded-3xl bg-gray-50"
                 style={{ aspectRatio: "16/9" }}
               />
             </div>
@@ -240,6 +241,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
           </div>
         </div>
       </div>
+      <FloatingBookButton />
     </div>
   );
 }

@@ -8,7 +8,10 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   let blogPosts: BlogPost[] = [];
   try {
     const response = await getBlogPosts(1, 100); // Get up to 100 blog posts
-    blogPosts = response.data || [];
+    // Ensure unique posts by ID to prevent any duplication issues
+    blogPosts = response.data ? response.data.filter((post, index, self) => 
+      index === self.findIndex(p => p.id === post.id)
+    ) : [];
   } catch (error) {
     console.error("Failed to fetch blog posts for sitemap:", error);
   }
