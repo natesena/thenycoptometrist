@@ -35,6 +35,7 @@
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3",
+    "@nathanielsena/claude-commands": "github:natesena/claude-commands",
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",
