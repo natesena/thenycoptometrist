@@ -5,6 +5,7 @@ import { usePathname } from 'next/navigation';
 import Image from 'next/image';
 import Link from 'next/link';
 import { trackBookNow, trackPhoneClick, trackEmailClick } from '@/lib/analytics';
+import SocialMediaIcons from '../SocialMediaIcons';
 import {
   Sheet,
   SheetContent,
@@ -29,7 +30,7 @@ export default function Menu() {
     <>
     <div className={styles.main}>
 
-      <div className={styles.header}>
+      <div className={`${styles.header} ${isBlogPage ? styles.blogHeader : ''}`}>
         {/* Left Group: Logo + Conversion Links */}
         <div className={styles.leftGroup}>
           <Link href="/" className="cursor-pointer">
@@ -41,7 +42,7 @@ export default function Menu() {
               className="w-12 h-12 md:w-24 md:h-24"
               style={{
                 filter: isBlogPage
-                  ? 'brightness(0) invert(1)'
+                  ? 'brightness(0) saturate(100%) invert(0) drop-shadow(0 2px 4px rgba(0,0,0,0.1))'
                   : 'brightness(1.15) drop-shadow(0 2px 4px rgba(0,0,0,0.1))',
                 transition: 'filter 0.3s ease'
               }}
@@ -79,6 +80,11 @@ export default function Menu() {
             >
               Email
             </a>
+            
+            {/* Social Media Icons */}
+            <div className="hidden lg:block">
+              <SocialMediaIcons location="header" iconSize={20} className="ml-4" />
+            </div>
           </div>
         </div>
 
@@ -160,6 +166,14 @@ export default function Menu() {
                   {item.title}
                 </Link>
               ))}
+            </div>
+          </div>
+          
+          {/* Social Media Icons for Mobile */}
+          <div className="mt-8 pt-6 border-t border-gray-300">
+            <h3 className="text-xs font-semibold text-gray-500 uppercase tracking-wider mb-4">Follow Us</h3>
+            <div className="flex justify-center">
+              <SocialMediaIcons location="mobile-nav" iconSize={24} />
             </div>
           </div>
         </div>
