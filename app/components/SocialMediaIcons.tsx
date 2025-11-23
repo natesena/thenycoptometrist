@@ -1,7 +1,7 @@
 'use client'
 
 import React from 'react';
-import { Instagram, Facebook, Twitter } from 'lucide-react';
+import { Instagram } from 'lucide-react';
 import { trackSocialMediaClick } from '@/lib/analytics';
 
 interface SocialMediaIconsProps {
@@ -31,18 +31,6 @@ const SocialMediaIcons: React.FC<SocialMediaIconsProps> = ({
       icon: Instagram,
       url: 'https://www.instagram.com/thenycoptometrist',
       color: 'hover:text-pink-600'
-    },
-    {
-      platform: 'Facebook',
-      icon: Facebook,
-      url: 'https://www.facebook.com/thenycoptometrist',
-      color: 'hover:text-blue-600'
-    },
-    {
-      platform: 'Twitter',
-      icon: Twitter,
-      url: 'https://twitter.com/thenycoptometrist',
-      color: 'hover:text-blue-400'
     }
   ];
 
