@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { prisma } from '@/lib/prisma';
-import { EventType } from '@prisma/client';
+import { EventType, Prisma } from '@prisma/client';
 
 // Simple admin password protection
 const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD || 'admin123';
@@ -43,7 +43,7 @@ export async function GET(request: NextRequest) {
     const groupBy = searchParams.get('groupBy'); // 'date', 'event', 'path'
 
     // Build where clause
-    const whereClause: any = {};
+    const whereClause: Prisma.MetricsEventWhereInput = {};
     
     if (startDate || endDate) {
       whereClause.createdAt = {};
@@ -157,7 +157,7 @@ export async function POST(request: NextRequest) {
     const { format = 'json', ...filters } = body;
 
     // Build where clause from filters
-    const whereClause: any = {};
+    const whereClause: Prisma.MetricsEventWhereInput = {};
     
     if (filters.startDate || filters.endDate) {
       whereClause.createdAt = {};

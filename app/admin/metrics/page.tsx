@@ -1,6 +1,6 @@
 'use client'
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { Download, Filter, RefreshCw, Eye, MousePointer, Calendar, Globe } from 'lucide-react';
 
 interface MetricsEvent {
@@ -11,7 +11,7 @@ interface MetricsEvent {
   pathname: string;
   userAgent?: string;
   referrer?: string;
-  eventData?: any;
+  eventData?: Record<string, unknown>;
 }
 
 interface MetricsResponse {
@@ -53,7 +53,7 @@ export default function AdminMetricsPage() {
     fetchMetrics();
   };
 
-  const fetchMetrics = async () => {
+  const fetchMetrics = useCallback(async () => {
     setLoading(true);
     try {
       const token = localStorage.getItem('adminToken');
@@ -91,7 +91,7 @@ export default function AdminMetricsPage() {
     } finally {
       setLoading(false);
     }
-  };
+  }, [filters]);
 
   const exportData = async (format: 'json' | 'csv') => {
     try {
@@ -134,13 +134,13 @@ export default function AdminMetricsPage() {
       setIsAuthenticated(true);
       fetchMetrics();
     }
-  }, []);
+  }, [fetchMetrics]);
 
   useEffect(() => {
     if (isAuthenticated) {
       fetchMetrics();
     }
-  }, [filters]);
+  }, [filters, isAuthenticated, fetchMetrics]);
 
   // Login form
   if (!isAuthenticated) {
