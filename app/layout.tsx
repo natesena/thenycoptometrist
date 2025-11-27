@@ -4,6 +4,7 @@ import "./globals.css";
 import Footer from "@/app/components/footer";
 import Menu from "./components/header";
 import { AnalyticsTracker } from "@/app/components/AnalyticsTracker";
+import { REVIEW_STATS } from "@/lib/review-stats";
 
 export const metadata: Metadata = {
   metadataBase: new URL('https://www.thenycoptometrist.com'),
@@ -31,7 +32,7 @@ export const metadata: Metadata = {
       url: 'https://storage.googleapis.com/thenycoptometrist-assets/og.png',
       width: 1200,
       height: 630,
-      alt: 'The NYC Optometrist - Dr. Joanna Latek - 4.92★ Rating'
+      alt: `The NYC Optometrist - Dr. Joanna Latek - ${REVIEW_STATS.averageRating}★ Rating`
     }]
   },
 
@@ -63,6 +64,14 @@ export default function RootLayout({
               "description": "Comprehensive eye care services including comprehensive eye exams, specialty contact lenses, dry eye evaluations, and more. Serving New York City with multiple convenient locations.",
               "url": "https://www.thenycoptometrist.com",
               "logo": "https://www.thenycoptometrist.com/logo.png",
+              "aggregateRating": {
+                "@type": "AggregateRating",
+                "ratingValue": REVIEW_STATS.averageRating,
+                "bestRating": "5",
+                "worstRating": "1",
+                "ratingCount": REVIEW_STATS.totalReviews,
+                "reviewCount": REVIEW_STATS.totalReviews
+              },
               "address": {
                 "@type": "PostalAddress",
                 "streetAddress": "159 1st Ave",
