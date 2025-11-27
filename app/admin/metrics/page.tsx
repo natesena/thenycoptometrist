@@ -12,6 +12,20 @@ const TIME_PRESETS = [
   { label: 'All time', days: -1 },
 ] as const;
 
+const DEFAULT_PRESET = '30 days';
+const DEFAULT_DAYS = 30;
+
+// Calculate default date range (last 30 days)
+function getDefaultDateRange() {
+  const endDate = new Date();
+  const startDate = new Date();
+  startDate.setDate(startDate.getDate() - DEFAULT_DAYS);
+  return {
+    startDate: startDate.toISOString().split('T')[0],
+    endDate: endDate.toISOString().split('T')[0],
+  };
+}
+
 interface MetricsEvent {
   id: string;
   createdAt: string;
@@ -46,14 +60,17 @@ export default function AdminMetricsPage() {
   const [authError, setAuthError] = useState('');
   const [metrics, setMetrics] = useState<MetricsResponse | null>(null);
   const [loading, setLoading] = useState(false);
-  const [filters, setFilters] = useState({
-    startDate: '',
-    endDate: '',
-    eventType: '',
-    pathname: '',
-    page: 1,
+  const [filters, setFilters] = useState(() => {
+    const { startDate, endDate } = getDefaultDateRange();
+    return {
+      startDate,
+      endDate,
+      eventType: '',
+      pathname: '',
+      page: 1,
+    };
   });
-  const [activePreset, setActivePreset] = useState<string | null>(null);
+  const [activePreset, setActivePreset] = useState<string | null>(DEFAULT_PRESET);
 
   // Helper function to apply time preset
   const applyTimePreset = (days: number, label: string) => {
