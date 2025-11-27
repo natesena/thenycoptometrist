@@ -185,6 +185,65 @@ export default function RootLayout({
             })
           }}
         />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "FAQPage",
+              "mainEntity": [
+                {
+                  "@type": "Question",
+                  "name": "What is the difference between an optometrist and an ophthalmologist?",
+                  "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "An optometrist (OD) provides primary vision care including eye exams, diagnosis of common eye conditions, contact lens fitting, and non-surgical treatment. An ophthalmologist (MD/DO) is a medical doctor who performs eye surgery and handles complex medical conditions. In New York, they work together in a co-management model for comprehensive patient care."
+                  }
+                },
+                {
+                  "@type": "Question",
+                  "name": "What does a comprehensive eye exam include?",
+                  "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "A comprehensive eye exam includes assessment of visual clarity, eye muscle coordination, peripheral vision, and examination of internal eye structures using advanced diagnostic tools. It can detect early signs of glaucoma, macular degeneration, and diabetic retinopathy, plus provides personalized vision correction recommendations."
+                  }
+                },
+                {
+                  "@type": "Question",
+                  "name": "What are specialty contact lenses?",
+                  "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "Specialty contact lenses are custom-designed lenses for complex vision problems that standard lenses cannot correct. These include scleral lenses, hybrid lenses, and rigid gas permeable lenses for conditions like keratoconus, irregular astigmatism, and severe dry eye."
+                  }
+                },
+                {
+                  "@type": "Question",
+                  "name": "What is dry eye treatment?",
+                  "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "Dry eye treatment includes personalized routines with medications, specialized treatments such as IPL (Intense Pulsed Light), Meibomian Gland Expressions, and Punctal Plug insertions to restore optimal tear film quality and relieve discomfort."
+                  }
+                },
+                {
+                  "@type": "Question",
+                  "name": "What is myopia management for children?",
+                  "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "Myopia management is a personalized approach to slow the progression of nearsightedness in children. It may include specialized contact lenses, prescription eyeglasses, or orthokeratology (overnight lenses). Early intervention can significantly reduce the risk of severe myopia and related complications later in life."
+                  }
+                },
+                {
+                  "@type": "Question",
+                  "name": "Does Dr. Latek accept insurance?",
+                  "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "Yes, Dr. Latek accepts both medical and vision insurance for eye care services including routine eye exams and corrective lenses. Contact the office at (212) 228-0950 for specific insurance questions."
+                  }
+                }
+              ]
+            })
+          }}
+        />
       </head>
       <body className={`bg-background antialiased`}>
         <Suspense fallback={null}>
