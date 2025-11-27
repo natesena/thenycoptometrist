@@ -1,4 +1,5 @@
 import { ImageResponse } from 'next/og';
+import { REVIEW_STATS } from '@/lib/review-stats';
 
 export const runtime = 'edge';
 
@@ -156,7 +157,7 @@ export async function GET() {
                     marginBottom: '8px',
                   }}
                 >
-                  4.92★
+                  {REVIEW_STATS.averageRating}★
                 </div>
                 <div
                   style={{

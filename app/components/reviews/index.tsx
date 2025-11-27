@@ -3,14 +3,15 @@ import React, { useState, useEffect, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { ChevronLeft, ChevronRight, Star, Quote } from "lucide-react";
 import { reviews } from "@/data";
+import { REVIEW_STATS } from "@/lib/review-stats";
 import styles from "./style.module.scss";
 
 const Reviews = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isAutoPlaying, setIsAutoPlaying] = useState(true);
 
-  const totalReviewsOnZocDoc = 49; // Total reviews on ZocDoc (23 with text, 26 rating-only)
-  const displayableReviews = reviews.length; // Reviews with text that we can show (23)
+  const totalReviewsOnZocDoc = REVIEW_STATS.totalReviews;
+  const displayableReviews = reviews.length;
   const reviewsPerPage = {
     mobile: 1,
     tablet: 2,
@@ -249,9 +250,9 @@ const Reviews = () => {
           >
             <div className="inline-flex items-center gap-8 bg-gray-50 rounded-2xl px-8 py-4">
               <div>
-                <div className="text-2xl font-bold text-charcoal">4.92</div>
+                <div className="text-2xl font-bold text-charcoal">{REVIEW_STATS.averageRating}</div>
                 <div className="flex justify-center mb-1">
-                  {renderStars(4.92)}
+                  {renderStars(REVIEW_STATS.ratingValue)}
                 </div>
                 <div className="text-sm text-gray-600">Average Rating</div>
               </div>
