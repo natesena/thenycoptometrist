@@ -148,11 +148,14 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
           {/* Featured Image */}
           {post.featuredImage && post.featuredImage.length > 0 && (
             <div className="mb-8">
-              <img
+              <Image
                 src={`${STRAPI_URL}${post.featuredImage[0].url}`}
                 alt={post.featuredImage[0].alternativeText || post.title}
+                width={1200}
+                height={675}
                 className="w-full h-auto object-contain rounded-3xl bg-gray-50"
                 style={{ aspectRatio: "16/9" }}
+                priority
               />
             </div>
           )}

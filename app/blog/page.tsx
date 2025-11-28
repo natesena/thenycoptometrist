@@ -1,5 +1,6 @@
 import React from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import type { Metadata } from 'next';
 import { getBlogPosts, STRAPI_URL } from '@/lib/strapi';
 import FloatingBookButton from '@/app/components/floating button/floating-booking-icon';
@@ -114,9 +115,11 @@ export default async function BlogPage() {
               {/* Article Image */}
               <div className="mb-6 rounded-lg overflow-hidden">
                 {post.featuredImage && post.featuredImage.length > 0 ? (
-                  <img
+                  <Image
                     src={`${STRAPI_URL}${post.featuredImage[0].url}`}
                     alt={post.featuredImage[0].alternativeText || post.title}
+                    width={1200}
+                    height={675}
                     className="w-full h-auto object-contain rounded-3xl min-h-[17.5rem] md:h-[25rem] bg-gray-50"
                     style={{ aspectRatio: '16/9' }}
                   />
