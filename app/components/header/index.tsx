@@ -36,7 +36,7 @@ export default function Menu() {
           <Link href="/" className="cursor-pointer">
             <Image
               src="/Eye.png"
-              alt="logo"
+              alt="The NYC Optometrist - Dr. Joanna Latek"
               width={96}
               height={96}
               className="w-12 h-12 md:w-24 md:h-24"

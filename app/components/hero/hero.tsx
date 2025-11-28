@@ -53,7 +53,7 @@ export default function HeroSection() {
         src="/Image from Photoroom.png"
         width={3000}
         height={3500}
-        alt="background"
+        alt="Dr. Joanna Latek, NYC Optometrist"
         className="max-h-[100vh] object-contain w-auto relative right-8"
         style={{
           filter: 'drop-shadow(-12px 0 20px rgba(0, 0, 0, 0.25)) drop-shadow(-6px 6px 12px rgba(0, 0, 0, 0.15))'
