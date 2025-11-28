@@ -160,6 +160,7 @@ const locations = [
     frame: (
       <div style={{ width: "100%" }}>
         <iframe
+          title="Eye & Health - The NYC Optometrist Location Map"
           width="100%"
           height="400"
           frameBorder="0"
