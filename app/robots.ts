@@ -7,6 +7,6 @@ export default function robots(): MetadataRoute.Robots {
       allow: '/',
       disallow: '/studio',
     },
-    sitemap: `${process.env.BASE_URL}/sitemap.xml`,
+    sitemap: `${process.env.BASE_URL || 'https://www.thenycoptometrist.com'}/sitemap.xml`,
   }
 }
