@@ -1,7 +1,30 @@
 'use client'
 
 import React, { useState, useEffect, useCallback } from 'react';
-import { Download, Filter, RefreshCw, Eye, MousePointer, Calendar, Globe } from 'lucide-react';
+import { Download, Filter, RefreshCw, Eye, MousePointer, Calendar, Globe, Clock } from 'lucide-react';
+
+// Time frame presets for quick selection
+const TIME_PRESETS = [
+  { label: 'Today', days: 0 },
+  { label: '7 days', days: 7 },
+  { label: '30 days', days: 30 },
+  { label: '90 days', days: 90 },
+  { label: 'All time', days: -1 },
+] as const;
+
+const DEFAULT_PRESET = '30 days';
+const DEFAULT_DAYS = 30;
+
+// Calculate default date range (last 30 days)
+function getDefaultDateRange() {
+  const endDate = new Date();
+  const startDate = new Date();
+  startDate.setDate(startDate.getDate() - DEFAULT_DAYS);
+  return {
+    startDate: startDate.toISOString().split('T')[0],
+    endDate: endDate.toISOString().split('T')[0],
+  };
+}
 
 interface MetricsEvent {
   id: string;
@@ -37,13 +60,41 @@ export default function AdminMetricsPage() {
   const [authError, setAuthError] = useState('');
   const [metrics, setMetrics] = useState<MetricsResponse | null>(null);
   const [loading, setLoading] = useState(false);
-  const [filters, setFilters] = useState({
-    startDate: '',
-    endDate: '',
-    eventType: '',
-    pathname: '',
-    page: 1,
+  const [filters, setFilters] = useState(() => {
+    const { startDate, endDate } = getDefaultDateRange();
+    return {
+      startDate,
+      endDate,
+      eventType: '',
+      pathname: '',
+      page: 1,
+    };
   });
+  const [activePreset, setActivePreset] = useState<string | null>(DEFAULT_PRESET);
+
+  // Helper function to apply time preset
+  const applyTimePreset = (days: number, label: string) => {
+    setActivePreset(label);
+    if (days === -1) {
+      // All time - clear date filters
+      setFilters(prev => ({ ...prev, startDate: '', endDate: '', page: 1 }));
+    } else {
+      const endDate = new Date();
+      const startDate = new Date();
+      if (days === 0) {
+        // Today only
+        startDate.setHours(0, 0, 0, 0);
+      } else {
+        startDate.setDate(startDate.getDate() - days);
+      }
+      setFilters(prev => ({
+        ...prev,
+        startDate: startDate.toISOString().split('T')[0],
+        endDate: endDate.toISOString().split('T')[0],
+        page: 1,
+      }));
+    }
+  };
 
   const authenticate = () => {
     const token = btoa(password);
@@ -174,23 +225,24 @@ export default function AdminMetricsPage() {
 
   return (
     <div className="min-h-screen bg-gray-50">
+      {/* Header - Mobile optimized */}
       <div className="bg-white shadow">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex justify-between items-center py-6">
-            <h1 className="text-3xl font-bold text-gray-900">Analytics Dashboard</h1>
-            <div className="flex space-x-2">
+        <div className="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8">
+          <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center py-4 sm:py-6 gap-3">
+            <h1 className="text-xl sm:text-2xl md:text-3xl font-bold text-gray-900">Analytics</h1>
+            <div className="flex flex-wrap gap-2">
               <button
                 onClick={() => exportData('csv')}
-                className="flex items-center px-3 py-2 bg-green-600 text-white rounded-md hover:bg-green-700 transition-colors"
+                className="flex items-center px-2 sm:px-3 py-1.5 sm:py-2 bg-green-600 text-white text-sm rounded-md hover:bg-green-700 transition-colors"
               >
-                <Download className="w-4 h-4 mr-2" />
+                <Download className="w-3.5 h-3.5 sm:w-4 sm:h-4 mr-1 sm:mr-2" />
                 CSV
               </button>
               <button
                 onClick={() => exportData('json')}
-                className="flex items-center px-3 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-colors"
+                className="flex items-center px-2 sm:px-3 py-1.5 sm:py-2 bg-blue-600 text-white text-sm rounded-md hover:bg-blue-700 transition-colors"
               >
-                <Download className="w-4 h-4 mr-2" />
+                <Download className="w-3.5 h-3.5 sm:w-4 sm:h-4 mr-1 sm:mr-2" />
                 JSON
               </button>
               <button
@@ -198,7 +250,7 @@ export default function AdminMetricsPage() {
                   localStorage.removeItem('adminToken');
                   setIsAuthenticated(false);
                 }}
-                className="px-3 py-2 bg-red-600 text-white rounded-md hover:bg-red-700 transition-colors"
+                className="px-2 sm:px-3 py-1.5 sm:py-2 bg-red-600 text-white text-sm rounded-md hover:bg-red-700 transition-colors"
               >
                 Logout
               </button>
@@ -207,111 +259,153 @@ export default function AdminMetricsPage() {
         </div>
       </div>
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+      <div className="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 py-4 sm:py-8">
+        {/* Quick Time Presets */}
+        <div className="bg-white rounded-lg shadow mb-4 p-3 sm:p-4">
+          <div className="flex items-center gap-2 mb-3">
+            <Clock className="w-4 h-4 text-gray-600" />
+            <span className="text-sm font-medium text-gray-700">Time Frame</span>
+          </div>
+          <div className="flex flex-wrap gap-2">
+            {TIME_PRESETS.map((preset) => (
+              <button
+                key={preset.label}
+                onClick={() => applyTimePreset(preset.days, preset.label)}
+                className={`px-3 py-1.5 text-sm rounded-full transition-colors ${
+                  activePreset === preset.label
+                    ? 'bg-blue-600 text-white'
+                    : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+                }`}
+              >
+                {preset.label}
+              </button>
+            ))}
+          </div>
+        </div>
+
         {/* Filters */}
-        <div className="bg-white rounded-lg shadow mb-6 p-6">
-          <h2 className="text-lg font-semibold mb-4 flex items-center">
-            <Filter className="w-5 h-5 mr-2" />
+        <div className="bg-white rounded-lg shadow mb-4 sm:mb-6 p-3 sm:p-6">
+          <h2 className="text-base sm:text-lg font-semibold mb-3 sm:mb-4 flex items-center">
+            <Filter className="w-4 h-4 sm:w-5 sm:h-5 mr-2" />
             Filters
           </h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-4">
-            <input
-              type="date"
-              placeholder="Start Date"
-              value={filters.startDate}
-              onChange={(e) => setFilters(prev => ({ ...prev, startDate: e.target.value }))}
-              className="px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-            />
-            <input
-              type="date"
-              placeholder="End Date"
-              value={filters.endDate}
-              onChange={(e) => setFilters(prev => ({ ...prev, endDate: e.target.value }))}
-              className="px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-            />
-            <select
-              value={filters.eventType}
-              onChange={(e) => setFilters(prev => ({ ...prev, eventType: e.target.value }))}
-              className="px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-            >
-              <option value="">All Events</option>
-              <option value="visit">Page Visits</option>
-              <option value="book_now_clicked">Book Now Clicks</option>
-              <option value="phone_clicked">Phone Clicks</option>
-              <option value="email_clicked">Email Clicks</option>
-              <option value="social_media_clicked">Social Media Clicks</option>
-            </select>
-            <input
-              type="text"
-              placeholder="Filter by path"
-              value={filters.pathname}
-              onChange={(e) => setFilters(prev => ({ ...prev, pathname: e.target.value }))}
-              className="px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-            />
-            <button
-              onClick={fetchMetrics}
-              disabled={loading}
-              className="flex items-center justify-center px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-colors disabled:opacity-50"
-            >
-              <RefreshCw className={`w-4 h-4 mr-2 ${loading ? 'animate-spin' : ''}`} />
-              Refresh
-            </button>
+          <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-5 gap-2 sm:gap-4">
+            <div className="col-span-1">
+              <label className="block text-xs text-gray-500 mb-1">Start</label>
+              <input
+                type="date"
+                value={filters.startDate}
+                onChange={(e) => {
+                  setActivePreset(null);
+                  setFilters(prev => ({ ...prev, startDate: e.target.value }));
+                }}
+                className="w-full px-2 sm:px-3 py-1.5 sm:py-2 text-sm border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+              />
+            </div>
+            <div className="col-span-1">
+              <label className="block text-xs text-gray-500 mb-1">End</label>
+              <input
+                type="date"
+                value={filters.endDate}
+                onChange={(e) => {
+                  setActivePreset(null);
+                  setFilters(prev => ({ ...prev, endDate: e.target.value }));
+                }}
+                className="w-full px-2 sm:px-3 py-1.5 sm:py-2 text-sm border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+              />
+            </div>
+            <div className="col-span-2 sm:col-span-1">
+              <label className="block text-xs text-gray-500 mb-1">Event Type</label>
+              <select
+                value={filters.eventType}
+                onChange={(e) => setFilters(prev => ({ ...prev, eventType: e.target.value }))}
+                className="w-full px-2 sm:px-3 py-1.5 sm:py-2 text-sm border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+              >
+                <option value="">All Events</option>
+                <option value="visit">Page Visits</option>
+                <option value="book_now_clicked">Book Now Clicks</option>
+                <option value="phone_clicked">Phone Clicks</option>
+                <option value="email_clicked">Email Clicks</option>
+                <option value="social_media_clicked">Social Media Clicks</option>
+              </select>
+            </div>
+            <div className="col-span-2 sm:col-span-1">
+              <label className="block text-xs text-gray-500 mb-1">Path</label>
+              <input
+                type="text"
+                placeholder="Filter by path"
+                value={filters.pathname}
+                onChange={(e) => setFilters(prev => ({ ...prev, pathname: e.target.value }))}
+                className="w-full px-2 sm:px-3 py-1.5 sm:py-2 text-sm border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+              />
+            </div>
+            <div className="col-span-2 sm:col-span-1">
+              <label className="block text-xs text-gray-500 mb-1 invisible">Action</label>
+              <button
+                onClick={fetchMetrics}
+                disabled={loading}
+                className="w-full flex items-center justify-center px-3 sm:px-4 py-1.5 sm:py-2 bg-blue-600 text-white text-sm rounded-md hover:bg-blue-700 transition-colors disabled:opacity-50"
+              >
+                <RefreshCw className={`w-3.5 h-3.5 sm:w-4 sm:h-4 mr-1.5 sm:mr-2 ${loading ? 'animate-spin' : ''}`} />
+                Refresh
+              </button>
+            </div>
           </div>
         </div>
 
         {metrics && (
           <>
-            {/* Summary Cards */}
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-6">
-              <div className="bg-white rounded-lg shadow p-6">
+            {/* Summary Cards - Mobile optimized with 2x2 grid */}
+            <div className="grid grid-cols-2 lg:grid-cols-4 gap-2 sm:gap-4 mb-4 sm:mb-6">
+              <div className="bg-white rounded-lg shadow p-3 sm:p-6">
                 <div className="flex items-center">
-                  <div className="p-2 bg-blue-100 rounded-lg">
-                    <Eye className="w-6 h-6 text-blue-600" />
+                  <div className="p-1.5 sm:p-2 bg-blue-100 rounded-lg shrink-0">
+                    <Eye className="w-4 h-4 sm:w-6 sm:h-6 text-blue-600" />
                   </div>
-                  <div className="ml-4">
-                    <p className="text-sm font-medium text-gray-600">Total Events</p>
-                    <p className="text-2xl font-bold text-gray-900">{metrics.pagination.total}</p>
+                  <div className="ml-2 sm:ml-4 min-w-0">
+                    <p className="text-xs sm:text-sm font-medium text-gray-600 truncate">Total Events</p>
+                    <p className="text-lg sm:text-2xl font-bold text-gray-900">{metrics.pagination.total}</p>
                   </div>
                 </div>
               </div>
-              
-              <div className="bg-white rounded-lg shadow p-6">
+
+              <div className="bg-white rounded-lg shadow p-3 sm:p-6">
                 <div className="flex items-center">
-                  <div className="p-2 bg-green-100 rounded-lg">
-                    <MousePointer className="w-6 h-6 text-green-600" />
+                  <div className="p-1.5 sm:p-2 bg-green-100 rounded-lg shrink-0">
+                    <MousePointer className="w-4 h-4 sm:w-6 sm:h-6 text-green-600" />
                   </div>
-                  <div className="ml-4">
-                    <p className="text-sm font-medium text-gray-600">Page Views</p>
-                    <p className="text-2xl font-bold text-gray-900">
+                  <div className="ml-2 sm:ml-4 min-w-0">
+                    <p className="text-xs sm:text-sm font-medium text-gray-600 truncate">Page Views</p>
+                    <p className="text-lg sm:text-2xl font-bold text-gray-900">
                       {metrics.summary.find(s => s.eventType === 'visit')?._count.id || 0}
                     </p>
                   </div>
                 </div>
               </div>
-              
-              <div className="bg-white rounded-lg shadow p-6">
+
+              <div className="bg-white rounded-lg shadow p-3 sm:p-6">
                 <div className="flex items-center">
-                  <div className="p-2 bg-purple-100 rounded-lg">
-                    <Calendar className="w-6 h-6 text-purple-600" />
+                  <div className="p-1.5 sm:p-2 bg-purple-100 rounded-lg shrink-0">
+                    <Calendar className="w-4 h-4 sm:w-6 sm:h-6 text-purple-600" />
                   </div>
-                  <div className="ml-4">
-                    <p className="text-sm font-medium text-gray-600">Book Now Clicks</p>
-                    <p className="text-2xl font-bold text-gray-900">
+                  <div className="ml-2 sm:ml-4 min-w-0">
+                    <p className="text-xs sm:text-sm font-medium text-gray-600 truncate">Bookings</p>
+                    <p className="text-lg sm:text-2xl font-bold text-gray-900">
                       {metrics.summary.find(s => s.eventType === 'book_now_clicked')?._count.id || 0}
                     </p>
                   </div>
                 </div>
               </div>
-              
-              <div className="bg-white rounded-lg shadow p-6">
+
+              <div className="bg-white rounded-lg shadow p-3 sm:p-6">
                 <div className="flex items-center">
-                  <div className="p-2 bg-orange-100 rounded-lg">
-                    <Globe className="w-6 h-6 text-orange-600" />
+                  <div className="p-1.5 sm:p-2 bg-orange-100 rounded-lg shrink-0">
+                    <Globe className="w-4 h-4 sm:w-6 sm:h-6 text-orange-600" />
                   </div>
-                  <div className="ml-4">
-                    <p className="text-sm font-medium text-gray-600">Conversion Rate</p>
-                    <p className="text-2xl font-bold text-gray-900">
-                      {metrics.pagination.total > 0 
+                  <div className="ml-2 sm:ml-4 min-w-0">
+                    <p className="text-xs sm:text-sm font-medium text-gray-600 truncate">Conv. Rate</p>
+                    <p className="text-lg sm:text-2xl font-bold text-gray-900">
+                      {metrics.pagination.total > 0
                         ? ((metrics.summary.find(s => s.eventType === 'book_now_clicked')?._count.id || 0) / metrics.pagination.total * 100).toFixed(1)
                         : 0
                       }%
@@ -322,29 +416,26 @@ export default function AdminMetricsPage() {
             </div>
 
             {/* Event Statistics */}
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6 mb-4 sm:mb-6">
               {/* Event Type Distribution */}
-              <div className="bg-white rounded-lg shadow p-6">
-                <h3 className="text-lg font-semibold mb-4">Event Distribution</h3>
-                <div className="space-y-4">
+              <div className="bg-white rounded-lg shadow p-3 sm:p-6">
+                <h3 className="text-base sm:text-lg font-semibold mb-3 sm:mb-4">Event Distribution</h3>
+                <div className="space-y-3 sm:space-y-4">
                   {metrics.summary.map((item, index) => {
                     const percentage = (item._count.id / metrics.pagination.total) * 100;
                     const colors = ['bg-blue-500', 'bg-green-500', 'bg-yellow-500', 'bg-red-500', 'bg-purple-500'];
+                    const label = item.eventType.replace(/_/g, ' ');
                     return (
-                      <div key={item.eventType} className="flex items-center">
-                        <div className="w-20 text-sm font-medium text-gray-700">
-                          {item.eventType.replace('_', ' ').charAt(0).toUpperCase() + item.eventType.replace('_', ' ').slice(1)}
+                      <div key={item.eventType}>
+                        <div className="flex justify-between text-xs sm:text-sm mb-1">
+                          <span className="font-medium text-gray-700 capitalize truncate">{label}</span>
+                          <span className="font-medium text-gray-900 ml-2">{item._count.id}</span>
                         </div>
-                        <div className="flex-1 mx-4">
-                          <div className="bg-gray-200 rounded-full h-4">
-                            <div 
-                              className={`h-4 rounded-full ${colors[index % colors.length]}`}
-                              style={{ width: `${percentage}%` }}
-                            ></div>
-                          </div>
-                        </div>
-                        <div className="w-16 text-sm font-medium text-gray-900 text-right">
-                          {item._count.id} ({percentage.toFixed(1)}%)
+                        <div className="bg-gray-200 rounded-full h-2 sm:h-3">
+                          <div
+                            className={`h-2 sm:h-3 rounded-full ${colors[index % colors.length]}`}
+                            style={{ width: `${percentage}%` }}
+                          ></div>
                         </div>
                       </div>
                     );
@@ -353,15 +444,15 @@ export default function AdminMetricsPage() {
               </div>
 
               {/* Event Type Table */}
-              <div className="bg-white rounded-lg shadow p-6">
-                <h3 className="text-lg font-semibold mb-4">Events by Type</h3>
+              <div className="bg-white rounded-lg shadow p-3 sm:p-6">
+                <h3 className="text-base sm:text-lg font-semibold mb-3 sm:mb-4">Events by Type</h3>
                 <div className="overflow-hidden">
                   <table className="w-full">
                     <thead>
                       <tr className="border-b border-gray-200">
-                        <th className="text-left py-2 text-sm font-medium text-gray-700">Event Type</th>
-                        <th className="text-right py-2 text-sm font-medium text-gray-700">Count</th>
-                        <th className="text-right py-2 text-sm font-medium text-gray-700">%</th>
+                        <th className="text-left py-2 text-xs sm:text-sm font-medium text-gray-700">Event Type</th>
+                        <th className="text-right py-2 text-xs sm:text-sm font-medium text-gray-700">Count</th>
+                        <th className="text-right py-2 text-xs sm:text-sm font-medium text-gray-700">%</th>
                       </tr>
                     </thead>
                     <tbody>
@@ -371,13 +462,13 @@ export default function AdminMetricsPage() {
                           const percentage = (item._count.id / metrics.pagination.total) * 100;
                           return (
                             <tr key={item.eventType} className="border-b border-gray-100">
-                              <td className="py-3 text-sm text-gray-900">
-                                {item.eventType.replace('_', ' ').charAt(0).toUpperCase() + item.eventType.replace('_', ' ').slice(1)}
+                              <td className="py-2 sm:py-3 text-xs sm:text-sm text-gray-900 capitalize">
+                                {item.eventType.replace(/_/g, ' ')}
                               </td>
-                              <td className="py-3 text-sm text-gray-900 text-right font-medium">
+                              <td className="py-2 sm:py-3 text-xs sm:text-sm text-gray-900 text-right font-medium">
                                 {item._count.id}
                               </td>
-                              <td className="py-3 text-sm text-gray-600 text-right">
+                              <td className="py-2 sm:py-3 text-xs sm:text-sm text-gray-600 text-right">
                                 {percentage.toFixed(1)}%
                               </td>
                             </tr>
@@ -391,23 +482,23 @@ export default function AdminMetricsPage() {
 
             {/* Recent Events Table */}
             <div className="bg-white rounded-lg shadow">
-              <div className="px-6 py-4 border-b border-gray-200">
-                <h3 className="text-lg font-semibold">Recent Events</h3>
+              <div className="px-3 sm:px-6 py-3 sm:py-4 border-b border-gray-200">
+                <h3 className="text-base sm:text-lg font-semibold">Recent Events</h3>
               </div>
               <div className="overflow-x-auto">
-                <table className="w-full">
+                <table className="w-full min-w-[500px]">
                   <thead className="bg-gray-50">
                     <tr>
-                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                      <th className="px-2 sm:px-6 py-2 sm:py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                         Time
                       </th>
-                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                        Event Type
+                      <th className="px-2 sm:px-6 py-2 sm:py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                        Event
                       </th>
-                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                      <th className="px-2 sm:px-6 py-2 sm:py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                         Path
                       </th>
-                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                      <th className="px-2 sm:px-6 py-2 sm:py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider hidden sm:table-cell">
                         Referrer
                       </th>
                     </tr>
@@ -415,23 +506,24 @@ export default function AdminMetricsPage() {
                   <tbody className="bg-white divide-y divide-gray-200">
                     {metrics.events.map((event) => (
                       <tr key={event.id} className="hover:bg-gray-50">
-                        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
-                          {new Date(event.createdAt).toLocaleString()}
+                        <td className="px-2 sm:px-6 py-2 sm:py-4 whitespace-nowrap text-xs sm:text-sm text-gray-900">
+                          {new Date(event.createdAt).toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}
+                          <span className="hidden sm:inline"> {new Date(event.createdAt).toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' })}</span>
                         </td>
-                        <td className="px-6 py-4 whitespace-nowrap">
-                          <span className={`inline-flex px-2 py-1 text-xs font-semibold rounded-full ${
+                        <td className="px-2 sm:px-6 py-2 sm:py-4 whitespace-nowrap">
+                          <span className={`inline-flex px-1.5 sm:px-2 py-0.5 sm:py-1 text-xs font-semibold rounded-full ${
                             event.eventType === 'visit' ? 'bg-blue-100 text-blue-800' :
                             event.eventType === 'book_now_clicked' ? 'bg-green-100 text-green-800' :
                             event.eventType === 'phone_clicked' ? 'bg-purple-100 text-purple-800' :
                             'bg-gray-100 text-gray-800'
                           }`}>
-                            {event.eventType.replace('_', ' ')}
+                            {event.eventType.replace(/_/g, ' ')}
                           </span>
                         </td>
-                        <td className="px-6 py-4 text-sm text-gray-900">
+                        <td className="px-2 sm:px-6 py-2 sm:py-4 text-xs sm:text-sm text-gray-900 max-w-[100px] sm:max-w-none truncate">
                           {event.pathname}
                         </td>
-                        <td className="px-6 py-4 text-sm text-gray-500 max-w-xs truncate">
+                        <td className="px-2 sm:px-6 py-2 sm:py-4 text-xs sm:text-sm text-gray-500 max-w-xs truncate hidden sm:table-cell">
                           {event.referrer || 'Direct'}
                         </td>
                       </tr>
