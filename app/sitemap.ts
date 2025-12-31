@@ -1,17 +1,14 @@
 import { MetadataRoute } from "next";
-import { getBlogPosts } from "@/lib/strapi";
+import { getBlogPosts, type BlogPost } from "@/lib/payload-api";
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const baseUrl = process.env.BASE_URL || "https://www.thenycoptometrist.com";
 
-  // Fetch all blog posts from Strapi
+  // Fetch all blog posts from Payload CMS
   let blogPosts: BlogPost[] = [];
   try {
-    const response = await getBlogPosts(1, 100); // Get up to 100 blog posts
-    // Ensure unique posts by ID to prevent any duplication issues
-    blogPosts = response.data ? response.data.filter((post, index, self) => 
-      index === self.findIndex(p => p.id === post.id)
-    ) : [];
+    const result = await getBlogPosts({ limit: 100, status: 'published' });
+    blogPosts = result.docs;
   } catch (error) {
     console.error("Failed to fetch blog posts for sitemap:", error);
   }
@@ -34,8 +31,8 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
 
   // Blog post pages
   const blogPostPages: MetadataRoute.Sitemap = blogPosts.map((post) => ({
-    url: `${baseUrl}/blog/${post.Slug || post.slug}`,
-    lastModified: new Date(post.publishedDate || post.updatedAt),
+    url: `${baseUrl}/blog/${post.slug}`,
+    lastModified: new Date(post.updatedAt || post.publishedDate),
     changeFrequency: "monthly" as const,
     priority: 0.7,
   }));
