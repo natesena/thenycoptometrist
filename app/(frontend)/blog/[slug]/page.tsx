@@ -2,7 +2,7 @@ import React from "react";
 import Link from "next/link";
 import type { Metadata } from "next";
 import { ArrowLeft } from "lucide-react";
-import { getBlogPostBySlug, getAllBlogSlugs, type BlogPost } from "@/lib/payload-api";
+import { getBlogPostBySlug, getAllBlogSlugs } from "@/lib/payload-api";
 import { notFound } from "next/navigation";
 import PayloadRichText from "@/app/components/PayloadRichText";
 import Image from "next/image";
@@ -199,7 +199,8 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
           prose-pre:bg-gray-900 prose-pre:text-gray-100 prose-pre:rounded-2xl prose-pre:p-6 prose-pre:overflow-x-auto
           prose-img:rounded-3xl prose-img:my-8"
           >
-            <PayloadRichText content={post.content as any} />
+            {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
+            <PayloadRichText content={post.content as unknown as any} />
           </article>
 
           <div className="mt-16 overflow-hidden rounded-b-md">
