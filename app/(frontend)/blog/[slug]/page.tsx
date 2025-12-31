@@ -2,15 +2,19 @@ import React from "react";
 import Link from "next/link";
 import type { Metadata } from "next";
 import { ArrowLeft } from "lucide-react";
-import { getBlogPostBySlug, getAllBlogSlugs, STRAPI_URL } from "@/lib/strapi";
+import { getBlogPostBySlug, getAllBlogSlugs, type BlogPost } from "@/lib/payload-api";
 import { notFound } from "next/navigation";
-import BlockRendererClient from "@/app/components/BlockRendererClient";
+import PayloadRichText from "@/app/components/PayloadRichText";
 import Image from "next/image";
 import { ZOCDOC_URL } from '@/lib/constants';
 import FloatingBookButton from '@/app/components/floating button/floating-booking-icon';
+
 interface BlogPostPageProps {
   params: Promise<{ slug: string }>;
 }
+
+// Revalidate every 60 seconds
+export const revalidate = 60;
 
 // Generate static params for all blog posts
 export async function generateStaticParams() {
@@ -39,14 +43,10 @@ export async function generateMetadata({
       };
     }
 
-    const imageUrl =
-      post.featuredImage && post.featuredImage.length > 0
-        ? `${STRAPI_URL}${post.featuredImage[0].url}`
-        : "https://storage.googleapis.com/thenycoptometrist-assets/og.png";
+    const imageUrl = post.featuredImage?.url
+      || "https://storage.googleapis.com/thenycoptometrist-assets/og.png";
 
-    const description = (post.Excerpt ||
-      post.excerpt ||
-      post.content.substring(0, 160)) as string;
+    const description = post.metaDescription || post.excerpt || `${post.title} - The NYC Optometrist Blog`;
 
     return {
       title: `${post.title} | The NYC Optometrist Blog`,
@@ -90,17 +90,14 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
     notFound();
   }
 
-  const imageUrl =
-    post.featuredImage && post.featuredImage.length > 0
-      ? `${STRAPI_URL}${post.featuredImage[0].url}`
-      : null;
+  const imageUrl = post.featuredImage?.url || null;
 
   // JSON-LD Schema for BlogPosting
   const blogPostSchema = {
     "@context": "https://schema.org",
     "@type": "BlogPosting",
     headline: post.title,
-    description: post.Excerpt || post.excerpt || "",
+    description: post.excerpt || "",
     datePublished: post.publishedDate,
     dateModified: post.updatedAt || post.publishedDate,
     author: {
@@ -146,13 +143,16 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 pt-28 md:pt-40">
         <div className="max-w- mx-auto">
           {/* Featured Image */}
-          {post.featuredImage && post.featuredImage.length > 0 && (
+          {post.featuredImage && (
             <div className="mb-8">
-              <img
-                src={`${STRAPI_URL}${post.featuredImage[0].url}`}
-                alt={post.featuredImage[0].alternativeText || post.title}
+              <Image
+                src={post.featuredImage.url}
+                alt={post.featuredImage.alt || post.title}
+                width={post.featuredImage.width || 1200}
+                height={post.featuredImage.height || 675}
                 className="w-full h-auto object-contain rounded-3xl bg-gray-50"
                 style={{ aspectRatio: "16/9" }}
+                priority
               />
             </div>
           )}
@@ -175,9 +175,9 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
           </h1>
 
           {/* Excerpt */}
-          {(post.Excerpt || post.excerpt) && (
+          {post.excerpt && (
             <p className="text-xl text-gray-600 font-[400] mb-12 leading-relaxed">
-              {post.Excerpt || post.excerpt}
+              {post.excerpt}
             </p>
           )}
 
@@ -199,7 +199,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
           prose-pre:bg-gray-900 prose-pre:text-gray-100 prose-pre:rounded-2xl prose-pre:p-6 prose-pre:overflow-x-auto
           prose-img:rounded-3xl prose-img:my-8"
           >
-            <BlockRendererClient content={post.content} />
+            <PayloadRichText content={post.content as any} />
           </article>
 
           <div className="mt-16 overflow-hidden rounded-b-md">
