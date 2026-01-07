@@ -39,3 +39,62 @@ model MetricsEvent {
   @@index([createdAt])
   @@map("metrics_events")
 }
+
+// Product referral models
+model Product {
+  id           String   @id @default(cuid())
+  name         String   @db.VarChar(255)
+  slug         String   @unique @db.VarChar(255)
+  description   String   @db.Text
+  categoryId    String?  @map("category_id") @db.VarChar(50)
+  price        Decimal?  @db.Decimal(10, 2)
+  referralUrl  String   @map("referral_url") @db.Text
+  stock         Int?     @default(0)
+  featured      Boolean   @default(false)
+  available    Boolean   @default(true)
+  createdAt    DateTime  @default(now()) @map("created_at")
+  updatedAt    DateTime  @updatedAt @map("updated_at")
+
+  categoryId    String?  @map("category_id") @db.VarChar(50)
+  category      ProductCategory? @relation(fields: [categoryId], references: [id])
+  images       Image[]   @relation("ProductImages")
+
+  @@index([slug])
+  @@index([categoryId, available])
+  @@index([available, featured])
+}
+
+model Image {
+  id           String   @id @default(cuid())
+  url          String   @db.VarChar(500)
+  alt          String?  @db.VarChar(125)
+  width        Int?
+  height       Int?
+  filename     String?  @db.VarChar(255)
+  mimeType     String?  @map("mime_type") @db.VarChar(100)
+  createdAt    DateTime  @default(now()) @map("created_at")
+  
+  products     Product[] @relation("ProductImages")
+  
+  @@index([id])
+}
+
+model ProductCategory {
+  id           String   @id @default(cuid())
+  name         String   @db.VarChar(255)
+  slug         String   @unique @db.VarChar(255)
+  description   String?  @db.Text
+  metaTitle    String?  @map("meta_title") @db.VarChar(70)
+  metaDescription String?  @map("meta_description") @db.VarChar(160)
+  parentId     String?  @map("parent_id") @db.VarChar(50)
+  sort         Int?      @default(0)
+  createdAt    DateTime  @default(now()) @map("created_at")
+  updatedAt    DateTime  @updatedAt @map("updated_at")
+  
+  parent       ProductCategory? @relation("CategoryHierarchy", fields: [parentId], references: [id])
+  children     ProductCategory[] @relation("CategoryHierarchy")
+  products     Product[]
+  
+  @@index([slug])
+  @@index([parentId, sort])
+}
