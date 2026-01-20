@@ -101,7 +101,7 @@ export default function Menu() {
 
     {/* Navigation Sheet */}
     <Sheet open={isActive} onOpenChange={setIsActive}>
-      <SheetContent side="right" className="w-[90vw] sm:w-[400px] bg-[#E9E4DB]">
+      <SheetContent side="right" className="w-[90vw] sm:w-[400px] bg-[#E9E4DB] overflow-y-auto max-h-screen">
         <SheetHeader className="text-left mb-8">
           <SheetTitle className="text-2xl font-bold text-charcoal">Menu</SheetTitle>
           <SheetDescription className="sr-only">Navigate and book appointments</SheetDescription>
