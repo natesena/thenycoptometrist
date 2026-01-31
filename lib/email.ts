@@ -263,6 +263,210 @@ function generateEmailHTML(data: AnalyticsData): string {
   `;
 }
 
+// Contact form email interface and function
+// Reference: Contact Form Email Implementation Plan
+export interface ContactFormSubmission {
+  name: string;
+  email: string;
+  message: string;
+}
+
+function generateContactFormEmailHTML(data: ContactFormSubmission): string {
+  const submittedDate = new Date().toLocaleString('en-US', {
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric',
+    hour: 'numeric',
+    minute: '2-digit',
+    hour12: true,
+  });
+
+  // Escape HTML to prevent XSS in email
+  const escapeHtml = (text: string): string => {
+    return text
+      .replace(/&/g, '&amp;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;')
+      .replace(/"/g, '&quot;')
+      .replace(/'/g, '&#039;');
+  };
+
+  const escapedName = escapeHtml(data.name);
+  const escapedEmail = escapeHtml(data.email);
+  const escapedMessage = escapeHtml(data.message).replace(/\n/g, '<br>');
+
+  return `
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>New Contact Form Submission</title>
+  <style>
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+      line-height: 1.6;
+      color: #333;
+      max-width: 600px;
+      margin: 0 auto;
+      padding: 20px;
+      background-color: #f5f5f5;
+    }
+    .container {
+      background-color: #ffffff;
+      border-radius: 8px;
+      padding: 30px;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+    h1 {
+      color: #2c3e50;
+      border-bottom: 3px solid #3498db;
+      padding-bottom: 10px;
+      margin-bottom: 20px;
+    }
+    .submitted-info {
+      background-color: #ecf0f1;
+      padding: 15px;
+      border-radius: 6px;
+      margin-bottom: 25px;
+      text-align: center;
+      color: #7f8c8d;
+      font-size: 14px;
+    }
+    .section-label {
+      color: #2c3e50;
+      font-weight: 600;
+      font-size: 14px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-bottom: 10px;
+      border-bottom: 1px solid #ecf0f1;
+      padding-bottom: 5px;
+    }
+    .field-row {
+      margin-bottom: 10px;
+      padding: 8px 0;
+    }
+    .field-label {
+      color: #7f8c8d;
+      font-weight: 500;
+      font-size: 14px;
+    }
+    .field-value {
+      color: #2c3e50;
+      font-weight: 600;
+      margin-left: 10px;
+    }
+    .message-box {
+      background-color: #f8f9fa;
+      border-radius: 6px;
+      padding: 15px;
+      margin-top: 10px;
+      border-left: 3px solid #3498db;
+    }
+    .message-content {
+      color: #2c3e50;
+      white-space: pre-wrap;
+      word-wrap: break-word;
+    }
+    .section {
+      margin-bottom: 25px;
+    }
+    .footer {
+      margin-top: 30px;
+      padding-top: 20px;
+      border-top: 2px solid #ecf0f1;
+      text-align: center;
+      color: #95a5a6;
+      font-size: 12px;
+    }
+    .reply-hint {
+      background-color: #e8f4f8;
+      border-radius: 6px;
+      padding: 12px;
+      margin-top: 20px;
+      text-align: center;
+      color: #2980b9;
+      font-size: 13px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>📬 New Contact Form Submission</h1>
+
+    <div class="submitted-info">
+      Submitted: ${submittedDate}<br>
+      Source: thenycoptometrist.com
+    </div>
+
+    <!-- FROM SECTION -->
+    <div class="section">
+      <div class="section-label">FROM</div>
+      <div class="field-row">
+        <span class="field-label">Name:</span>
+        <span class="field-value">${escapedName}</span>
+      </div>
+      <div class="field-row">
+        <span class="field-label">Email:</span>
+        <span class="field-value">${escapedEmail}</span>
+      </div>
+    </div>
+
+    <!-- MESSAGE SECTION -->
+    <div class="section">
+      <div class="section-label">MESSAGE</div>
+      <div class="message-box">
+        <div class="message-content">${escapedMessage}</div>
+      </div>
+    </div>
+
+    <div class="reply-hint">
+      Reply directly to this email to respond to the sender.
+    </div>
+
+    <div class="footer">
+      <p>This message was sent via the contact form on thenycoptometrist.com</p>
+    </div>
+  </div>
+</body>
+</html>
+  `;
+}
+
+export async function sendContactFormEmail(data: ContactFormSubmission): Promise<{ success: boolean; error?: string }> {
+  try {
+    if (!process.env.ANALYTICS_EMAIL_RECIPIENT) {
+      throw new Error('ANALYTICS_EMAIL_RECIPIENT is not configured');
+    }
+
+    if (!process.env.ANALYTICS_EMAIL_FROM) {
+      throw new Error('ANALYTICS_EMAIL_FROM is not configured');
+    }
+
+    const emailHTML = generateContactFormEmailHTML(data);
+    const resendClient = getResendClient();
+
+    const response = await resendClient.emails.send({
+      from: process.env.ANALYTICS_EMAIL_FROM,
+      to: process.env.ANALYTICS_EMAIL_RECIPIENT,
+      replyTo: data.email, // So recipient can reply directly to submitter
+      subject: `📬 Website Contact: ${data.name}`,
+      html: emailHTML,
+    });
+
+    console.log('Contact form email sent successfully:', response);
+
+    return { success: true };
+  } catch (error) {
+    console.error('Failed to send contact form email:', error);
+    return {
+      success: false,
+      error: error instanceof Error ? error.message : 'Unknown error'
+    };
+  }
+}
+
 export async function sendAnalyticsReport(data: AnalyticsData): Promise<{ success: boolean; error?: string }> {
   try {
     if (!process.env.ANALYTICS_EMAIL_RECIPIENT) {

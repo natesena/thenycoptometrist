@@ -1,9 +1,16 @@
 "use client";
+/**
+ * Contact Form Component
+ * Reference: Contact Form Email Implementation Plan
+ *
+ * Sends contact form submissions to /api/contact which emails
+ * the same recipient as weekly analytics reports.
+ */
 import React, { useState } from "react";
 import { motion } from "framer-motion";
-import { Phone, AlertTriangle, Send, ExternalLink } from "lucide-react";
+import { Phone, AlertTriangle, Send, ExternalLink, Loader2, CheckCircle, XCircle } from "lucide-react";
 import { contactLocations } from "@/data";
-import { trackBookNow, trackPhoneClick } from "@/lib/analytics";
+import { trackBookNow, trackPhoneClick, trackEmailClick } from "@/lib/analytics";
 
 interface ContactLocation {
   name: string;
@@ -11,17 +18,62 @@ interface ContactLocation {
   bookingUrl?: string;
 }
 
+type SubmitStatus = 'idle' | 'submitting' | 'success' | 'error';
+
 const ContactForm = () => {
   const [formData, setFormData] = useState({
     name: "",
     email: "",
     message: "",
   });
+  const [submitStatus, setSubmitStatus] = useState<SubmitStatus>('idle');
+  const [errorMessage, setErrorMessage] = useState<string>('');
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    // Handle form submission
-    console.log("Form submitted:", formData);
+
+    // Prevent double submission
+    if (submitStatus === 'submitting') return;
+
+    setSubmitStatus('submitting');
+    setErrorMessage('');
+
+    try {
+      const response = await fetch('/api/contact', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
+      });
+
+      const result = await response.json();
+
+      if (response.ok && result.success) {
+        // Track successful submission for analytics
+        trackEmailClick({
+          location: 'contact-form-submission',
+          page: 'contact',
+          formType: 'contact',
+        });
+
+        setSubmitStatus('success');
+        // Clear form on success
+        setFormData({ name: '', email: '', message: '' });
+      } else {
+        setSubmitStatus('error');
+        setErrorMessage(result.error || 'Failed to send message. Please try again.');
+      }
+    } catch (error) {
+      console.error('Contact form submission error:', error);
+      setSubmitStatus('error');
+      setErrorMessage('Unable to send message. Please check your connection and try again.');
+    }
+  };
+
+  const handleRetry = () => {
+    setSubmitStatus('idle');
+    setErrorMessage('');
   };
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -195,15 +247,63 @@ const ContactForm = () => {
               />
             </motion.div>
 
+            {/* Success Message */}
+            {submitStatus === 'success' && (
+              <motion.div
+                initial={{ opacity: 0, y: -10 }}
+                animate={{ opacity: 1, y: 0 }}
+                className="bg-green-50 border border-green-200 rounded-lg p-4 flex items-center gap-3"
+              >
+                <CheckCircle className="w-5 h-5 text-green-600 flex-shrink-0" />
+                <p className="text-green-800 font-medium">
+                  Message sent! We&apos;ll get back to you soon.
+                </p>
+              </motion.div>
+            )}
+
+            {/* Error Message */}
+            {submitStatus === 'error' && (
+              <motion.div
+                initial={{ opacity: 0, y: -10 }}
+                animate={{ opacity: 1, y: 0 }}
+                className="bg-red-50 border border-red-200 rounded-lg p-4"
+              >
+                <div className="flex items-center gap-3">
+                  <XCircle className="w-5 h-5 text-red-600 flex-shrink-0" />
+                  <p className="text-red-800">{errorMessage}</p>
+                </div>
+                <button
+                  type="button"
+                  onClick={handleRetry}
+                  className="mt-3 text-sm text-red-700 hover:text-red-900 underline"
+                >
+                  Try again
+                </button>
+              </motion.div>
+            )}
+
             <motion.button
               type="submit"
-              whileHover={{ scale: 1.02 }}
-              whileTap={{ scale: 0.98 }}
-              className="w-full bg-federalBlue hover:bg-blue-700 text-white py-3 px-6 rounded-lg 
-                        transition-colors duration-300 flex items-center justify-center gap-2 font-medium"
+              disabled={submitStatus === 'submitting'}
+              whileHover={submitStatus !== 'submitting' ? { scale: 1.02 } : {}}
+              whileTap={submitStatus !== 'submitting' ? { scale: 0.98 } : {}}
+              className={`w-full py-3 px-6 rounded-lg transition-colors duration-300
+                        flex items-center justify-center gap-2 font-medium
+                        ${submitStatus === 'submitting'
+                          ? 'bg-gray-400 cursor-not-allowed text-white'
+                          : 'bg-federalBlue hover:bg-blue-700 text-white'}`}
             >
-              Send Message
-              <Send className="w-4 h-4" />
+              {submitStatus === 'submitting' ? (
+                <>
+                  Sending...
+                  <Loader2 className="w-4 h-4 animate-spin" />
+                </>
+              ) : (
+                <>
+                  Send Message
+                  <Send className="w-4 h-4" />
+                </>
+              )}
             </motion.button>
           </form>
 
