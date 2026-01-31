@@ -1,5 +1,9 @@
 import { NextRequest, NextResponse } from 'next/server';
 
+// Force dynamic execution - prevents Next.js from caching cron responses
+// Reference: https://vercel.com/guides/troubleshooting-vercel-cron-jobs
+export const dynamic = 'force-dynamic';
+
 export async function GET(request: NextRequest) {
   try {
     // Verify the request is coming from Vercel Cron
