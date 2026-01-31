@@ -92,7 +92,7 @@ RESEND_API_KEY=re_xxx                                    # Get from Resend dashb
 
 # Email Configuration
 ANALYTICS_EMAIL_RECIPIENT=drjlatekod@gmail.com           # Dr. Latek's email
-ANALYTICS_EMAIL_FROM=analytics@thenycoptometrist.com     # Verified sender
+EMAIL_FROM=notifications@thenycoptometrist.com           # Verified sender
 
 # Security (Optional but recommended)
 CRON_SECRET=<random-string>                              # Generate with: openssl rand -hex 32

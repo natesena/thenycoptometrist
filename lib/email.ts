@@ -442,15 +442,15 @@ export async function sendContactFormEmail(data: ContactFormSubmission): Promise
       throw new Error('ANALYTICS_EMAIL_RECIPIENT is not configured');
     }
 
-    if (!process.env.ANALYTICS_EMAIL_FROM) {
-      throw new Error('ANALYTICS_EMAIL_FROM is not configured');
+    if (!process.env.EMAIL_FROM) {
+      throw new Error('EMAIL_FROM is not configured');
     }
 
     const emailHTML = generateContactFormEmailHTML(data);
     const resendClient = getResendClient();
 
     const response = await resendClient.emails.send({
-      from: process.env.ANALYTICS_EMAIL_FROM,
+      from: process.env.EMAIL_FROM,
       to: process.env.ANALYTICS_EMAIL_RECIPIENT,
       replyTo: data.email, // So recipient can reply directly to submitter
       subject: `📬 Website Contact: ${data.name}`,
@@ -475,15 +475,15 @@ export async function sendAnalyticsReport(data: AnalyticsData): Promise<{ succes
       throw new Error('ANALYTICS_EMAIL_RECIPIENT is not configured');
     }
 
-    if (!process.env.ANALYTICS_EMAIL_FROM) {
-      throw new Error('ANALYTICS_EMAIL_FROM is not configured');
+    if (!process.env.EMAIL_FROM) {
+      throw new Error('EMAIL_FROM is not configured');
     }
 
     const emailHTML = generateEmailHTML(data);
     const resendClient = getResendClient();
 
     const response = await resendClient.emails.send({
-      from: process.env.ANALYTICS_EMAIL_FROM,
+      from: process.env.EMAIL_FROM,
       to: process.env.ANALYTICS_EMAIL_RECIPIENT,
       subject: `📊 Weekly Analytics Report: ${data.startDate} - ${data.endDate}`,
       html: emailHTML,
@@ -570,15 +570,15 @@ export async function sendBlogDraftNotification(
       throw new Error('ANALYTICS_EMAIL_RECIPIENT is not configured');
     }
 
-    if (!process.env.ANALYTICS_EMAIL_FROM) {
-      throw new Error('ANALYTICS_EMAIL_FROM is not configured');
+    if (!process.env.EMAIL_FROM) {
+      throw new Error('EMAIL_FROM is not configured');
     }
 
     const emailHTML = generateBlogDraftEmailHTML(data);
     const resendClient = getResendClient();
 
     const response = await resendClient.emails.send({
-      from: process.env.ANALYTICS_EMAIL_FROM,
+      from: process.env.EMAIL_FROM,
       to: process.env.ANALYTICS_EMAIL_RECIPIENT,
       subject: `📝 New Blog Draft: ${data.post.title}`,
       html: emailHTML,

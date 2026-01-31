@@ -120,7 +120,7 @@ ANTHROPIC_API_KEY=xxx   # if using anthropic
 # Email (for notifications)
 RESEND_API_KEY=xxx
 ANALYTICS_EMAIL_RECIPIENT=xxx
-ANALYTICS_EMAIL_FROM=xxx
+EMAIL_FROM=notifications@thenycoptometrist.com
 ```
 
 ## Example Outputs
