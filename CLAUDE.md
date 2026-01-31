@@ -204,7 +204,7 @@ AUTH_GOOGLE_SECRET=    # Google OAuth client secret
 # Email (Resend)
 RESEND_API_KEY=                # Resend API key for emails
 ANALYTICS_EMAIL_RECIPIENT=     # Email for weekly reports
-ANALYTICS_EMAIL_FROM=          # From address for emails
+EMAIL_FROM=notifications@thenycoptometrist.com  # From address for emails
 
 # AI Blog Generation (optional)
 AI_PROVIDER=zai                # zai | openai | anthropic | openrouter

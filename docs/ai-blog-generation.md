@@ -205,7 +205,7 @@ ANTHROPIC_API_KEY=xxx
 # Email notifications
 RESEND_API_KEY=xxx
 ANALYTICS_EMAIL_RECIPIENT=dr.latek@example.com
-ANALYTICS_EMAIL_FROM=noreply@thenycoptometrist.com
+EMAIL_FROM=notifications@thenycoptometrist.com
 
 # API security
 CRON_SECRET=xxx
