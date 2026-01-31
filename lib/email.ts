@@ -1,4 +1,6 @@
 import { Resend } from 'resend';
+import type { BlogPost } from '@/lib/payload-api';
+import { generateBlogPostHtmlForEmail } from '@/lib/blog-email-html';
 
 // Lazy-initialize Resend client to avoid build-time errors
 let resend: Resend | null = null;
@@ -492,6 +494,101 @@ export async function sendAnalyticsReport(data: AnalyticsData): Promise<{ succes
     return { success: true };
   } catch (error) {
     console.error('Failed to send analytics email:', error);
+    return {
+      success: false,
+      error: error instanceof Error ? error.message : 'Unknown error'
+    };
+  }
+}
+
+// Blog draft notification email interface and function
+// Reference: Blog Draft Email - Use Same Component as Blog Page Plan
+export interface BlogDraftNotificationData {
+  post: BlogPost;
+  adminUrl: string;
+  publishToken: string;
+}
+
+/**
+ * Generate the blog draft notification email HTML
+ *
+ * Uses the same visual styling as the BlogPostContent component
+ * to ensure consistency between email preview and live site.
+ *
+ * Reference: Blog Draft Email - Use Same Component as Blog Page Plan
+ */
+function generateBlogDraftEmailHTML(data: BlogDraftNotificationData): string {
+  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://www.thenycoptometrist.com';
+  const publishUrl = `${baseUrl}/api/blog/publish?token=${encodeURIComponent(data.publishToken)}&id=${encodeURIComponent(data.post.id)}`;
+
+  // Generate blog post HTML using pure function (same styling as BlogPostContent)
+  const blogPostHtml = generateBlogPostHtmlForEmail(data.post);
+
+  return `
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>New Blog Draft: ${data.post.title}</title>
+</head>
+<body style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; line-height: 1.6; color: #333; max-width: 700px; margin: 0 auto; padding: 20px; background-color: #f5f5f5;">
+  <div style="background-color: #ffffff; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
+    <!-- Blog content (same styling as website) -->
+    ${blogPostHtml}
+
+    <!-- Footer with action buttons -->
+    <div style="margin-top: 30px; padding: 30px; border-top: 1px solid #e5e7eb; text-align: center; background-color: #f9fafb; border-radius: 0 0 8px 8px;">
+      <p style="color: #6b7280; font-size: 13px; margin-bottom: 24px;">
+        This draft was AI-generated. Review before publishing.
+      </p>
+
+      <div style="margin-bottom: 20px;">
+        <a href="${publishUrl}" style="display: inline-block; background-color: #22c55e; color: white; padding: 14px 28px; border-radius: 8px; text-decoration: none; font-weight: 600; font-size: 16px; margin: 0 8px 10px;">
+          Publish Now
+        </a>
+        <a href="${data.adminUrl}" style="display: inline-block; background-color: #3b82f6; color: white; padding: 14px 28px; border-radius: 8px; text-decoration: none; font-weight: 600; font-size: 16px; margin: 0 8px 10px;">
+          Edit in Admin
+        </a>
+      </div>
+
+      <p style="color: #9ca3af; font-size: 12px; margin-top: 20px;">
+        Publish link expires in 7 days.
+      </p>
+    </div>
+  </div>
+</body>
+</html>
+  `;
+}
+
+export async function sendBlogDraftNotification(
+  data: BlogDraftNotificationData
+): Promise<{ success: boolean; error?: string }> {
+  try {
+    if (!process.env.ANALYTICS_EMAIL_RECIPIENT) {
+      throw new Error('ANALYTICS_EMAIL_RECIPIENT is not configured');
+    }
+
+    if (!process.env.ANALYTICS_EMAIL_FROM) {
+      throw new Error('ANALYTICS_EMAIL_FROM is not configured');
+    }
+
+    const emailHTML = generateBlogDraftEmailHTML(data);
+    const resendClient = getResendClient();
+
+    const response = await resendClient.emails.send({
+      from: process.env.ANALYTICS_EMAIL_FROM,
+      to: process.env.ANALYTICS_EMAIL_RECIPIENT,
+      subject: `📝 New Blog Draft: ${data.post.title}`,
+      html: emailHTML,
+    });
+
+    console.log('Blog draft notification email sent successfully:', response);
+
+    return { success: true };
+  } catch (error) {
+    console.error('Failed to send blog draft notification email:', error);
     return {
       success: false,
       error: error instanceof Error ? error.message : 'Unknown error'

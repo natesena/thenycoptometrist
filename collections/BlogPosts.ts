@@ -91,5 +91,90 @@ export const BlogPosts: CollectionConfig = {
         description: 'Main image for the blog post',
       },
     },
+    // Tags field for content performance tracking
+    // Reference: AI Blog Generation System Plan
+    {
+      name: 'tags',
+      type: 'select',
+      hasMany: true,
+      options: [
+        { label: 'Eye Exams', value: 'eye-exams' },
+        { label: 'Preventive Care', value: 'preventive-care' },
+        { label: 'Early Detection', value: 'early-detection' },
+        { label: 'Contact Lenses', value: 'contact-lenses' },
+        { label: 'Lens Care', value: 'lens-care' },
+        { label: 'Specialty Lenses', value: 'specialty-lenses' },
+        { label: 'Pediatrics', value: 'pediatrics' },
+        { label: 'Children', value: 'children' },
+        { label: 'School Vision', value: 'school-vision' },
+        { label: 'Trending', value: 'trending' },
+        { label: 'Eye Health Tips', value: 'eye-health-tips' },
+        { label: 'Dry Eyes', value: 'dry-eyes' },
+        { label: 'Treatments', value: 'treatments' },
+        { label: 'Prevention', value: 'prevention' },
+        { label: 'Eyeglasses', value: 'eyeglasses' },
+        { label: 'Vision Correction', value: 'vision-correction' },
+        { label: 'Prescriptions', value: 'prescriptions' },
+        { label: 'Myopia', value: 'myopia' },
+        { label: 'Progression Control', value: 'progression-control' },
+        { label: 'Eye Disease', value: 'eye-disease' },
+        { label: 'Glaucoma', value: 'glaucoma' },
+        { label: 'Macular Degeneration', value: 'macular-degeneration' },
+        { label: 'Cataracts', value: 'cataracts' },
+        { label: 'Vision Therapy', value: 'vision-therapy' },
+        { label: 'Exercises', value: 'exercises' },
+        { label: 'Binocular Vision', value: 'binocular-vision' },
+      ],
+      admin: {
+        description: 'Tags for content categorization and performance tracking',
+      },
+    },
+    // Publish token for one-click email publishing
+    // Reference: AI Blog Generation System Plan - Email Publish Flow
+    {
+      name: 'publishToken',
+      type: 'text',
+      admin: {
+        hidden: true,
+        description: 'Token for secure one-click publishing from email',
+      },
+    },
+    // Instagram content fields for AI-generated social media
+    // Reference: AI Blog Generation System Plan
+    {
+      name: 'instagramCaption',
+      type: 'textarea',
+      admin: {
+        description: 'Instagram caption for this post (AI-generated)',
+      },
+    },
+    {
+      name: 'instagramCarouselSlides',
+      type: 'array',
+      admin: {
+        description: 'Instagram carousel slide content (AI-generated)',
+      },
+      fields: [
+        {
+          name: 'slideContent',
+          type: 'textarea',
+          required: true,
+        },
+      ],
+    },
+    {
+      name: 'featuredImageSuggestion',
+      type: 'textarea',
+      admin: {
+        description: 'AI-suggested description for featured image',
+      },
+    },
+    {
+      name: 'bibliography',
+      type: 'textarea',
+      admin: {
+        description: 'MLA bibliography for citations (AI-generated)',
+      },
+    },
   ],
 }

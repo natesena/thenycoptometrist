@@ -4,10 +4,8 @@ import type { Metadata } from "next";
 import { ArrowLeft } from "lucide-react";
 import { getBlogPostBySlug, getAllBlogSlugs } from "@/lib/payload-api";
 import { notFound } from "next/navigation";
-import PayloadRichText from "@/app/components/PayloadRichText";
-import Image from "next/image";
-import { ZOCDOC_URL } from '@/lib/constants';
 import FloatingBookButton from '@/app/components/floating button/floating-booking-icon';
+import BlogPostContent from './BlogPostContent';
 
 interface BlogPostPageProps {
   params: Promise<{ slug: string }>;
@@ -140,110 +138,24 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(blogPostSchema) }}
       />
-      {/* SEO Fix: Reduced container width for better readability (65-75 char line length) */}
-      {/* Reference: Blog & SEO Fixes plan - Issue 6 */}
-      <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-16 pt-28 md:pt-40">
-        <div className="mx-auto">
-          {/* Featured Image */}
-          {post.featuredImage && (
-            <div className="mb-8">
-              <Image
-                src={post.featuredImage.url}
-                alt={post.featuredImage.alt || post.title}
-                width={post.featuredImage.width || 1200}
-                height={post.featuredImage.height || 675}
-                className="w-full h-auto object-contain rounded-3xl bg-gray-50"
-                style={{ aspectRatio: "16/9" }}
-                priority
-              />
-            </div>
-          )}
 
-          {/* Article Meta */}
-          <div className="flex items-center space-x-4 text-sm text-gray-600 mb-6">
-            <span>
-              {new Date(post.publishedDate).toLocaleDateString("en-US", {
-                month: "short",
-                day: "numeric",
-                year: "numeric",
-              })}
-            </span>
-            <span className="bg-gray-200 p-1 px-3 rounded-full">Eye Care</span>
-          </div>
+      {/* Blog post content - uses same component as email template */}
+      {/* Reference: Blog Draft Email - Use Same Component as Blog Page Plan */}
+      <BlogPostContent post={post} />
 
-          {/* Title */}
-          <h1 className="text-4xl md:text-5xl font-[500] lg:font-bold text-gray-900 mb-6 leading-tight">
-            {post.title}
-          </h1>
-
-          {/* Excerpt */}
-          {post.excerpt && (
-            <p className="text-xl text-gray-600 font-[400] mb-12 leading-relaxed">
-              {post.excerpt}
-            </p>
-          )}
-
-          {/* Content */}
-          <article
-            className="prose prose-lg max-w-prose
-          prose-headings:font-[500] prose-headings:text-gray-900
-          prose-h1:text-4xl prose-h1:mb-4 prose-h1:mt-8
-          prose-h2:text-3xl prose-h2:mb-3 prose-h2:mt-6
-          prose-h3:text-2xl prose-h3:mb-2 prose-h3:mt-5
-          prose-p:text-gray-700 prose-p:leading-relaxed prose-p:text-lg prose-p:mb-4 prose-p:font-[400]
-          prose-a:text-gray-900 prose-a:font-[500] prose-a:underline prose-a:underline-offset-4
-          prose-strong:text-gray-900 prose-strong:font-[500]
-          prose-ul:my-4 prose-ul:list-disc
-          prose-ol:my-4 prose-ol:list-decimal
-          prose-li:text-gray-700 prose-li:leading-relaxed prose-li:text-lg prose-li:mb-1.5 prose-li:font-[400]
-          prose-blockquote:border-l-4 prose-blockquote:border-gray-300 prose-blockquote:pl-6 prose-blockquote:italic prose-blockquote:text-gray-700
-          prose-code:bg-gray-100 prose-code:px-2 prose-code:py-1 prose-code:rounded prose-code:text-sm prose-code:text-gray-900 prose-code:font-mono prose-code:before:content-none prose-code:after:content-none
-          prose-pre:bg-gray-900 prose-pre:text-gray-100 prose-pre:rounded-2xl prose-pre:p-6 prose-pre:overflow-x-auto
-          prose-img:rounded-3xl prose-img:my-6"
+      {/* Back Link */}
+      <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 pb-16">
+        <div className="mt-12">
+          <Link
+            href="/blog"
+            className="inline-flex items-center gap-2 text-gray-600 hover:text-gray-900 transition-colors"
           >
-            {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
-            <PayloadRichText content={post.content as unknown as any} />
-          </article>
-
-          <div className="mt-16 overflow-hidden rounded-b-md">
-            <div className="border-t border-gray-200 p-6 pt-12 relative overflow-visible">
-              <div className="flex items-center gap-4">
-                <div className="w-28 h-28 rounded-md bg-gray-200 flex items-center overflow-hidden justify-center text-gray-600 text-xl font-[500] flex-shrink-0 relative">
-                  <Image
-                    src="/Image from Photoroom.png"
-                    width={1000}
-                    height={100}
-                    alt="background"
-                    className="absolute w-24 h-auto -top-0 object-cover"
-                  />
-                </div>
-                <div>
-                  <Link
-                    href={ZOCDOC_URL}
-                    className="font-[500] text-gray-900 text-xl"
-                  >
-                    {post.author}
-                  </Link>
-                  <p className="text-gray-600 font-[400]">
-                    Eye Care Specialist at The NYC Optometrist
-                  </p>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          {/* Back Link */}
-          <div className="mt-12">
-            <Link
-              href="/blog"
-              className="inline-flex items-center gap-2 text-gray-600 hover:text-gray-900 transition-colors"
-            >
-              <ArrowLeft className="w-5 h-5" />
-              <span className="font-[400]">Back to all posts</span>
-            </Link>
-          </div>
+            <ArrowLeft className="w-5 h-5" />
+            <span className="font-[400]">Back to all posts</span>
+          </Link>
         </div>
       </div>
+
       <FloatingBookButton />
     </div>
   );
