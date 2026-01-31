@@ -1,71 +1,97 @@
+// app/api/cron/weekly-report/route.ts
+//
+// Vercel Cron job endpoint for weekly analytics emails.
+// Runs every Monday at 9:00 AM EST (2:00 PM UTC).
+//
+// This endpoint uses direct function invocation (no HTTP fetch)
+// to avoid issues with internal requests in Vercel's serverless environment.
+//
+// Reference: Vercel Cron Jobs documentation
+// https://vercel.com/guides/troubleshooting-vercel-cron-jobs
+
 import { NextRequest, NextResponse } from 'next/server';
+import { generateAndSendWeeklyReport } from '@/lib/analytics-report';
 
 // Force dynamic execution - prevents Next.js from caching cron responses
-// Reference: https://vercel.com/guides/troubleshooting-vercel-cron-jobs
 export const dynamic = 'force-dynamic';
 
 export async function GET(request: NextRequest) {
-  try {
-    // Verify the request is coming from Vercel Cron
-    const authHeader = request.headers.get('authorization');
+  // Generate correlation ID for tracing this execution through logs
+  const cronId = `cron-${Date.now()}`;
 
+  console.log(`[cron:${cronId}] Weekly report triggered`, {
+    timestamp: new Date().toISOString(),
+    userAgent: request.headers.get('user-agent')
+  });
+
+  try {
+    // Verify cron secret if configured (Vercel sends this header)
     if (process.env.CRON_SECRET) {
-      // Validate cron secret if configured
+      const authHeader = request.headers.get('authorization');
       if (authHeader !== `Bearer ${process.env.CRON_SECRET}`) {
-        console.error('Unauthorized cron request');
+        console.error(`[cron:${cronId}] Unauthorized request - invalid cron secret`);
         return NextResponse.json(
-          { success: false, error: 'Unauthorized' },
+          { success: false, cronId, error: 'Unauthorized' },
           { status: 401 }
         );
       }
     } else {
-      console.warn('CRON_SECRET not configured - skipping validation');
+      console.warn(`[cron:${cronId}] CRON_SECRET not configured - skipping validation`);
     }
 
-    console.log('Weekly analytics report cron triggered at:', new Date().toISOString());
+    // Direct function call - no HTTP request needed
+    // This avoids issues with internal fetch in Vercel serverless
+    const result = await generateAndSendWeeklyReport();
 
-    // Call the report generation endpoint
-    const reportUrl = new URL('/api/email/report', request.url);
+    if (!result.success) {
+      console.error(`[cron:${cronId}] Report generation failed`, {
+        error: result.error,
+        timing: result.timing
+      });
 
-    const reportResponse = await fetch(reportUrl.toString(), {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json',
-      },
+      return NextResponse.json({
+        success: false,
+        cronId,
+        error: result.error,
+        timing: result.timing
+      }, { status: 500 });
+    }
+
+    console.log(`[cron:${cronId}] Report completed successfully`, {
+      timing: result.timing,
+      metrics: {
+        totalEvents: result.data?.totalEvents,
+        uniqueVisitors: result.data?.uniqueVisitors,
+        bookNowClicks: result.data?.bookNowClicks
+      }
     });
-
-    const reportData = await reportResponse.json();
-
-    if (!reportResponse.ok) {
-      console.error('Report generation failed:', reportData);
-      return NextResponse.json(
-        {
-          success: false,
-          error: 'Report generation failed',
-          details: reportData
-        },
-        { status: reportResponse.status }
-      );
-    }
-
-    console.log('Weekly analytics report sent successfully:', reportData);
 
     return NextResponse.json({
       success: true,
+      cronId,
       message: 'Weekly analytics report sent successfully',
-      timestamp: new Date().toISOString(),
-      data: reportData
+      timing: result.timing,
+      summary: {
+        totalEvents: result.data?.totalEvents,
+        uniqueVisitors: result.data?.uniqueVisitors,
+        bookNowClicks: result.data?.bookNowClicks,
+        phoneClicks: result.data?.phoneClicks,
+        dateRange: `${result.data?.startDate} - ${result.data?.endDate}`
+      }
     });
 
   } catch (error) {
-    console.error('Error in weekly report cron:', error);
-    return NextResponse.json(
-      {
-        success: false,
-        error: error instanceof Error ? error.message : 'Unknown error',
-        message: 'Failed to execute weekly report cron'
-      },
-      { status: 500 }
-    );
+    const errorMessage = error instanceof Error ? error.message : 'Unknown error';
+
+    console.error(`[cron:${cronId}] Unexpected error`, {
+      error: errorMessage,
+      stack: error instanceof Error ? error.stack : undefined
+    });
+
+    return NextResponse.json({
+      success: false,
+      cronId,
+      error: errorMessage
+    }, { status: 500 });
   }
 }
