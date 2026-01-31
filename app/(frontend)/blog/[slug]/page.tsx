@@ -140,8 +140,10 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(blogPostSchema) }}
       />
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 pt-28 md:pt-40">
-        <div className="max-w- mx-auto">
+      {/* SEO Fix: Reduced container width for better readability (65-75 char line length) */}
+      {/* Reference: Blog & SEO Fixes plan - Issue 6 */}
+      <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-16 pt-28 md:pt-40">
+        <div className="mx-auto">
           {/* Featured Image */}
           {post.featuredImage && (
             <div className="mb-8">
@@ -183,21 +185,21 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
 
           {/* Content */}
           <article
-            className="prose prose-lg max-w-none
+            className="prose prose-lg max-w-prose
           prose-headings:font-[500] prose-headings:text-gray-900
-          prose-h1:text-4xl prose-h1:mb-6 prose-h1:mt-12
-          prose-h2:text-3xl prose-h2:mb-4 prose-h2:mt-10
-          prose-h3:text-2xl prose-h3:mb-3 prose-h3:mt-8
-          prose-p:text-gray-700 prose-p:leading-relaxed prose-p:text-lg prose-p:mb-6 prose-p:font-[400]
+          prose-h1:text-4xl prose-h1:mb-4 prose-h1:mt-8
+          prose-h2:text-3xl prose-h2:mb-3 prose-h2:mt-6
+          prose-h3:text-2xl prose-h3:mb-2 prose-h3:mt-5
+          prose-p:text-gray-700 prose-p:leading-relaxed prose-p:text-lg prose-p:mb-4 prose-p:font-[400]
           prose-a:text-gray-900 prose-a:font-[500] prose-a:underline prose-a:underline-offset-4
           prose-strong:text-gray-900 prose-strong:font-[500]
-          prose-ul:my-6 prose-ul:list-disc
-          prose-ol:my-6 prose-ol:list-decimal
-          prose-li:text-gray-700 prose-li:leading-relaxed prose-li:text-lg prose-li:mb-2 prose-li:font-[400]
+          prose-ul:my-4 prose-ul:list-disc
+          prose-ol:my-4 prose-ol:list-decimal
+          prose-li:text-gray-700 prose-li:leading-relaxed prose-li:text-lg prose-li:mb-1.5 prose-li:font-[400]
           prose-blockquote:border-l-4 prose-blockquote:border-gray-300 prose-blockquote:pl-6 prose-blockquote:italic prose-blockquote:text-gray-700
           prose-code:bg-gray-100 prose-code:px-2 prose-code:py-1 prose-code:rounded prose-code:text-sm prose-code:text-gray-900 prose-code:font-mono prose-code:before:content-none prose-code:after:content-none
           prose-pre:bg-gray-900 prose-pre:text-gray-100 prose-pre:rounded-2xl prose-pre:p-6 prose-pre:overflow-x-auto
-          prose-img:rounded-3xl prose-img:my-8"
+          prose-img:rounded-3xl prose-img:my-6"
           >
             {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
             <PayloadRichText content={post.content as unknown as any} />

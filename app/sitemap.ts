@@ -1,6 +1,10 @@
 import { MetadataRoute } from "next";
 import { getBlogPosts, type BlogPost } from "@/lib/payload-api";
 
+// SEO Fix: Revalidate sitemap every hour to pick up new blog posts
+// Reference: Blog & SEO Fixes plan - Issue 4
+export const revalidate = 3600;
+
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const baseUrl = process.env.BASE_URL || "https://www.thenycoptometrist.com";
 

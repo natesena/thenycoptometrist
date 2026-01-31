@@ -1,3 +1,5 @@
+// SEO Fix: LocalBusiness schema includes potentialAction for AI agent booking discoverability
+// Reference: Blog & SEO Fixes plan - Issue 3
 import type { Metadata } from "next";
 import { Suspense } from "react";
 import Footer from "@/app/components/footer";
@@ -189,7 +191,22 @@ export default function FrontendLayout({
                   "name": "Manhattan",
                   "sameAs": "https://en.wikipedia.org/wiki/Manhattan"
                 }
-              ]
+              ],
+              "potentialAction": {
+                "@type": "ReserveAction",
+                "target": {
+                  "@type": "EntryPoint",
+                  "urlTemplate": "https://www.zocdoc.com/doctor/joanna-latek-od-640237",
+                  "actionPlatform": [
+                    "http://schema.org/DesktopWebPlatform",
+                    "http://schema.org/MobileWebPlatform"
+                  ]
+                },
+                "result": {
+                  "@type": "Reservation",
+                  "name": "Eye Exam Appointment"
+                }
+              }
             })
           }}
         />
