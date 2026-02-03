@@ -6,7 +6,7 @@ export const Media: CollectionConfig = {
     read: () => true,
   },
   upload: {
-    staticDir: 'media',
+    // staticDir is no longer needed - using GCS storage adapter
     mimeTypes: ['image/*'],
     imageSizes: [
       {
