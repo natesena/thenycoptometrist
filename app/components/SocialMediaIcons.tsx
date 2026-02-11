@@ -29,7 +29,7 @@ const SocialMediaIcons: React.FC<SocialMediaIconsProps> = ({
     {
       platform: 'Instagram',
       icon: Instagram,
-      url: 'https://www.instagram.com/thenycoptometrist',
+      url: 'https://www.instagram.com/eyedrjo',
       color: 'hover:text-pink-600'
     }
   ];
