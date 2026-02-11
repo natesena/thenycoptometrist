@@ -40,10 +40,12 @@ export default buildConfig({
             bucket: process.env.GCS_BUCKET_NAME,
             options: {
               projectId: process.env.GCS_PROJECT_ID,
-              // Vercel converts \n in the private key to actual newlines — restore them for valid JSON
-            credentials: process.env.GCS_CREDENTIALS
-                ? JSON.parse(process.env.GCS_CREDENTIALS.replace(/\n/g, '\\n'))
-                : undefined,
+              credentials: process.env.GCS_CLIENT_EMAIL
+              ? {
+                  client_email: process.env.GCS_CLIENT_EMAIL,
+                  private_key: (process.env.GCS_PRIVATE_KEY || '').replace(/\\n/g, '\n'),
+                }
+              : undefined,
             },
           }),
         ]
