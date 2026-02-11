@@ -6,7 +6,8 @@ export const Media: CollectionConfig = {
     read: () => true,
   },
   upload: {
-    // staticDir is no longer needed - using GCS storage adapter
+    // Local dev stores files in public/media/. GCS adapter overrides this in production.
+    staticDir: 'media',
     mimeTypes: ['image/*'],
     imageSizes: [
       {
