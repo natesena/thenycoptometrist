@@ -2,6 +2,7 @@
 // Reference: Blog & SEO Fixes plan - Issue 3
 import type { Metadata } from "next";
 import { Suspense } from "react";
+import "../globals.css";
 import Footer from "@/app/components/footer";
 import Menu from "@/app/components/header";
 import { AnalyticsTracker } from "@/app/components/AnalyticsTracker";
