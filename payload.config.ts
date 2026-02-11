@@ -40,12 +40,11 @@ export default buildConfig({
             bucket: process.env.GCS_BUCKET_NAME,
             options: {
               projectId: process.env.GCS_PROJECT_ID,
-              credentials: process.env.GCS_CLIENT_EMAIL
-              ? {
-                  client_email: process.env.GCS_CLIENT_EMAIL,
-                  private_key: (process.env.GCS_PRIVATE_KEY || '').replace(/\\n/g, '\n'),
-                }
-              : undefined,
+              credentials: process.env.GCS_CREDENTIALS_BASE64
+                ? JSON.parse(
+                    Buffer.from(process.env.GCS_CREDENTIALS_BASE64, 'base64').toString('utf-8')
+                  )
+                : undefined,
             },
           }),
         ]
