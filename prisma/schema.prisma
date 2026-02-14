@@ -12,6 +12,7 @@ datasource db {
 }
 
 // Event type enumeration for type-safe metrics tracking
+// Reference: docs/cloudflare-analytics-plan.md
 enum EventType {
   visit
   book_now_clicked
@@ -21,6 +22,7 @@ enum EventType {
   product_referral_clicked
   blog_post_clicked
   external_link_clicked
+  ai_bot_visit  // AI bot traffic detection (GPTBot, ClaudeBot, etc.)
 }
 
 // Metrics tracking model

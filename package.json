@@ -10,6 +10,7 @@
     "postinstall": "prisma generate"
   },
   "dependencies": {
+    "cloudflare-traffic-analytics": "file:../cloudflare-traffic-analytics",
     "@ai-sdk/openai-compatible": "^2.0.24",
     "@auth/core": "^0.41.0",
     "@payloadcms/db-postgres": "^3.74.0",
