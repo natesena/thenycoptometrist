@@ -1,7 +1,8 @@
 'use client'
 
 import React, { useState, useEffect, useCallback } from 'react';
-import { Download, Filter, RefreshCw, Eye, MousePointer, Calendar, Globe } from 'lucide-react';
+import Link from 'next/link';
+import { Download, Filter, RefreshCw, Eye, MousePointer, Calendar, Globe, Bot, ExternalLink } from 'lucide-react';
 
 interface MetricsEvent {
   id: string;
@@ -240,6 +241,7 @@ export default function AdminMetricsPage() {
               <option value="phone_clicked">Phone Clicks</option>
               <option value="email_clicked">Email Clicks</option>
               <option value="social_media_clicked">Social Media Clicks</option>
+              <option value="ai_bot_visit">AI Bot Visits</option>
             </select>
             <input
               type="text"
@@ -262,7 +264,7 @@ export default function AdminMetricsPage() {
         {metrics && (
           <>
             {/* Summary Cards */}
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-6">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-6 mb-6">
               <div className="bg-white rounded-lg shadow p-6">
                 <div className="flex items-center">
                   <div className="p-2 bg-blue-100 rounded-lg">
@@ -311,7 +313,7 @@ export default function AdminMetricsPage() {
                   <div className="ml-4">
                     <p className="text-sm font-medium text-gray-600">Conversion Rate</p>
                     <p className="text-2xl font-bold text-gray-900">
-                      {metrics.pagination.total > 0 
+                      {metrics.pagination.total > 0
                         ? ((metrics.summary.find(s => s.eventType === 'book_now_clicked')?._count.id || 0) / metrics.pagination.total * 100).toFixed(1)
                         : 0
                       }%
@@ -319,6 +321,26 @@ export default function AdminMetricsPage() {
                   </div>
                 </div>
               </div>
+
+              {/* AI Bot Visits Card */}
+              <Link href="/metrics-admin/bot-traffic" className="block">
+                <div className="bg-white rounded-lg shadow p-6 hover:shadow-lg transition-shadow cursor-pointer border-2 border-transparent hover:border-cyan-200">
+                  <div className="flex items-center justify-between">
+                    <div className="flex items-center">
+                      <div className="p-2 bg-cyan-100 rounded-lg">
+                        <Bot className="w-6 h-6 text-cyan-600" />
+                      </div>
+                      <div className="ml-4">
+                        <p className="text-sm font-medium text-gray-600">AI Bot Visits</p>
+                        <p className="text-2xl font-bold text-gray-900">
+                          {metrics.summary.find(s => s.eventType === 'ai_bot_visit')?._count.id || 0}
+                        </p>
+                      </div>
+                    </div>
+                    <ExternalLink className="w-4 h-4 text-gray-400" />
+                  </div>
+                </div>
+              </Link>
             </div>
 
             {/* Event Statistics */}
@@ -423,9 +445,13 @@ export default function AdminMetricsPage() {
                             event.eventType === 'visit' ? 'bg-blue-100 text-blue-800' :
                             event.eventType === 'book_now_clicked' ? 'bg-green-100 text-green-800' :
                             event.eventType === 'phone_clicked' ? 'bg-purple-100 text-purple-800' :
+                            event.eventType === 'ai_bot_visit' ? 'bg-cyan-100 text-cyan-800' :
                             'bg-gray-100 text-gray-800'
                           }`}>
-                            {event.eventType.replace('_', ' ')}
+                            {event.eventType === 'ai_bot_visit'
+                              ? `AI Bot: ${(event.eventData as { botName?: string })?.botName || 'Unknown'}`
+                              : event.eventType.replace('_', ' ')
+                            }
                           </span>
                         </td>
                         <td className="px-6 py-4 text-sm text-gray-900">
