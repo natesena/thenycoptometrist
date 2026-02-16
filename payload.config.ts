@@ -20,6 +20,15 @@ export default buildConfig({
     meta: {
       titleSuffix: '- NYC Optometrist CMS',
     },
+    components: {
+      views: {
+        generateBlog: {
+          Component: '/components/admin/GenerateBlogView',
+          path: '/generate-blog',
+        },
+      },
+      afterNavLinks: ['/components/admin/GenerateBlogNavLink'],
+    },
   },
 
   collections: [Users, Media, BlogPosts],
