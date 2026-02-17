@@ -1,8 +1,9 @@
 import React from 'react'
+import Link from 'next/link'
 
 const GenerateBlogNavLink: React.FC = () => {
   return (
-    <a
+    <Link
       href="/admin/generate-blog"
       style={{
         display: 'flex',
@@ -31,7 +32,7 @@ const GenerateBlogNavLink: React.FC = () => {
         <path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z" />
       </svg>
       Generate Blog Post
-    </a>
+    </Link>
   )
 }
 
