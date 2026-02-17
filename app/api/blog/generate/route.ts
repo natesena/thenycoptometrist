@@ -8,6 +8,8 @@
  */
 
 import { NextRequest, NextResponse } from 'next/server';
+import { getPayload } from 'payload';
+import config from '@payload-config';
 import { generateBlogPost, formatResultForDisplay } from '@/lib/blog-generator';
 import { createDraftBlogPost, getBlogPostById } from '@/lib/payload-api';
 import { sendBlogDraftNotification } from '@/lib/email';
@@ -35,21 +37,43 @@ export async function POST(request: NextRequest) {
 
   try {
     // Verify authorization
-    // Accept CRON_SECRET for scheduled jobs or API_SECRET for manual triggers
-    const authHeader = request.headers.get('authorization');
-    const cronSecret = process.env.CRON_SECRET;
-    const apiSecret = process.env.BLOG_API_SECRET || process.env.CRON_SECRET;
+    // Accept: Payload admin session OR bearer token (CRON_SECRET / BLOG_API_SECRET)
+    let authorized = false;
 
-    if (apiSecret) {
-      if (authHeader !== `Bearer ${apiSecret}` && authHeader !== `Bearer ${cronSecret}`) {
-        console.error(`[${requestId}] Unauthorized request`);
-        return NextResponse.json(
-          { success: false, requestId, error: 'Unauthorized' },
-          { status: 401 }
-        );
+    // Check Payload admin session first (for admin UI button)
+    try {
+      const payload = await getPayload({ config });
+      const { user } = await payload.auth({ headers: request.headers });
+      if (user) {
+        authorized = true;
+        console.log(`[${requestId}] Authorized via admin session: ${user.email}`);
       }
-    } else {
-      console.warn(`[${requestId}] No API secret configured - allowing request`);
+    } catch {
+      // Session auth failed, fall through to bearer token check
+    }
+
+    // Fall back to bearer token auth (for cron jobs / API calls)
+    if (!authorized) {
+      const authHeader = request.headers.get('authorization');
+      const cronSecret = process.env.CRON_SECRET;
+      const apiSecret = process.env.BLOG_API_SECRET || process.env.CRON_SECRET;
+
+      if (apiSecret) {
+        if (authHeader === `Bearer ${apiSecret}` || authHeader === `Bearer ${cronSecret}`) {
+          authorized = true;
+        }
+      } else {
+        console.warn(`[${requestId}] No API secret configured - allowing request`);
+        authorized = true;
+      }
+    }
+
+    if (!authorized) {
+      console.error(`[${requestId}] Unauthorized request`);
+      return NextResponse.json(
+        { success: false, requestId, error: 'Unauthorized' },
+        { status: 401 }
+      );
     }
 
     // Parse request body
