@@ -1,6 +1,7 @@
 'use client'
 
-import React, { useState } from 'react'
+import React, { useState, useCallback } from 'react'
+import { RefreshCw } from 'lucide-react'
 
 const TOPIC_CATEGORIES = [
   'Comprehensive Eye Exams',
@@ -17,43 +18,68 @@ const TOPIC_CATEGORIES = [
 export const GenerateBlogClient: React.FC = () => {
   const [topic, setTopic] = useState('')
   const [loading, setLoading] = useState(false)
+  const [generating, setGenerating] = useState(false) // Prevents double-clicks
   const [result, setResult] = useState<{
     success: boolean
     message: string
     adminUrl?: string
   } | null>(null)
 
-  const handleGenerate = async () => {
+  const handleGenerate = useCallback(async () => {
+    // Prevent duplicate requests
+    if (generating) {
+      return
+    }
+
+    setGenerating(true)
     setLoading(true)
     setResult(null)
+
+    // Set up timeout (90 seconds for blog generation)
+    const controller = new AbortController()
+    const timeoutId = setTimeout(() => {
+      controller.abort()
+    }, 90000)
 
     try {
       const response = await fetch('/api/blog/generate', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ topic: topic || undefined }),
+        signal: controller.signal,
       })
 
+      clearTimeout(timeoutId)
       const data = await response.json()
 
-      if (data.success) {
+      if (data.success && data.draft) {
         setResult({
           success: true,
           message: `"${data.draft.title}" saved as draft.`,
           adminUrl: data.draft.adminUrl,
         })
+      } else if (data.success) {
+        setResult({
+          success: false,
+          message: 'Generation succeeded but no draft data returned',
+        })
       } else {
         setResult({ success: false, message: data.error || 'Generation failed' })
       }
     } catch (error) {
-      setResult({
-        success: false,
-        message: error instanceof Error ? error.message : 'Network error',
-      })
+      if (error instanceof Error && error.name === 'AbortError') {
+        setResult({ success: false, message: 'Request timed out after 90 seconds' })
+      } else {
+        setResult({
+          success: false,
+          message: error instanceof Error ? error.message : 'Network error',
+        })
+      }
     } finally {
       setLoading(false)
+      setGenerating(false)
     }
-  }
+  }, [topic, generating])
 
   return (
     <div style={{ maxWidth: '600px' }}>
@@ -106,9 +132,19 @@ export const GenerateBlogClient: React.FC = () => {
           fontWeight: 500,
           cursor: loading ? 'not-allowed' : 'pointer',
           fontFamily: 'inherit',
+          display: 'flex',
+          alignItems: 'center',
+          gap: '8px',
         }}
       >
-        {loading ? 'Generating...' : 'Generate Blog Post'}
+        {loading ? (
+          <>
+            <RefreshCw className="w-4 h-4 animate-spin" />
+            Generating...
+          </>
+        ) : (
+          'Generate Blog Post'
+        )}
       </button>
 
       {result && (
