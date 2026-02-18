@@ -156,7 +156,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
         </div>
       </div>
 
-      <FloatingBookButton />
+      <FloatingBookButton alwaysVisible />
     </div>
   );
 }

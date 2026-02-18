@@ -143,7 +143,7 @@ export default async function BlogPage() {
           </div>
         )}
       </div>
-      <FloatingBookButton />
+      <FloatingBookButton alwaysVisible />
     </div>
   );
 }

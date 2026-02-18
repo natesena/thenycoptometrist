@@ -5,10 +5,15 @@ import Rounded from '../common/RoundedButton';
 import { trackBookNow } from '@/lib/analytics';
 import { ZOCDOC_URL } from '@/lib/constants';
 
-const FloatingBookButton = () => {
-  const [isVisible, setIsVisible] = useState(false);
+const FloatingBookButton = ({ alwaysVisible = false }: { alwaysVisible?: boolean }) => {
+  const [isVisible, setIsVisible] = useState(alwaysVisible);
 
   useEffect(() => {
+    if (alwaysVisible) {
+      setIsVisible(true);
+      return;
+    }
+
     const handleScroll = () => {
       // Get hero section height - assuming it's 100vh
       const heroHeight = window.innerHeight;
@@ -19,7 +24,7 @@ const FloatingBookButton = () => {
 
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
+  }, [alwaysVisible]);
 
   const handleBookNow = () => {
     trackBookNow({ location: 'floating-button', page: window.location.pathname, url: ZOCDOC_URL });
