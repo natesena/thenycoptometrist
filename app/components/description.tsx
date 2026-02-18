@@ -33,7 +33,7 @@ const Description = () => {
             <div className="flex items-center space-x-3 mb-4 justify-center">
               <Stethoscope className="w-6 h-6 text-federalBlue" />
               <h3 className="font-semibold text-lg">
-                Board Certified Optometrist
+                Licensed Optometrist
               </h3>
             </div>
             <div className="flex flex-wrap gap-2 justify-center">
@@ -76,8 +76,9 @@ const Description = () => {
               <>
                 <div className="space-y-4">
                   <p className="text-gray-700 leading-relaxed">
-                    Dr. Latek is a comprehensive optometrist specializing in all
-                    aspects of medical eye care including diagnosing and
+                    Dr. Joanna Latek is a board-certified optometrist by the
+                    National Board of Examiners in Optometry specializing in
+                    all aspects of medical eye care including diagnosing and
                     treating glaucoma, managing diabetic and hypertensive
                     retinopathy, retinal conditions and other eye-related
                     issues.
